@@ -1,30 +1,25 @@
 {
-  "name": "go-rest-service-frontend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-fast-presets": "0.0.2",
-    "webpack": "^3.6.0"
-  },
+  "name": "task-ui",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "bluebird": "^3.3.1",
-    "bootstrap": "^4.0.0-beta",
-    "jquery": "^3.0.0",
-    "lodash": "^4.3.0",
-    "popper": "^1.0.0",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
-    "superagent": "^3.7.0",
-    "superagent-bluebird-promise": "^3.0.0"
-  }
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-scripts": "2.0.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
