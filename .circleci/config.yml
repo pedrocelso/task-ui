@@ -45,6 +45,9 @@ jobs:
         - run:
             name: Deploy build directory
             command: gcloud -q app deploy app.yaml
+        - run:
+            name: Delete older version
+            command: gcloud app versions list | grep default | grep 0.00 | xargs gcloud --quiet app versions delete
 workflows:
   version: 2
   build-and-deploy:
