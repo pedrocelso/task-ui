@@ -1,0 +1,38 @@
+service: default
+api_version: 1
+runtime: python27
+threadsafe: yes
+
+handlers:
+- url: /
+  static_files: build/index.html
+  upload: build/index.html
+- url: /
+  static_dir: build
+
+
+skip_files:
+- ^node_modules$
+- ^(.*/)?\.zip$
+- ^(.*/)?\.bat$
+- ^(.*/)?\.sh$
+- ^(.*/)?\.md$
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?tests$
+- ^(.*/)?test$
+- ^(.*/)grunt\.js
+- ^(.*/)bower_components/(.*/)?
+- ^scripts/(.*/)?
+- ^test/(.*/)?
+- ^README\..*
+- \.gitignore
+- ^\.git/.*
+- \.*\.lint$
+- ^fabfile\.py
+- ^testrunner\.py

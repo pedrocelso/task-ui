@@ -1,0 +1,60 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/task-ui
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys: 
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: Run Tests
+          command: yarn test
+      - run:
+          name: Build
+          command: yarn build
+      - persist_to_workspace:
+          root: ~/task-ui
+          paths:
+            - app.yaml
+            - build
+  deploy:
+    working_directory: ~/task-ui
+    docker:
+      - image: google/cloud-sdk
+    steps:
+        - attach_workspace:
+            at: ~/task-ui
+        - run: |
+            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project $GOOGLE_PROJECT_ID
+        - run:
+            name: Check selected app on GCloud
+            command: gcloud info
+        - run:
+            name: Deploy build directory
+            command: gcloud -q app deploy app.yaml
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+

@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserList /> Should fetch the users from service and render 1`] = `
+<div
+  className="panel panel-default"
+>
+  <div
+    className="panel-heading"
+  >
+    <h4>
+      Users
+    </h4>
+  </div>
+  <div
+    className="list-group"
+  >
+    <a
+      className="list-group-item list-group-item-action"
+      href="#"
+      key="john@whatever.com"
+    >
+      john
+       - 
+      john@whatever.com
+    </a>
+    <a
+      className="list-group-item list-group-item-action"
+      href="#"
+      key="john@whatever.com"
+    >
+      john t
+       - 
+      john@whatever.com
+    </a>
+    <a
+      className="list-group-item list-group-item-action"
+      href="#"
+      key="renato@legiao.com.br"
+    >
+      Renato Russo
+       - 
+      renato@legiao.com.br
+    </a>
+  </div>
+</div>
+`;
+
+exports[`<UserList /> Should not display users if service returns an error 1`] = `
+<div
+  className="panel panel-default"
+>
+  <div
+    className="panel-heading"
+  >
+    <h4>
+      Users
+    </h4>
+  </div>
+  <div
+    className="list-group"
+  >
+     Empty list... 
+  </div>
+</div>
+`;
