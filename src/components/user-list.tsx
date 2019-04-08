@@ -3,6 +3,7 @@ import {isEmpty, isNil, map} from 'ramda'
 
 import api from '../api'
 import {UserService, User} from '../services/users'
+import './user-list.scss'
 
 interface UserProps {
   service: UserService;
