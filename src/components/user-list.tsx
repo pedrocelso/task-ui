@@ -46,7 +46,7 @@ class UserList extends Component<UserProps, UserState> {
           }, userList)
         }
       </div>
-    ) : (<div className="list-group"> Empty list... </div>)
+    ) : null
 
     return (
       <div className="panel panel-default">

@@ -56,10 +56,5 @@ exports[`<UserList /> Should not display users if service returns an error 1`] =
       Users
     </h4>
   </div>
-  <div
-    className="list-group"
-  >
-     Empty list... 
-  </div>
 </div>
 `;
