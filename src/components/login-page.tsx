@@ -21,16 +21,15 @@ class LoginPage extends Component<{}, LoginPageState> {
     this.setState({name: e.currentTarget.value})
   }
 
-  generateToken = (): string => {
+  generateToken = (jwtSecret: string): string => {
     const {state} = this
-    const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
-
-    const jwtToken = jwt.sign({email: state.email, name: state.name}, jwtSecret)
+    const jwtToken = jwt.sign({email: state.email, name: state.name}, jwtSecret, {noTimestamp: true})
     return jwtToken;
   }
 
   redirect = () => {
-    const token = this.generateToken();
+    const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
+    const token = this.generateToken(jwtSecret);
     sessionStorage.setItem(`jwtToken`, token);
     document.location.pathname = `/`
   }
