@@ -1,8 +1,6 @@
 import request from 'request-promise'
 import Future, { FutureInstance } from 'fluture'
 
-const baseUrl = `https://api-dot-go-rest-service.appspot.com/v1/`
-
 export interface ApiClient {
   get<T, P>(endpoint: string, options?: request.Options): FutureInstance<T, P>;
 }
@@ -18,7 +16,7 @@ export const Endpoints = {
 export class ApiClient implements ApiClient {
     options: request.Options;
 
-    constructor(apiBaseUrl: string) {
+    constructor(apiBaseUrl: string, jwtToken: string) {
         this.options = {
           baseUrl: apiBaseUrl,
           uri: ``,
@@ -28,7 +26,7 @@ export class ApiClient implements ApiClient {
           resolveWithFullResponse: true,
           headers: {
               'Access-Control-Allow-Origin': `*`,
-              'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmVuYXRvIFJ1c3NvIiwiZW1haWwiOiJyZW5hdG9AbGVnaWFvLmNvbS5iciJ9.HfWOWyvl4yjcODEUHBeaihZlnPXSuKCYiIUvfpp_rg4`
+              'Authorization': `Bearer ${jwtToken}`
           },
         }
     }
@@ -41,5 +39,3 @@ export class ApiClient implements ApiClient {
       )
     }
 }
-
-export default new ApiClient(baseUrl);
