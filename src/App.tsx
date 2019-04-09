@@ -3,7 +3,7 @@ import 'bootstrap/scss/bootstrap.scss';
 
 import api from './api'
 import UserList from './components/user-list'
-import { UserService } from './services/users'
+import { UserService } from './services/user'
 import './App.scss';
 
 class App extends Component {

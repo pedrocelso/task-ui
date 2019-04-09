@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {isEmpty, isNil, map} from 'ramda'
 
-import {UserService, User} from '../services/users'
+import {UserService, User} from '../services/user'
 import './user-list.scss'
 
 interface UserProps {

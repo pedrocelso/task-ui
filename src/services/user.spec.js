@@ -1,5 +1,5 @@
 import nock from 'nock'
-import { UserService } from './users'
+import { UserService } from './user'
 import { ApiClient } from '../api'
 
 const responseJSON = `[{"name":"john","email":"john@whatever.com"},{"name":"john t","email":"john@whatever.com"},{"name":"Renato Russo","email":"renato@legiao.com.br"}]`
