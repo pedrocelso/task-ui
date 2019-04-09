@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {isEmpty, isNil, map} from 'ramda'
 
-import api from '../api'
 import {UserService, User} from '../services/users'
 import './user-list.scss'
 
@@ -20,7 +19,8 @@ class UserList extends Component<UserProps, UserState> {
   }
 
   componentWillMount() {
-    this.props.service.getUsers(api)
+    const {service} = this.props
+    service.getUsers()
       .fork(
         () => console.error,
         (userList) => {

@@ -1,4 +1,5 @@
 import {encase, FutureInstance} from 'fluture'
+import {curry} from 'ramda'
 import {ApiClient, Endpoints, HttpResponse} from '../api'
 
 export interface User {
@@ -7,12 +8,26 @@ export interface User {
 }
 
 export interface UserService {
-  getUsers(client : ApiClient): FutureInstance<{}, User[]>;
+  getUsers(): FutureInstance<{}, User[]>;
+  getUser(userEmail: string): FutureInstance<{}, User[]>;
 }
 
-export const usersService: UserService = {
-  getUsers: (client : ApiClient): FutureInstance<{}, User[]> => 
-    client.get<{}, HttpResponse>(Endpoints.USERS)
+export class UserService implements UserService {
+  client: ApiClient
+
+  constructor(client: ApiClient) {
+    this.client = client;
+  }
+
+  getUsers(): FutureInstance<{}, User[]> {
+    return this.client.get<{}, HttpResponse>(Endpoints.USERS)
     .map(res => res.body)
     .chain<User[]>(encase(JSON.parse))
+  }
+  
+  getUser(userEmail: string): FutureInstance<{}, User> {
+    return this.client.get<{}, HttpResponse>(Endpoints.USERS, {uri: userEmail})
+    .map(res => res.body)
+    .chain<User>(encase(JSON.parse))
+  }
 }

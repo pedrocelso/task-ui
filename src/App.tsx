@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-
-import UserList from './components/user-list'
-import {usersService} from './services/users'
 import 'bootstrap/scss/bootstrap.scss';
+
+import api from './api'
+import UserList from './components/user-list'
+import { UserService } from './services/users'
 import './App.scss';
 
 class App extends Component {
   render() {
+    const userService = new UserService(api);
     return (
-      <UserList service={usersService}/>
+      <UserList service={userService} />
     );
   }
 }
