@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route path="/login" render={() => <LoginPage redirect={redirect(`/`)}/>} />
+          <Route path="/login" render={() => <LoginPage redirect={redirect(`/users`)}/>} />
           <Route path="/users" render={() =><UserList service={userService} />} />
         </div>
       </Router>

@@ -45,7 +45,7 @@ exports[`<LoginPage /> Should render without errors 1`] = `
               />
             </span>
             <input
-              className="form-control"
+              className="form-control "
               name="name"
               onChange={[Function]}
               placeholder="Name"
@@ -68,7 +68,7 @@ exports[`<LoginPage /> Should render without errors 1`] = `
               />
             </span>
             <input
-              className="form-control"
+              className="form-control "
               name="email"
               onChange={[Function]}
               placeholder="E-mail"

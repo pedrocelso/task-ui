@@ -1,42 +1,61 @@
 import React, { Component } from 'react';
 import jwt from 'jsonwebtoken'
 import './login-page.scss'
+import pathOr from 'ramda/es/pathOr';
 
 interface LoginPageProps {
   redirect: () => void
 }
 
 interface LoginPageState {
-  name?: string;
-  email?: string;
+  name: TextField;
+  email: TextField;
+}
+
+interface TextField {
+  value: string;
+  valid?: boolean;
 }
 
 class LoginPage extends Component<LoginPageProps, LoginPageState> {
   constructor(props: any) {
     super(props)
-    this.state = {email: ``, name: ``}
+    this.state = {
+      email: {
+        value: ``,
+        valid: true
+      }, 
+      name: {
+        value: ``,
+        valid: true
+      }
+    }
   }
 
   handleEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({email: e.currentTarget.value})
+    const {value} = e.currentTarget
+    this.setState({email: {value: e.currentTarget.value, valid: !!value}})
   }
 
   handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({name: e.currentTarget.value})
+    const {value} = e.currentTarget
+    this.setState({name: {value: e.currentTarget.value, valid: !!value}})
   }
 
   generateToken = (jwtSecret: string): string => {
     const {state} = this
-    const jwtToken = jwt.sign({email: state.email, name: state.name}, jwtSecret, {noTimestamp: true})
+    const jwtToken = jwt.sign({email: state.email!.value, name: state.name!.value}, jwtSecret, {noTimestamp: true})
     return jwtToken;
   }
 
   redirect = () => {
-    const {redirect} = this.props
-    const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
-    const token = this.generateToken(jwtSecret);
-    sessionStorage.setItem(`jwtToken`, token);
-    redirect();
+    if (this.state.email.valid && this.state.name.valid) {
+      const {redirect} = this.props
+      const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
+      const token = this.generateToken(jwtSecret);
+      sessionStorage.setItem(`jwtToken`, token);
+      redirect();
+    }
   }
 
   render() {
@@ -52,13 +71,13 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
                 <div className="form-group">
                   <div className="input-group">
                     <span className="input-group-addon"><i className="fa fa-user"></i></span>
-                    <input type="text" className="form-control" name="name" placeholder="Name" value={this.state.name} onChange={this.handleNameChange} />
+                    <input type="text" className={`form-control ${!this.state.name.valid ? "is-invalid" : ""}`} name="name" placeholder="Name" value={this.state.name.value} onChange={this.handleNameChange} />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="input-group">
                     <span className="input-group-addon"><i className="fa fa-user"></i></span>
-                    <input type="text" className="form-control" name="email" placeholder="E-mail" value={this.state.email} onChange={this.handleEmailChange} />
+                    <input type="text" className={`form-control ${!this.state.email.valid ? "is-invalid" : ""}`} name="email" placeholder="E-mail" value={this.state.email.value} onChange={this.handleEmailChange} />
                   </div>
                 </div>
                 {/*<div className="form-group">
