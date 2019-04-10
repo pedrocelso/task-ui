@@ -10,6 +10,8 @@ handlers:
 - url: /
   static_dir: build
 
+env_variables:
+  REACT_APP_JWT_SECRET: 'exevo gran mas vis'
 
 skip_files:
 - ^node_modules$
