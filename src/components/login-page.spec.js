@@ -33,6 +33,6 @@ describe(`<LoginPage />`, () => {
     expect(wrapper.state().email).toEqual(``);
 
     wrapper.instance().handleEmailChange({currentTarget: {value: `bororoska@test.com`}})
-    expect(wrapper.state().email).toEqual(`bororoska`);
+    expect(wrapper.state().email).toEqual(`bororoska@test.com`);
   });
 });

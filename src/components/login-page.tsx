@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import jwt from 'jsonwebtoken'
 import './login-page.scss'
 
+interface LoginPageProps {
+  redirect: () => void
+}
+
 interface LoginPageState {
   name?: string;
   email?: string;
 }
 
-class LoginPage extends Component<{}, LoginPageState> {
+class LoginPage extends Component<LoginPageProps, LoginPageState> {
   constructor(props: any) {
     super(props)
     this.state = {email: ``, name: ``}
@@ -28,10 +32,11 @@ class LoginPage extends Component<{}, LoginPageState> {
   }
 
   redirect = () => {
+    const {redirect} = this.props
     const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
     const token = this.generateToken(jwtSecret);
     sessionStorage.setItem(`jwtToken`, token);
-    document.location.pathname = `/`
+    redirect();
   }
 
   render() {
@@ -63,7 +68,7 @@ class LoginPage extends Component<{}, LoginPageState> {
                   </div>
                 </div>*/}
                 <div className="form-group">
-                  <button type="button" className="btn btn-primary btn-block btn-lg" onClick={this.generateToken}>Sign In</button>
+                  <button type="button" className="btn btn-primary btn-block btn-lg" onClick={this.redirect}>Sign In</button>
                 </div>
             </div>
           </div>

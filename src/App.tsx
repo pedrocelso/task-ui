@@ -12,12 +12,14 @@ import './App.scss';
 
 dotenv.config();
 
+const redirect = (path: string) => () => document.location.pathname = path
+
 class App extends Component {
   componentWillMount() {
     const token = sessionStorage.getItem(`jwtToken`);
     const isLoginPage = () => startsWith(`/login`, document.location.pathname)
     if (!isLoginPage() && (!token || token === ``)) {
-      document.location.pathname = `/login`
+      redirect(`/login`)()
     }
   }
 
@@ -28,7 +30,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route path="/login" render={() => <LoginPage />} />
+          <Route path="/login" render={() => <LoginPage redirect={redirect(`/`)}/>} />
           <Route path="/users" render={() =><UserList service={userService} />} />
         </div>
       </Router>
