@@ -4,6 +4,18 @@ runtime: python27
 threadsafe: yes
 
 handlers:
+- url: /login
+  static_files: build/index.html
+  upload: build/index.html
+- url: /users
+  static_files: build/index.html
+  upload: build/index.html
+- url: /tasks
+  static_files: build/index.html
+  upload: build/index.html
+- url: /incidents
+  static_files: build/index.html
+  upload: build/index.html
 - url: /
   static_files: build/index.html
   upload: build/index.html
