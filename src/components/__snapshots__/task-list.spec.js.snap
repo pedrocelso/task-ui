@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
+<div
+  className="panel panel-default"
+>
+  <div
+    className="list-group"
+  >
+    <a
+      className="list-group-item list-group-item-action"
+      href="#"
+      key="10"
+    >
+      test
+       - 
+      test@test.com
+    </a>
+    <a
+      className="list-group-item list-group-item-action"
+      href="#"
+      key="11"
+    >
+      test1
+       - 
+      test1@test.com
+    </a>
+  </div>
+</div>
+`;
+
+exports[`<TaskList /> Should not display tasks if service returns an error 1`] = `
+<div
+  className="panel panel-default"
+/>
+`;

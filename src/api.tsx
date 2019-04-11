@@ -10,7 +10,8 @@ export interface HttpResponse {
 }
 
 export const Endpoints = {
-  USERS: `users/`
+  USERS: `users/`,
+  TASKS: `tasks/`
 }
 
 export class ApiClient implements ApiClient {
