@@ -11,16 +11,18 @@ import UserList from './components/user-list'
 import { UserService } from './services/user'
 import './App.scss';
 import { TaskService } from './services/task';
+import {isEmpty, isNil, map} from 'ramda';
 
 dotenv.config();
 
 const redirect = (path: string) => () => document.location.pathname = path
+const isAuthenticated = (token: string) => !isNil(token) && !isEmpty(token)
 
 class App extends Component {
   componentWillMount() {
-    const token = sessionStorage.getItem(`jwtToken`);
+    const token = sessionStorage.getItem(`jwtToken`) as string;
     const isLoginPage = () => startsWith(`/login`, document.location.pathname)
-    if (!isLoginPage() && (!token || token === ``)) {
+    if (!isLoginPage() && !isAuthenticated(token)) {
       redirect(`/login`)()
     }
   }
@@ -28,14 +30,19 @@ class App extends Component {
   render() {
     const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, sessionStorage.getItem(`jwtToken`) as string);
 
+    const routes = isAuthenticated(sessionStorage.getItem(`jwtToken`) as string) ? [
+      (<Route path="/tasks" render={() =><TaskList service={taskService} />} />),
+      (<Route path="/users" render={() =><UserList service={userService} />} />)
+    ] : [(<Route path="/" render={() => <LoginPage redirect={redirect(`/tasks`)}/>} />)]
+
     const userService = new UserService(api);
     const taskService = new TaskService(api);
     return (
       <Router>
         <div>
-          <Route path="/login" render={() => <LoginPage redirect={redirect(`/users`)}/>} />
-          <Route path="/tasks" render={() =><TaskList service={taskService} />} />
-          <Route path="/users" render={() =><UserList service={userService} />} />
+          {
+            map((r: JSX.Element) => r, routes)
+          }
         </div>
       </Router>
     );
