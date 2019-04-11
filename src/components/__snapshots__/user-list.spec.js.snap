@@ -5,13 +5,6 @@ exports[`<UserList /> Should fetch the users from service and render 1`] = `
   className="panel panel-default"
 >
   <div
-    className="panel-heading"
-  >
-    <h4>
-      Users
-    </h4>
-  </div>
-  <div
     className="list-group"
   >
     <a
@@ -48,13 +41,5 @@ exports[`<UserList /> Should fetch the users from service and render 1`] = `
 exports[`<UserList /> Should not display users if service returns an error 1`] = `
 <div
   className="panel panel-default"
->
-  <div
-    className="panel-heading"
-  >
-    <h4>
-      Users
-    </h4>
-  </div>
-</div>
+/>
 `;

@@ -5,13 +5,6 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
   className="panel panel-default"
 >
   <div
-    className="panel-heading"
-  >
-    <h4>
-      Tasks
-    </h4>
-  </div>
-  <div
     className="list-group"
   >
     <a
@@ -39,13 +32,5 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
 exports[`<TaskList /> Should not display tasks if service returns an error 1`] = `
 <div
   className="panel panel-default"
->
-  <div
-    className="panel-heading"
-  >
-    <h4>
-      Tasks
-    </h4>
-  </div>
-</div>
+/>
 `;

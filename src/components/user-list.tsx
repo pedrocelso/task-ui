@@ -51,9 +51,6 @@ class UserList extends Component<UserProps, UserState> {
 
     return (
       <div className="panel panel-default">
-        <div className="panel-heading">
-          <h4>Users</h4>
-        </div>
         {listEl}
       </div>
     )

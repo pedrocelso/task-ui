@@ -51,9 +51,6 @@ class TaskList extends Component<TaskProps, TaskState> {
 
     return (
       <div className="panel panel-default">
-        <div className="panel-heading">
-          <h4>Tasks</h4>
-        </div>
         {listEl}
       </div>
     )

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavBar /> Should render without errors 1`] = `
+<div>
+  <WithStyles(AppBar)
+    position="static"
+  >
+    <WithStyles(Toolbar)>
+      <WithStyles(IconButton)
+        aria-label="Menu"
+        className="menu-button"
+        color="inherit"
+        onClick={[Function]}
+      >
+        <pure(MenuIcon) />
+      </WithStyles(IconButton)>
+      <WithStyles(Typography)
+        color="inherit"
+        variant="h6"
+      />
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+  <WithStyles(Drawer)
+    anchor="left"
+    onClose={[Function]}
+    open={false}
+    variant="temporary"
+  >
+    <WithStyles(ListItem)
+      button={true}
+      key="Users"
+    >
+      <WithStyles(ListItemText)
+        primary="Users"
+      />
+    </WithStyles(ListItem)>
+    <WithStyles(ListItem)
+      button={true}
+      key="Tasks"
+    >
+      <WithStyles(ListItemText)
+        primary="Tasks"
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(Drawer)>
+</div>
+`;
