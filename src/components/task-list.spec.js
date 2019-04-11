@@ -9,8 +9,8 @@ describe(`<TaskList />`, () => {
       getTasks: (_) => ({
         fork: (rej, res) => {
           res([
-            { id: 10, name: `test`, email: `test@test.com` },
-            { id: 11, name: `test1`, email: `test1@test.com` },
+            { id: 10, name: `test`, description: `test@test.com` },
+            { id: 11, name: `test1`, description: `test1@test.com` },
           ])
         }
       })
