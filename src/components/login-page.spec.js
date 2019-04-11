@@ -65,6 +65,17 @@ describe(`<LoginPage />`, () => {
     expect(wrapper.state().email.valid).toBeFalsy();
   });
 
+  it(`.handleEmailChange() - Setting invalid email (invalid string)`, () => {
+    expect.assertions(4);
+    const wrapper = mount(<LoginPage redirect={sinon.fake()}/>);
+    expect(wrapper.state().email.value).toEqual(``);
+    expect(wrapper.state().email.valid).toBeTruthy();
+
+    wrapper.instance().handleEmailChange({currentTarget: {value: `test`}})
+    expect(wrapper.state().email.value).toEqual(`test`);
+    expect(wrapper.state().email.valid).toBeFalsy();
+  });
+
   it(`.redirect() - valid state`, () => {
     expect.assertions(1);
     var callback = sinon.spy();

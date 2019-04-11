@@ -34,7 +34,8 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
 
   handleEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
     const {value} = e.currentTarget
-    this.setState({email: {value: e.currentTarget.value, valid: !!value}})
+    const emailRegexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    this.setState({email: {value: e.currentTarget.value, valid: emailRegexp.test(value)}})
   }
 
   handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
