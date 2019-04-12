@@ -1,10 +1,5 @@
 import dotenv from 'dotenv'
 import React, { Component } from 'react';
-import AppBar from '@material-ui/core/AppBar'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/core/'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { startsWith } from 'ramda';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
@@ -61,32 +56,29 @@ class App extends Component<{},AppState> {
     }
   }
 
-  openMenu = () => {
-    this.setState({isMenuOpen: !!this.state.isMenuOpen})
-  }
-
   render() {
     const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, sessionStorage.getItem(`jwtToken`) as string);
+    const authenticated = isAuthenticated(sessionStorage.getItem(`jwtToken`) as string)
 
-    const routes = isAuthenticated(sessionStorage.getItem(`jwtToken`) as string) ? [
+    const routes = authenticated ? [
       (<Route key="Tasks" path="/tasks" render={() =><TaskList service={taskService} />} />),
       (<Route key="Users" path="/users" render={() =><UserList service={userService} />} />)
-    ] : [(<Route path="/" render={() => <LoginPage redirect={redirect(`/tasks`)}/>} />)]
+    ] : [(<Route key="Login" path="/" render={() => <LoginPage redirect={redirect(`/tasks`)}/>} />)]
 
     const userService = new UserService(api);
     const taskService = new TaskService(api);
     return (
       <div>
         <MuiThemeProvider theme={muiTheme}>
-          <NavBar redirect={redirect} />
-        </MuiThemeProvider>
-        <Router>
-        <div>
-          {
-            map((r: JSX.Element) => r, routes)
-          }
-        </div>
-      </Router>
+          <Router>
+          <NavBar authenticated={authenticated} />
+          <div>
+            {
+              map((r: JSX.Element) => r, routes)
+            }
+          </div>
+        </Router>
+          </MuiThemeProvider>
       </div>
     );
   }

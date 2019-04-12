@@ -19,14 +19,6 @@ exports[`<LoginPage /> Should render without errors 1`] = `
         >
           Sign In
         </h4>
-        <button
-          aria-hidden="true"
-          className="close"
-          data-dismiss="modal"
-          type="button"
-        >
-          ×
-        </button>
       </div>
       <div
         className="modal-body"

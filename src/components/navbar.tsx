@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { map } from 'ramda'
 import {
   AppBar,
   Drawer,
@@ -9,18 +8,21 @@ import {
   Toolbar,
   Typography
 } from '@material-ui/core'
-import MenuIcon from "@material-ui/icons/Menu";
-import {find, pathOr, pipe, startsWith} from 'ramda';
+import { Link } from 'react-router-dom'
+import {Lock, Menu, People, Storage} from "@material-ui/icons";
+import {find, filter, map, pathOr, pipe, startsWith} from 'ramda';
 
 import './navbar.scss'
 
 export interface Item {
   title: string
   path: string
+  icon: JSX.Element
+  private: boolean
 }
 
 interface MenuProps {
-  redirect: (path: string) => () => void;
+  authenticated: boolean
 }
 
 interface MenuState {
@@ -28,8 +30,9 @@ interface MenuState {
 }
 
 const menuItems: Item[] = [
-  {title: `Users`, path: `/users`},
-  {title: `Tasks`, path: `/tasks`}
+  {title: `Login`, path: `/login`, icon: (<Lock color="primary" />), private: false},
+  {title: `Users`, path: `/users`, icon: (<People color="primary" />), private: true},
+  {title: `Tasks`, path: `/tasks`, icon: (<Storage color="primary" />), private: true}
 ]
 
 class NavBar extends Component<MenuProps, MenuState> {
@@ -50,24 +53,33 @@ class NavBar extends Component<MenuProps, MenuState> {
     )(menuItems)
   }
 
+  getMenuItems = (): Item[] => {
+    const {authenticated} = this.props
+    return filter<Item>((i: Item): boolean => {
+      return i.private === authenticated
+    }, menuItems)
+  }
+
   render() {
-    const {redirect} = this.props
     const {drawerOpened} = this.state
+    const menuItems = this.getMenuItems()
 
     const title = this.getTitle(document.location.pathname)
 
-    const items: JSX.Element[] = map((i: Item) => (
-      <ListItem button key={i.title}>
-        <ListItemText primary={i.title} onClick={redirect(i.path)} />
-      </ListItem>
-    ), menuItems)
+    const items: JSX.Element[] =  map((i: Item) => (
+        // @ts-ignore
+        <ListItem button key={i.title} to={i.path} component={Link} onClick={this.toggleDrawer(false)}>
+          {i.icon}
+          <ListItemText primary={i.title} />
+        </ListItem>
+      ), menuItems)
 
     return (
       <div>
         <AppBar position="static">
           <Toolbar>
             <IconButton className="menu-button" color="inherit" aria-label="Menu" onClick={this.toggleDrawer(true)}>
-              <MenuIcon />
+              <Menu />
             </IconButton>
             <Typography variant="h6" color="inherit">
               {title}

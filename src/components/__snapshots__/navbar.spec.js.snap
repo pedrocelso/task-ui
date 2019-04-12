@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<NavBar /> Should render without errors 1`] = `
+exports[`<NavBar /> Should render without errors for authenticated users 1`] = `
 <div>
   <WithStyles(AppBar)
     position="static"
@@ -28,18 +28,74 @@ exports[`<NavBar /> Should render without errors 1`] = `
   >
     <WithStyles(ListItem)
       button={true}
+      component={[Function]}
       key="Users"
+      onClick={[Function]}
+      to="/users"
     >
+      <pure(PeopleIcon)
+        color="primary"
+      />
       <WithStyles(ListItemText)
         primary="Users"
       />
     </WithStyles(ListItem)>
     <WithStyles(ListItem)
       button={true}
+      component={[Function]}
       key="Tasks"
+      onClick={[Function]}
+      to="/tasks"
     >
+      <pure(StorageIcon)
+        color="primary"
+      />
       <WithStyles(ListItemText)
         primary="Tasks"
+      />
+    </WithStyles(ListItem)>
+  </WithStyles(Drawer)>
+</div>
+`;
+
+exports[`<NavBar /> Should render without errors for unauthenticated users 1`] = `
+<div>
+  <WithStyles(AppBar)
+    position="static"
+  >
+    <WithStyles(Toolbar)>
+      <WithStyles(IconButton)
+        aria-label="Menu"
+        className="menu-button"
+        color="inherit"
+        onClick={[Function]}
+      >
+        <pure(MenuIcon) />
+      </WithStyles(IconButton)>
+      <WithStyles(Typography)
+        color="inherit"
+        variant="h6"
+      />
+    </WithStyles(Toolbar)>
+  </WithStyles(AppBar)>
+  <WithStyles(Drawer)
+    anchor="left"
+    onClose={[Function]}
+    open={false}
+    variant="temporary"
+  >
+    <WithStyles(ListItem)
+      button={true}
+      component={[Function]}
+      key="Login"
+      onClick={[Function]}
+      to="/login"
+    >
+      <pure(LockIcon)
+        color="primary"
+      />
+      <WithStyles(ListItemText)
+        primary="Login"
       />
     </WithStyles(ListItem)>
   </WithStyles(Drawer)>

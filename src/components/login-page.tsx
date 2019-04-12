@@ -66,7 +66,6 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
           <div className="modal-content">
             <div className="modal-header">				
               <h4 className="modal-title">Sign In</h4>
-              <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div className="modal-body">
                 <div className="form-group">
