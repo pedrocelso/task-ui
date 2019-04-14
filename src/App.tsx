@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import { startsWith } from 'ramda';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import 'bootstrap/scss/bootstrap.scss';
@@ -62,7 +63,15 @@ class App extends Component<{},AppState> {
 
     const routes = authenticated ? [
       (<Route key="Tasks" path="/tasks" render={() =><TaskList service={taskService} />} />),
-      (<Route key="Users" path="/users" render={() =><UserList service={userService} />} />)
+      (<Route key="Users" path="/users" render={() =><UserList service={userService} />} />),
+      (<Route key="Logout" path="/logout" render={() => {
+        sessionStorage.removeItem(`jwtToken`)
+        return (
+          <Typography variant="h6" color="inherit">
+            You have been logged out
+          </Typography>
+        )
+      }} />)
     ] : [(<Route key="Login" path="/" render={() => <LoginPage redirect={redirect(`/tasks`)}/>} />)]
 
     const userService = new UserService(api);

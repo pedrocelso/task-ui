@@ -54,6 +54,23 @@ exports[`<NavBar /> Should render without errors for authenticated users 1`] = `
         primary="Tasks"
       />
     </WithStyles(ListItem)>
+    <WithStyles(Divider)
+      key="divider"
+    />
+    <WithStyles(ListItem)
+      button={true}
+      component={[Function]}
+      key="Logout"
+      onClick={[Function]}
+      to="/logout"
+    >
+      <pure(LockOpenIcon)
+        color="primary"
+      />
+      <WithStyles(ListItemText)
+        primary="Logout"
+      />
+    </WithStyles(ListItem)>
   </WithStyles(Drawer)>
 </div>
 `;
@@ -98,6 +115,9 @@ exports[`<NavBar /> Should render without errors for unauthenticated users 1`] =
         primary="Login"
       />
     </WithStyles(ListItem)>
+    <WithStyles(Divider)
+      key="divider"
+    />
   </WithStyles(Drawer)>
 </div>
 `;

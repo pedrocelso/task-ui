@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AppBar,
+  Divider,
   Drawer,
   IconButton,
   ListItem,
@@ -9,8 +10,8 @@ import {
   Typography
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import {Lock, Menu, People, Storage} from "@material-ui/icons";
-import {find, filter, map, pathOr, pipe, startsWith} from 'ramda';
+import {Lock, LockOpen, Menu, People, Storage} from "@material-ui/icons";
+import {equals, find, findIndex, filter, insert, map, pathOr, pipe, startsWith} from 'ramda';
 
 import './navbar.scss'
 
@@ -32,7 +33,8 @@ interface MenuState {
 const menuItems: Item[] = [
   {title: `Login`, path: `/login`, icon: (<Lock color="primary" />), private: false},
   {title: `Users`, path: `/users`, icon: (<People color="primary" />), private: true},
-  {title: `Tasks`, path: `/tasks`, icon: (<Storage color="primary" />), private: true}
+  {title: `Tasks`, path: `/tasks`, icon: (<Storage color="primary" />), private: true},
+  {title: `Logout`, path: `/logout`, icon: (<LockOpen color="primary" />), private: true}
 ]
 
 class NavBar extends Component<MenuProps, MenuState> {
@@ -66,13 +68,21 @@ class NavBar extends Component<MenuProps, MenuState> {
 
     const title = this.getTitle(document.location.pathname)
 
-    const items: JSX.Element[] =  map((i: Item) => (
+    const divideList = (l: JSX.Element[]) => {
+      const index = findIndex((a: JSX.Element) => equals(`Logout`, a.key), l)
+      return insert(index, (<Divider key="divider" />), l)
+    }
+
+    const items = pipe(
+      map((i: Item) => (
         // @ts-ignore
         <ListItem button key={i.title} to={i.path} component={Link} onClick={this.toggleDrawer(false)}>
           {i.icon}
           <ListItemText primary={i.title} />
         </ListItem>
-      ), menuItems)
+      )),
+      divideList
+    )(menuItems)
 
     return (
       <div>
