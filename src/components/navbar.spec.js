@@ -44,14 +44,16 @@ describe(`<NavBar />`, () => {
   });
 
   it(`.getMenuItems() - Should return menu items according to the user authentication`, () => {
-    expect.assertions(8);
+    expect.assertions(10);
     const component1 = mount(<NavBar authenticated={true} />, {context});
     const authenticatedItems = component1.instance().getMenuItems();
-    expect(authenticatedItems.length).toEqual(2);
+    expect(authenticatedItems.length).toEqual(3);
     expect(authenticatedItems[0].title).toEqual(`Users`);
     expect(authenticatedItems[0].path).toEqual(`/users`);
     expect(authenticatedItems[1].title).toEqual(`Tasks`);
     expect(authenticatedItems[1].path).toEqual(`/tasks`);
+    expect(authenticatedItems[2].title).toEqual(`Logout`);
+    expect(authenticatedItems[2].path).toEqual(`/logout`);
 
     const component2 = mount(<NavBar authenticated={false} />, {context});
     const unauthenticatedItems = component2.instance().getMenuItems();
