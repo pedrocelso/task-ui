@@ -61,7 +61,7 @@ workflows:
   build-and-deploy:
     jobs:
       - test
-      - build
+      - build:
           requires:
             - build
           # filters:
