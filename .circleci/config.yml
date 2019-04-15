@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     working_directory: ~/task-ui
     docker:
       - image: circleci/node:8
@@ -21,6 +21,17 @@ jobs:
       - run:
           name: Run Tests
           command: yarn test
+      - persist_to_workspace:
+          root: ~/task-ui
+          paths:
+            - ./
+  build:
+    working_directory: ~/task-ui
+    docker:
+      - image: circleci/node:8
+    steps:
+      - attach_workspace:
+          at: ~/task-ui
       - run:
           name: Build
           command: yarn build
@@ -49,7 +60,14 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
+      - test
+      - build:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
       - deploy:
           requires:
             - build
