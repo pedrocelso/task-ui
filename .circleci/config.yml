@@ -21,14 +21,10 @@ jobs:
       - run:
           name: Run Tests
           command: yarn test
-      - run:
-          name: Build
-          command: yarn build
       - persist_to_workspace:
           root: ~/task-ui
           paths:
-            - app.yaml
-            - build
+            - ~/task-ui
   deploy:
     working_directory: ~/task-ui
     docker:
@@ -36,6 +32,9 @@ jobs:
     steps:
         - attach_workspace:
             at: ~/task-ui
+        - run:
+            name: Build
+            command: yarn build
         - run: |
             echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
             gcloud --quiet config set project $GOOGLE_PROJECT_ID
@@ -53,8 +52,5 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only:
-                - master
+
 
