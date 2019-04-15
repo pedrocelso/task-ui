@@ -41,31 +41,34 @@ const muiTheme = createMuiTheme({
 });
 
 interface AppState {
-  isMenuOpen: boolean;
+  isUserAuthenticated: boolean;
 }
 
 class App extends Component<{},AppState> {
   constructor(props: any) {
     super(props)
-    this.state = {isMenuOpen: false}
+    this.state = {isUserAuthenticated: false}
   }
+
   componentWillMount() {
     const token = sessionStorage.getItem(`jwtToken`) as string;
+    const authenticated = isAuthenticated(token)
     const isLoginPage = () => startsWith(`/login`, document.location.pathname)
-    if (!isLoginPage() && !isAuthenticated(token)) {
+    if (!isLoginPage() && !authenticated) {
       redirect(`/login`)()
     }
+    this.setState({isUserAuthenticated: authenticated})
   }
 
   render() {
     const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, sessionStorage.getItem(`jwtToken`) as string);
-    const authenticated = isAuthenticated(sessionStorage.getItem(`jwtToken`) as string)
-
-    const routes = authenticated ? [
+    const {isUserAuthenticated} = this.state
+    const routes = isUserAuthenticated ? [
       (<Route key="Tasks" path="/tasks" render={() =><TaskList service={taskService} />} />),
       (<Route key="Users" path="/users" render={() =><UserList service={userService} />} />),
       (<Route key="Logout" path="/logout" render={() => {
         sessionStorage.removeItem(`jwtToken`)
+        this.setState({isUserAuthenticated: false})
         return (
           <Typography variant="h6" color="inherit">
             You have been logged out
@@ -80,7 +83,7 @@ class App extends Component<{},AppState> {
       <div>
         <MuiThemeProvider theme={muiTheme}>
           <Router>
-          <NavBar authenticated={authenticated} />
+          <NavBar authenticated={isUserAuthenticated} />
           <div>
             {
               map((r: JSX.Element) => r, routes)
