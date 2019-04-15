@@ -24,7 +24,7 @@ jobs:
       - persist_to_workspace:
           root: ~/task-ui
           paths:
-            - ~/task-ui
+            - ./
   deploy:
     working_directory: ~/task-ui
     docker:
@@ -52,5 +52,8 @@ workflows:
       - deploy:
           requires:
             - build
-
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
 
