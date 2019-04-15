@@ -39,7 +39,7 @@ jobs:
           root: ~/task-ui
           paths:
             - app.yaml
-            - build/
+            - build
   deploy:
     working_directory: ~/task-ui
     docker:
