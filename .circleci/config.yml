@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     working_directory: ~/task-ui
     docker:
       - image: circleci/node:8
@@ -25,6 +25,21 @@ jobs:
           root: ~/task-ui
           paths:
             - ./
+  build:
+    working_directory: ~/task-ui
+    docker:
+      - image: circleci/node:8
+    steps:
+      - attach_workspace:
+          at: ~/task-ui
+      - run:
+          name: Build
+          command: yarn build
+      - persist_to_workspace:
+          root: ~/task-ui
+          paths:
+            - app.yaml
+            - build/
   deploy:
     working_directory: ~/task-ui
     docker:
@@ -32,9 +47,6 @@ jobs:
     steps:
         - attach_workspace:
             at: ~/task-ui
-        - run:
-            name: Build
-            command: yarn build
         - run: |
             echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
             gcloud --quiet config set project $GOOGLE_PROJECT_ID
@@ -48,7 +60,14 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
+      - test
       - build
+          requires:
+            - build
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
       - deploy:
           requires:
             - build
