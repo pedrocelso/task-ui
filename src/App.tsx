@@ -8,8 +8,8 @@ import 'bootstrap/scss/bootstrap.scss';
 
 import {ApiClient} from './api'
 import LoginPage from './components/login-page'
-import TaskList from './components/task-list'
-import UserList from './components/user-list'
+import TaskList from './components/task/task-list'
+import UserList from './components/user/user-list'
 import NavBar from './components/navbar'
 import { UserService } from './services/user'
 import './App.scss';

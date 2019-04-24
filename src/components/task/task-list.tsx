@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {isEmpty, isNil, map} from 'ramda'
 
-import { TaskService, Task } from '../services/task';
+import { TaskService, Task } from '../../services/task';
 import './task-list.scss'
 
 interface TaskProps {
