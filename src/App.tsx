@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { startsWith } from 'ramda';
+import { pathOr, startsWith } from 'ramda';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import 'bootstrap/scss/bootstrap.scss';
+import jwt from 'jsonwebtoken'
 
 import { AppState } from './App-store'
 import {ApiClient} from './api'
@@ -19,6 +19,8 @@ import './App.scss';
 import { TaskService } from './services/task';
 import {isEmpty, isNil, map} from 'ramda';
 import { LoginState } from './components/login/login-types';
+
+import 'bootstrap/scss/bootstrap.scss';
 
 dotenv.config();
 
@@ -52,20 +54,24 @@ interface AppProps {
 
 class App extends Component<AppProps> {
   componentWillMount() {
-    const token = sessionStorage.getItem(`jwtToken`) as string;
-    const validToken = isValidToken(token)
-    const isLoginPage = () => startsWith(`/login`, document.location.pathname)
-    if (!isLoginPage() && !validToken) {
-      redirect(`/login`)()
-    } else if (validToken) {
-      this.props.authenticate()
+    if (!this.props.login.authenticated) {
+      const token = sessionStorage.getItem(`jwtToken`) as string;
+  
+      if (isValidToken(token)) {
+        const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
+        const decodedJwt = jwt.verify(token, jwtSecret)
+        const email = pathOr(``, [`email`], decodedJwt)
+        const name = pathOr(``, [`name`], decodedJwt)
+        this.props.authenticate(name, email)
+      }
+
     }
   }
 
   render() {
     const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, sessionStorage.getItem(`jwtToken`) as string);
     const {authenticated} = this.props.login
-    const routes = authenticated ? [
+    const privateRoutes = [
       (<Route key="Tasks" path="/tasks" render={() =><TaskList service={taskService} />} />),
       (<Route key="Users" path="/users" render={() =><UserList service={userService} />} />),
       (<Route key="Logout" path="/logout" render={() => {
@@ -78,7 +84,15 @@ class App extends Component<AppProps> {
           </Typography>
         )
       }} />)
-    ] : [(<Route key="Login" path="/" render={() => <LoginPage redirect={redirect(`/tasks`)}/>} />)]
+    ]
+
+    const content = authenticated ? (
+      <div>
+        {
+          map((r: JSX.Element) => r, privateRoutes)
+        }
+      </div>
+    ) : <LoginPage redirect={redirect(`/tasks`)}/>
 
     const userService = new UserService(api);
     const taskService = new TaskService(api);
@@ -86,12 +100,8 @@ class App extends Component<AppProps> {
       <div>
         <MuiThemeProvider theme={muiTheme}>
           <Router>
-            <NavBar authenticated={authenticated} />
-            <div>
-              {
-                map((r: JSX.Element) => r, routes)
-              }
-            </div>
+            <NavBar />
+            {content}
           </Router>
         </MuiThemeProvider>
       </div>

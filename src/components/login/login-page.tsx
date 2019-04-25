@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import jwt from 'jsonwebtoken'
 import './login-page.scss'
-import { LoginState } from './login-types';
 import { authenticate, setEmail, setName } from './login-actions'
 import { AppState } from '../../App-store';
 
@@ -26,7 +25,6 @@ class LoginPage extends Component<LoginPageProps> {
 
   handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     const {value} = e.currentTarget
-    // this.setState({name: {value: e.currentTarget.value, valid: !!value}})
     this.props.setName(value)
   }
 

@@ -27,6 +27,8 @@ interface AuthenticateAction {
   type: typeof AUTHENTICATE
   payload: {
     authenticated: boolean
+    name?: string
+    email?: string
   }
 }
 

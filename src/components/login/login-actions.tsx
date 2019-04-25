@@ -1,10 +1,12 @@
 import { AUTHENTICATE, DEAUTHENTICATE, LoginActionTypes, SET_EMAIL, SET_NAME } from './login-types' 
 
-export function authenticate(): LoginActionTypes {
+export function authenticate(name?: string, email?: string): LoginActionTypes {
   return {
     type: AUTHENTICATE,
     payload: {
-      authenticated: true
+      authenticated: true,
+      name,
+      email
     }
   }
 }
