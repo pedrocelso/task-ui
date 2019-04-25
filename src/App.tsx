@@ -1,25 +1,31 @@
 import dotenv from 'dotenv'
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { startsWith } from 'ramda';
+import { pathOr, startsWith } from 'ramda';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import 'bootstrap/scss/bootstrap.scss';
+import jwt from 'jsonwebtoken'
 
+import { AppState } from './App-store'
 import {ApiClient} from './api'
-import LoginPage from './components/login-page'
-import TaskList from './components/task-list'
-import UserList from './components/user-list'
+import LoginPage from './components/login/login-page'
+import { authenticate, deauthenticate } from './components/login/login-actions'
+import TaskList from './components/task/task-list'
+import UserList from './components/user/user-list'
 import NavBar from './components/navbar'
 import { UserService } from './services/user'
 import './App.scss';
 import { TaskService } from './services/task';
 import {isEmpty, isNil, map} from 'ramda';
+import { LoginState } from './components/login/login-types';
+
+import 'bootstrap/scss/bootstrap.scss';
 
 dotenv.config();
 
 const redirect = (path: string) => () => document.location.pathname = path
-const isAuthenticated = (token: string) => !isNil(token) && !isEmpty(token)
+const isValidToken = (token: string) => !isNil(token) && !isEmpty(token)
 const muiTheme = createMuiTheme({
   palette: {
     primary: {
@@ -40,33 +46,39 @@ const muiTheme = createMuiTheme({
   }
 });
 
-interface AppState {
-  isUserAuthenticated: boolean;
+interface AppProps {
+  authenticate: typeof authenticate
+  deauthenticate: typeof deauthenticate
+  login: LoginState
 }
 
-class App extends Component<{},AppState> {
-  constructor(props: any) {
-    super(props)
-    this.state = {isUserAuthenticated: false}
-  }
-
+class App extends Component<AppProps> {
   componentWillMount() {
-    const token = sessionStorage.getItem(`jwtToken`) as string;
-    const authenticated = isAuthenticated(token)
-    const isLoginPage = () => startsWith(`/login`, document.location.pathname)
-    if (!isLoginPage() && !authenticated) {
-      redirect(`/login`)()
+    if (!this.props.login.authenticated) {
+      const token = sessionStorage.getItem(`jwtToken`) as string;
+  
+      if (isValidToken(token)) {
+        const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
+        const decodedJwt = jwt.verify(token, jwtSecret)
+        const email = pathOr(``, [`email`], decodedJwt)
+        const name = pathOr(``, [`name`], decodedJwt)
+        this.props.authenticate(token, name, email)
+      }
+
     }
-    this.setState({isUserAuthenticated: authenticated})
   }
 
   render() {
-    const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, sessionStorage.getItem(`jwtToken`) as string);
-    const {isUserAuthenticated} = this.state
-    const routes = isUserAuthenticated ? [
+    const {authenticated, token} = this.props.login
+    const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, token);
+    const userService = new UserService(api);
+    const taskService = new TaskService(api);
+    
+    const privateRoutes = [
       (<Route key="Tasks" path="/tasks" render={() =><TaskList service={taskService} />} />),
       (<Route key="Users" path="/users" render={() =><UserList service={userService} />} />),
       (<Route key="Logout" path="/logout" render={() => {
+        this.props.deauthenticate();
         sessionStorage.removeItem(`jwtToken`)
         this.setState({isUserAuthenticated: false})
         return (
@@ -75,25 +87,31 @@ class App extends Component<{},AppState> {
           </Typography>
         )
       }} />)
-    ] : [(<Route key="Login" path="/" render={() => <LoginPage redirect={redirect(`/tasks`)}/>} />)]
+    ]
 
-    const userService = new UserService(api);
-    const taskService = new TaskService(api);
+    const content = authenticated ? (
+      <div>
+        {
+          map((r: JSX.Element) => r, privateRoutes)
+        }
+      </div>
+    ) : <LoginPage redirect={redirect(`/tasks`)}/>
+
     return (
       <div>
         <MuiThemeProvider theme={muiTheme}>
           <Router>
-          <NavBar authenticated={isUserAuthenticated} />
-          <div>
-            {
-              map((r: JSX.Element) => r, routes)
-            }
-          </div>
-        </Router>
-          </MuiThemeProvider>
+            <NavBar />
+            {content}
+          </Router>
+        </MuiThemeProvider>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state: AppState) => ({
+  login: state.login
+})
+const mapDispatchToProps = { authenticate, deauthenticate }
+export default connect(mapStateToProps, mapDispatchToProps)(App)

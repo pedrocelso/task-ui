@@ -1,6 +1,5 @@
 import React from 'react';
 import {shallow} from 'enzyme'
-import nock from 'nock'
 
 import UserList from './user-list'
 

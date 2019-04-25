@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import {
   AppBar,
   Divider,
@@ -14,6 +15,7 @@ import {Lock, LockOpen, Menu, People, Storage} from "@material-ui/icons";
 import {equals, find, findIndex, filter, insert, map, pathOr, pipe, startsWith} from 'ramda';
 
 import './navbar.scss'
+import { AppState } from '../App-store';
 
 export interface Item {
   title: string
@@ -37,7 +39,7 @@ const menuItems: Item[] = [
   {title: `Logout`, path: `/logout`, icon: (<LockOpen color="primary" />), private: true}
 ]
 
-class NavBar extends Component<MenuProps, MenuState> {
+export class NavBar extends Component<MenuProps, MenuState> {
   constructor(props: any) {
     super(props)
 
@@ -55,8 +57,7 @@ class NavBar extends Component<MenuProps, MenuState> {
     )(menuItems)
   }
 
-  getMenuItems = (): Item[] => {
-    const {authenticated} = this.props
+  getMenuItems = (authenticated: boolean): Item[] => {
     return filter<Item>((i: Item): boolean => {
       return i.private === authenticated
     }, menuItems)
@@ -64,7 +65,8 @@ class NavBar extends Component<MenuProps, MenuState> {
 
   render() {
     const {drawerOpened} = this.state
-    const menuItems = this.getMenuItems()
+    const {authenticated} = this.props
+    const menuItems = this.getMenuItems(authenticated)
 
     const title = this.getTitle(document.location.pathname)
 
@@ -104,4 +106,7 @@ class NavBar extends Component<MenuProps, MenuState> {
   }
 }
 
-export default NavBar;
+const mapStateToProps = (state: AppState) => ({
+  authenticated: state.login.authenticated
+})
+export default connect(mapStateToProps)(NavBar)

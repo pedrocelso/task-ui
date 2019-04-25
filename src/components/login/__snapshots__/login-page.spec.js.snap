@@ -42,7 +42,7 @@ exports[`<LoginPage /> Should render without errors 1`] = `
               onChange={[Function]}
               placeholder="Name"
               type="text"
-              value=""
+              value="test"
             />
           </div>
         </div>
@@ -65,7 +65,7 @@ exports[`<LoginPage /> Should render without errors 1`] = `
               onChange={[Function]}
               placeholder="E-mail"
               type="text"
-              value=""
+              value="test@test.com"
             />
           </div>
         </div>

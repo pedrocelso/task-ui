@@ -1,65 +1,53 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import jwt from 'jsonwebtoken'
 import './login-page.scss'
-import pathOr from 'ramda/es/pathOr';
+import { authenticate, setEmail, setName } from './login-actions'
+import { AppState } from '../../App-store';
 
 interface LoginPageProps {
+  authenticate: typeof authenticate
+  setEmail: typeof setEmail
+  setName: typeof setName
+  name: string
+  email: string
   redirect: () => void
 }
 
-interface LoginPageState {
-  name: TextField;
-  email: TextField;
-}
+const emailRegexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const isValidEmail = (email: string) => emailRegexp.test(email)
 
-interface TextField {
-  value: string;
-  valid?: boolean;
-}
-
-class LoginPage extends Component<LoginPageProps, LoginPageState> {
-  constructor(props: any) {
-    super(props)
-    this.state = {
-      email: {
-        value: ``,
-        valid: true
-      }, 
-      name: {
-        value: ``,
-        valid: true
-      }
-    }
-  }
-
+export class LoginPage extends Component<LoginPageProps> {
   handleEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
     const {value} = e.currentTarget
-    const emailRegexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    this.setState({email: {value: e.currentTarget.value, valid: emailRegexp.test(value)}})
+    this.props.setEmail(value)
   }
 
   handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     const {value} = e.currentTarget
-    this.setState({name: {value: e.currentTarget.value, valid: !!value}})
+    this.props.setName(value)
   }
 
   generateToken = (jwtSecret: string): string => {
-    const {state} = this
-    const jwtToken = jwt.sign({email: state.email!.value, name: state.name!.value}, jwtSecret, {noTimestamp: true})
+    const {email, name} = this.props
+    const jwtToken = jwt.sign({email, name}, jwtSecret, {noTimestamp: true})
     return jwtToken;
   }
 
   redirect = () => {
-    if (this.state.email.valid && this.state.name.valid) {
-      const {redirect} = this.props
+    const {authenticate, name, email, redirect} = this.props
+    if (isValidEmail(email) && !!name) {
       const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
       const token = this.generateToken(jwtSecret);
       sessionStorage.setItem(`jwtToken`, token);
+      authenticate(token, name, email);
       redirect();
     }
   }
 
   render() {
+    const {name, email} = this.props
+    
     return (
       <div id="myModal" className="">
         <div className="modal-dialog modal-login">
@@ -71,13 +59,13 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
                 <div className="form-group">
                   <div className="input-group">
                     <span className="input-group-addon"><i className="fa fa-user"></i></span>
-                    <input type="text" className={`form-control ${!this.state.name.valid ? "is-invalid" : ""}`} name="name" placeholder="Name" value={this.state.name.value} onChange={this.handleNameChange} />
+                    <input type="text" className={`form-control ${!name ? "is-invalid" : ""}`} name="name" placeholder="Name" value={name} onChange={this.handleNameChange} />
                   </div>
                 </div>
                 <div className="form-group">
                   <div className="input-group">
                     <span className="input-group-addon"><i className="fa fa-user"></i></span>
-                    <input type="text" className={`form-control ${!this.state.email.valid ? "is-invalid" : ""}`} name="email" placeholder="E-mail" value={this.state.email.value} onChange={this.handleEmailChange} />
+                    <input type="text" className={`form-control ${!isValidEmail(email) ? "is-invalid" : ""}`} name="email" placeholder="E-mail" value={email} onChange={this.handleEmailChange} />
                   </div>
                 </div>
                 {/*<div className="form-group">
@@ -97,4 +85,11 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
   }
 }
 
-export default LoginPage;
+const mapStateToProps = (state: AppState) => {
+  return ({
+    name: state.login.name,
+    email: state.login.email,
+  })
+}
+const mapDispatchToProps = { authenticate, setName, setEmail }
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
