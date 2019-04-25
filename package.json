@@ -37,7 +37,8 @@
       "!<rootDir>/node_modules/",
       "!src/App.{js,jsx,ts,tsx}",
       "!src/index.{js,jsx,ts,tsx}",
-      "!src/setupTests.{js,jsx,ts,tsx}"
+      "!src/setupTests.{js,jsx,ts,tsx}",
+      "!src/App-store.tsx"
     ],
     "coverageThreshold": {
       "global": {

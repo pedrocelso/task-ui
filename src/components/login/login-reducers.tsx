@@ -2,6 +2,7 @@ import { AUTHENTICATE, DEAUTHENTICATE, LoginActionTypes, LoginState, SET_EMAIL, 
 
 const initialState: LoginState = {
   authenticated: false,
+  token: ``,
   name: ``,
   email: ``
 }
@@ -20,6 +21,7 @@ export function loginReducer(
     case DEAUTHENTICATE:
       return {
         authenticated: false,
+        token: ``,
         name: ``,
         email: ``
       }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme'
 
-import NavBar from './navbar'
+import { NavBar } from './navbar'
 
 const context = { router: { isActive: (a, b) => true } };
 
@@ -44,8 +44,8 @@ describe(`<NavBar />`, () => {
 
   it(`.getMenuItems() - Should return menu items according to the user authentication`, () => {
     expect.assertions(10);
-    const component1 = mount(<NavBar authenticated={true} />, {context});
-    const authenticatedItems = component1.instance().getMenuItems();
+    const component1 = mount(<NavBar />, {context});
+    const authenticatedItems = component1.instance().getMenuItems(true);
     expect(authenticatedItems.length).toEqual(3);
     expect(authenticatedItems[0].title).toEqual(`Users`);
     expect(authenticatedItems[0].path).toEqual(`/users`);
@@ -54,8 +54,8 @@ describe(`<NavBar />`, () => {
     expect(authenticatedItems[2].title).toEqual(`Logout`);
     expect(authenticatedItems[2].path).toEqual(`/logout`);
 
-    const component2 = mount(<NavBar authenticated={false} />, {context});
-    const unauthenticatedItems = component2.instance().getMenuItems();
+    const component2 = mount(<NavBar />, {context});
+    const unauthenticatedItems = component2.instance().getMenuItems(false);
     expect(unauthenticatedItems.length).toEqual(1);
     expect(unauthenticatedItems[0].title).toEqual(`Login`);
     expect(unauthenticatedItems[0].path).toEqual(`/login`);

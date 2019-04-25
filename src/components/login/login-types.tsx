@@ -29,8 +29,8 @@ interface AuthenticateAction {
   payload: {
     authenticated: boolean
     token: string
-    name?: string
-    email?: string
+    name: string
+    email: string
   }
 }
 

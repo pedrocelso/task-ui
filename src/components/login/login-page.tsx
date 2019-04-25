@@ -17,7 +17,7 @@ interface LoginPageProps {
 const emailRegexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const isValidEmail = (email: string) => emailRegexp.test(email)
 
-class LoginPage extends Component<LoginPageProps> {
+export class LoginPage extends Component<LoginPageProps> {
   handleEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
     const {value} = e.currentTarget
     this.props.setEmail(value)
@@ -40,7 +40,7 @@ class LoginPage extends Component<LoginPageProps> {
       const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
       const token = this.generateToken(jwtSecret);
       sessionStorage.setItem(`jwtToken`, token);
-      authenticate(token);
+      authenticate(token, name, email);
       redirect();
     }
   }

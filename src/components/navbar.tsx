@@ -39,7 +39,7 @@ const menuItems: Item[] = [
   {title: `Logout`, path: `/logout`, icon: (<LockOpen color="primary" />), private: true}
 ]
 
-class NavBar extends Component<MenuProps, MenuState> {
+export class NavBar extends Component<MenuProps, MenuState> {
   constructor(props: any) {
     super(props)
 

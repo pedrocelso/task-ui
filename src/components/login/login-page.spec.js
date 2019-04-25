@@ -2,97 +2,121 @@ import React from 'react';
 import {mount, shallow} from 'enzyme'
 import sinon from 'sinon'
 
-import LoginPage from './login-page'
+import { LoginPage } from './login-page'
+
+const baseProps = {
+  authenticate: sinon.fake(),
+  setEmail: sinon.fake(),
+  setName: sinon.fake(),
+  name: `test`,
+  email: `test@test.com`,
+  redirect: sinon.fake()
+}
 
 describe(`<LoginPage />`, () => {
   it(`Should render without errors`, () => {
     const component = shallow(
-      <LoginPage />,
+      <LoginPage {...baseProps} />,
     );
 
     expect(component).toMatchSnapshot();
   });
 
   it(`.generateToken()`, () => {
-    const component = mount(<LoginPage redirect={sinon.fake()}/>);
-    component.setState({name: {value: `test`, valid: true}, email: {value: `test@test.com`, valid: true}})
+    const component = mount(<LoginPage {...baseProps} />);
     const token = component.instance().generateToken(`teste`);
 
     expect(token).toEqual(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJuYW1lIjoidGVzdCJ9.reAIlQy61UD_OK3dNTvhJOtWi4WApQ1lSPrV1p1fk1o`)
   });
 
-  it(`.handleNameChange() - Setting valid name (not empty value)`, () => {
-    expect.assertions(4);
-    const wrapper = mount(<LoginPage redirect={sinon.fake()}/>);
-    expect(wrapper.state().name.value).toEqual(``);
-    expect(wrapper.state().name.valid).toBeTruthy();
+  it(`.handleNameChange() - Setting valid name`, () => {
+    expect.assertions(1);
+    const props = {
+      ...baseProps,
+      setName: (name) => expect(name).toEqual(`bororoska`)
+    }
+    const wrapper = mount(<LoginPage {...props}/>);
 
     wrapper.instance().handleNameChange({currentTarget: {value: `bororoska`}})
-    expect(wrapper.state().name.value).toEqual(`bororoska`);
-    expect(wrapper.state().name.valid).toBeTruthy();
   });
 
-  it(`.handleNameChange() - Setting invalid name (empty string)`, () => {
-    expect.assertions(4);
-    const wrapper = mount(<LoginPage redirect={sinon.fake()}/>);
-    expect(wrapper.state().name.value).toEqual(``);
-    expect(wrapper.state().name.valid).toBeTruthy();
-
-    wrapper.instance().handleNameChange({currentTarget: {value: ``}})
-    expect(wrapper.state().name.value).toEqual(``);
-    expect(wrapper.state().name.valid).toBeFalsy();
-  });
-
-  it(`.handleEmailChange() - Setting valid email (not empty value)`, () => {
-    expect.assertions(4);
-    const wrapper = mount(<LoginPage redirect={sinon.fake()}/>);
-    expect(wrapper.state().email.value).toEqual(``);
-    expect(wrapper.state().email.valid).toBeTruthy();
-
+  it(`.handleEmailChange() - Setting valid email`, () => {
+    expect.assertions(1);
+    const props = {
+      ...baseProps,
+      setEmail: (email) => expect(email).toEqual(`bororoska@test.com`)
+    }
+    const wrapper = mount(<LoginPage {...props} />);
     wrapper.instance().handleEmailChange({currentTarget: {value: `bororoska@test.com`}})
-    expect(wrapper.state().email.value).toEqual(`bororoska@test.com`);
-    expect(wrapper.state().email.valid).toBeTruthy();
-  });
-
-  it(`.handleEmailChange() - Setting invalid email (empty string)`, () => {
-    expect.assertions(4);
-    const wrapper = mount(<LoginPage redirect={sinon.fake()}/>);
-    expect(wrapper.state().email.value).toEqual(``);
-    expect(wrapper.state().email.valid).toBeTruthy();
-
-    wrapper.instance().handleEmailChange({currentTarget: {value: ``}})
-    expect(wrapper.state().email.value).toEqual(``);
-    expect(wrapper.state().email.valid).toBeFalsy();
-  });
-
-  it(`.handleEmailChange() - Setting invalid email (invalid string)`, () => {
-    expect.assertions(4);
-    const wrapper = mount(<LoginPage redirect={sinon.fake()}/>);
-    expect(wrapper.state().email.value).toEqual(``);
-    expect(wrapper.state().email.valid).toBeTruthy();
-
-    wrapper.instance().handleEmailChange({currentTarget: {value: `test`}})
-    expect(wrapper.state().email.value).toEqual(`test`);
-    expect(wrapper.state().email.valid).toBeFalsy();
   });
 
   it(`.redirect() - valid state`, () => {
-    expect.assertions(1);
-    var callback = sinon.spy();
-    const wrapper = mount(<LoginPage redirect={callback}/>);
-    wrapper.setState({name: {value: `test`, valid: true}, email: {value: `test@test.com`, valid: true}})
+    expect.assertions(2);
+
+    const redirect = sinon.spy()
+    const authenticate = sinon.spy()
+
+    const props = {
+      ...baseProps,
+      redirect,
+      authenticate
+    }
+
+    const wrapper = mount(<LoginPage {...props} />);
 
     wrapper.instance().redirect();
-    expect(callback.called).toBeTruthy();
+    expect(authenticate.called).toBeTruthy();
+    expect(redirect.called).toBeTruthy();
   });
 
-  it(`.redirect() - invalid state`, () => {
-    expect.assertions(1);
-    var callback = sinon.spy();
-    const wrapper = mount(<LoginPage redirect={callback}/>);
-    wrapper.setState({name: {value: `test`, valid: true}, email: {value: ``, valid: false}})
+  it(`.redirect() - invalid email`, () => {
+    expect.assertions(2);
+
+    const props = {
+      ...baseProps,
+      email: `wrong`,
+      redirect: sinon.spy(),
+      authenticate: sinon.spy()
+    }
+
+    const wrapper = mount(<LoginPage {...props} />);
 
     wrapper.instance().redirect();
-    expect(callback.called).toBeFalsy();
+    expect(props.redirect.called).toBeFalsy();
+    expect(props.authenticate.called).toBeFalsy();
+  });
+
+  it(`.redirect() - empty email`, () => {
+    expect.assertions(2);
+
+    const props = {
+      ...baseProps,
+      email: ``,
+      redirect: sinon.spy(),
+      authenticate: sinon.spy()
+    }
+
+    const wrapper = mount(<LoginPage {...props} />);
+
+    wrapper.instance().redirect();
+    expect(props.redirect.called).toBeFalsy();
+    expect(props.authenticate.called).toBeFalsy();
+  });
+
+  it(`.redirect() - empty name`, () => {
+    expect.assertions(2);
+
+    const props = {
+      ...baseProps,
+      name: ``,
+      redirect: sinon.spy(),
+      authenticate: sinon.spy()
+    }
+
+    const wrapper = mount(<LoginPage {...props} />);
+
+    wrapper.instance().redirect();
+    expect(props.redirect.called).toBeFalsy();
+    expect(props.authenticate.called).toBeFalsy();
   });
 });
