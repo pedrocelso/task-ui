@@ -2,6 +2,7 @@ export interface LoginState {
   authenticated: boolean;
   name: string;
   email: string;
+  token: string;
 }
 
 export const SET_NAME = 'SET_NAME'
@@ -27,6 +28,7 @@ interface AuthenticateAction {
   type: typeof AUTHENTICATE
   payload: {
     authenticated: boolean
+    token: string
     name?: string
     email?: string
   }

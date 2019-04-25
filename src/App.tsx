@@ -62,15 +62,18 @@ class App extends Component<AppProps> {
         const decodedJwt = jwt.verify(token, jwtSecret)
         const email = pathOr(``, [`email`], decodedJwt)
         const name = pathOr(``, [`name`], decodedJwt)
-        this.props.authenticate(name, email)
+        this.props.authenticate(token, name, email)
       }
 
     }
   }
 
   render() {
-    const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, sessionStorage.getItem(`jwtToken`) as string);
-    const {authenticated} = this.props.login
+    const {authenticated, token} = this.props.login
+    const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, token);
+    const userService = new UserService(api);
+    const taskService = new TaskService(api);
+    
     const privateRoutes = [
       (<Route key="Tasks" path="/tasks" render={() =><TaskList service={taskService} />} />),
       (<Route key="Users" path="/users" render={() =><UserList service={userService} />} />),
@@ -94,8 +97,6 @@ class App extends Component<AppProps> {
       </div>
     ) : <LoginPage redirect={redirect(`/tasks`)}/>
 
-    const userService = new UserService(api);
-    const taskService = new TaskService(api);
     return (
       <div>
         <MuiThemeProvider theme={muiTheme}>

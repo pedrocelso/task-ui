@@ -40,7 +40,7 @@ class LoginPage extends Component<LoginPageProps> {
       const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
       const token = this.generateToken(jwtSecret);
       sessionStorage.setItem(`jwtToken`, token);
-      authenticate();
+      authenticate(token);
       redirect();
     }
   }
