@@ -4,7 +4,7 @@ import { ApiClient } from '../api'
 
 const responseJSON = `[{"name":"john","email":"john@whatever.com"},{"name":"john t","email":"john@whatever.com"},{"name":"Renato Russo","email":"renato@legiao.com.br"}]`
 const baseUrl = `https://gerere-gerere.o.lsd/`
-const client = new ApiClient(baseUrl);
+const client = new ApiClient(baseUrl, `coolToken`);
 const userService = new UserService(client);
 
 describe(`Users Service`, () => {
@@ -56,6 +56,23 @@ describe(`Users Service`, () => {
       .then(user => {
         expect(user.name).toEqual(`Renato Russo`)
         expect(user.email).toEqual(`renato@legiao.com.br`)
+      })
+  });
+
+  it(`Should authenticate an user properly`, () => {
+    nock(baseUrl)
+    .post(`/public/signin`)
+    .reply(200, `{
+      "token": "magic token"
+    }`)
+
+    const publicUserService = new UserService(new ApiClient(baseUrl));
+
+    expect.assertions(1);
+    return publicUserService.authenticate({email: `renato@legiao.com.br`, password: `utevo lux`})
+      .promise()
+      .then(({token}) => {
+        expect(token).toEqual(`magic token`)
       })
   });
 });

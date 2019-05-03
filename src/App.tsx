@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { pathOr, startsWith } from 'ramda';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import jwt from 'jsonwebtoken'
+import { ToastContainer } from 'react-toastify';
 
 import { AppState } from './App-store'
 import {ApiClient} from './api'
@@ -20,6 +19,7 @@ import { TaskService } from './services/task';
 import {isEmpty, isNil, map} from 'ramda';
 import { LoginState } from './components/login/login-types';
 
+import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/scss/bootstrap.scss';
 
 dotenv.config();
@@ -56,15 +56,9 @@ class App extends Component<AppProps> {
   componentWillMount() {
     if (!this.props.login.authenticated) {
       const token = sessionStorage.getItem(`jwtToken`) as string;
-  
       if (isValidToken(token)) {
-        const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
-        const decodedJwt = jwt.verify(token, jwtSecret)
-        const email = pathOr(``, [`email`], decodedJwt)
-        const name = pathOr(``, [`name`], decodedJwt)
-        this.props.authenticate(token, name, email)
+        this.props.authenticate(token)
       }
-
     }
   }
 
@@ -95,13 +89,23 @@ class App extends Component<AppProps> {
           map((r: JSX.Element) => r, privateRoutes)
         }
       </div>
-    ) : <LoginPage redirect={redirect(`/tasks`)}/>
+    ) : <LoginPage redirect={redirect(`/tasks`)} service={userService} />
 
     return (
       <div>
         <MuiThemeProvider theme={muiTheme}>
           <Router>
             <NavBar />
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              draggable
+              pauseOnHover
+            />
             {content}
           </Router>
         </MuiThemeProvider>

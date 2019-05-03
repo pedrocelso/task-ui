@@ -1,10 +1,8 @@
-import { AUTHENTICATE, DEAUTHENTICATE, LoginActionTypes, LoginState, SET_EMAIL, SET_NAME } from './login-types' 
+import { AUTHENTICATE, DEAUTHENTICATE, LoginActionTypes, LoginState } from './login-types' 
 
 const initialState: LoginState = {
   authenticated: false,
-  token: ``,
-  name: ``,
-  email: ``
+  token: ``
 }
 
 export function loginReducer(
@@ -13,8 +11,6 @@ export function loginReducer(
 ): LoginState {
   switch (action.type) {
     case AUTHENTICATE:
-    case SET_NAME:
-    case SET_EMAIL:
       return {
         ...state, ...action.payload
       }
@@ -22,8 +18,6 @@ export function loginReducer(
       return {
         authenticated: false,
         token: ``,
-        name: ``,
-        email: ``
       }
     default:
       return state
