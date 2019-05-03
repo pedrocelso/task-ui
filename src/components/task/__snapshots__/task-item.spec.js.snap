@@ -27,12 +27,12 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
     <div
       className="col-md-2"
     >
-      2019/05/04, 1:04:26 am
+      2019/05/03, 4:04:26 pm
     </div>
     <div
       className="col-md-2"
     >
-      2019/05/04, 1:02:46 am
+      2019/05/03, 4:02:46 pm
     </div>
     <div
       className="col-md-1"

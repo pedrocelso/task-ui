@@ -6,11 +6,15 @@ interface TaskItemProps {
   task: Task;
 }
 
-export const formatTime = (time: number): string => moment(time).format("YYYY/MM/DD, h:mm:ss a"); 
+export const formatTime = (time: number): string => {
+  const date = new Date(time)
+  return moment(date, moment.tz.guess()).format("YYYY/MM/DD, h:mm:ss a")
+}
 
 export class TaskItem extends Component<TaskItemProps> {
   render() {
     const {task} = this.props
+    const timezone = moment.tz.guess()
 
     return (
       <div className="list-group-item d-flex row">
