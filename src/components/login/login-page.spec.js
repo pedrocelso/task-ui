@@ -1,16 +1,19 @@
 import React from 'react';
-import {mount, shallow} from 'enzyme'
+import {shallow} from 'enzyme'
 import sinon from 'sinon'
 
 import { LoginPage } from './login-page'
 
 const baseProps = {
   authenticate: sinon.fake(),
-  setEmail: sinon.fake(),
-  setName: sinon.fake(),
-  name: `test`,
-  email: `test@test.com`,
-  redirect: sinon.fake()
+  redirect: sinon.fake(),
+  service: {
+    authenticate: (_) => ({
+      fork: (rej, res) => {
+        res({token: `token!`})
+      }
+    })
+  }
 }
 
 describe(`<LoginPage />`, () => {
@@ -22,32 +25,25 @@ describe(`<LoginPage />`, () => {
     expect(component).toMatchSnapshot();
   });
 
-  it(`.generateToken()`, () => {
-    const component = mount(<LoginPage {...baseProps} />);
-    const token = component.instance().generateToken(`teste`);
-
-    expect(token).toEqual(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJuYW1lIjoidGVzdCJ9.reAIlQy61UD_OK3dNTvhJOtWi4WApQ1lSPrV1p1fk1o`)
-  });
-
-  it(`.handleNameChange() - Setting valid name`, () => {
+  it(`.handlePasswordChange() - Setting valid name`, () => {
     expect.assertions(1);
     const props = {
-      ...baseProps,
-      setName: (name) => expect(name).toEqual(`bororoska`)
+      ...baseProps
     }
-    const wrapper = mount(<LoginPage {...props}/>);
+    const wrapper = shallow(<LoginPage {...props}/>);
 
-    wrapper.instance().handleNameChange({currentTarget: {value: `bororoska`}})
+    wrapper.instance().handlePasswordChange({currentTarget: {value: `bororoska`}})
+    expect(wrapper.state().password).toEqual(`bororoska`)
   });
 
   it(`.handleEmailChange() - Setting valid email`, () => {
     expect.assertions(1);
     const props = {
-      ...baseProps,
-      setEmail: (email) => expect(email).toEqual(`bororoska@test.com`)
+      ...baseProps
     }
-    const wrapper = mount(<LoginPage {...props} />);
+    const wrapper = shallow(<LoginPage {...props} />);
     wrapper.instance().handleEmailChange({currentTarget: {value: `bororoska@test.com`}})
+    expect(wrapper.state().email).toEqual(`bororoska@test.com`)
   });
 
   it(`.redirect() - valid state`, () => {
@@ -62,7 +58,9 @@ describe(`<LoginPage />`, () => {
       authenticate
     }
 
-    const wrapper = mount(<LoginPage {...props} />);
+    const wrapper = shallow(<LoginPage {...props} />);
+
+    wrapper.setState({ name: 'bar', email: 'foo@bar.com' });
 
     wrapper.instance().redirect();
     expect(authenticate.called).toBeTruthy();
@@ -74,12 +72,12 @@ describe(`<LoginPage />`, () => {
 
     const props = {
       ...baseProps,
-      email: `wrong`,
       redirect: sinon.spy(),
       authenticate: sinon.spy()
     }
 
-    const wrapper = mount(<LoginPage {...props} />);
+    const wrapper = shallow(<LoginPage {...props} />);
+    wrapper.setState({ name: 'bar', email: 'foo@bar' });
 
     wrapper.instance().redirect();
     expect(props.redirect.called).toBeFalsy();
@@ -91,12 +89,12 @@ describe(`<LoginPage />`, () => {
 
     const props = {
       ...baseProps,
-      email: ``,
       redirect: sinon.spy(),
       authenticate: sinon.spy()
     }
 
-    const wrapper = mount(<LoginPage {...props} />);
+    const wrapper = shallow(<LoginPage {...props} />);
+    wrapper.setState({ name: 'bar' });
 
     wrapper.instance().redirect();
     expect(props.redirect.called).toBeFalsy();
@@ -108,12 +106,12 @@ describe(`<LoginPage />`, () => {
 
     const props = {
       ...baseProps,
-      name: ``,
       redirect: sinon.spy(),
       authenticate: sinon.spy()
     }
 
-    const wrapper = mount(<LoginPage {...props} />);
+    const wrapper = shallow(<LoginPage {...props} />);
+    wrapper.setState({ email: 'foo@bar.com' });
 
     wrapper.instance().redirect();
     expect(props.redirect.called).toBeFalsy();

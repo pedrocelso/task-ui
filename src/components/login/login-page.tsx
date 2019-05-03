@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { toast } from 'react-toastify';
 import './login-page.scss'
 import { authenticate } from './login-actions'
-import {UserService, User} from '../../services/user'
-import pathOr from 'ramda/es/pathOr';
+import {UserService} from '../../services/user'
 
 interface LoginPageProps {
   authenticate: typeof authenticate
@@ -21,6 +20,14 @@ const emailRegexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
 const isValidEmail = (email: string) => emailRegexp.test(email)
 
 export class LoginPage extends Component<LoginPageProps, LoginPageState> {
+  constructor(props: LoginPageProps) {
+    super(props)
+    this.state = {
+      email: ``,
+      password: ``
+    }
+  }
+
   handleEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
     const {value} = e.currentTarget
     this.setState({email: value})
@@ -62,7 +69,7 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
   }
 
   render() {
-    const {email} = pathOr(``, [`state`], this)
+    const {email} = this.state
 
     return (
       <div id="myModal" className="">

@@ -37,12 +37,11 @@ exports[`<LoginPage /> Should render without errors 1`] = `
               />
             </span>
             <input
-              className="form-control "
-              name="name"
+              className="form-control is-invalid"
+              name="email"
               onChange={[Function]}
-              placeholder="Name"
+              placeholder="E-mail"
               type="text"
-              value="test"
             />
           </div>
         </div>
@@ -56,16 +55,15 @@ exports[`<LoginPage /> Should render without errors 1`] = `
               className="input-group-addon"
             >
               <i
-                className="fa fa-user"
+                className="fa fa-lock"
               />
             </span>
             <input
-              className="form-control "
-              name="email"
+              className="form-control"
+              name="password"
               onChange={[Function]}
-              placeholder="E-mail"
-              type="text"
-              value="test@test.com"
+              placeholder="Password"
+              type="password"
             />
           </div>
         </div>
