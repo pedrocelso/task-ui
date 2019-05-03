@@ -1,5 +1,5 @@
 import {encase, FutureInstance} from 'fluture'
-import {ApiClient, Endpoints, HttpResponse} from '../api'
+import {ApiClient, Endpoints, HttpResponse, ResponseError} from '../api'
 
 export interface User {
   email: string;
@@ -32,8 +32,8 @@ export class UserService implements UserService {
     .chain<User>(encase(JSON.parse))
   }
 
-  authenticate(user: User): FutureInstance<{}, {token: string}> {
-    return this.client.post<{}, HttpResponse>(Endpoints.PUBLIC, {uri: `signin`, body: JSON.stringify(user)})
+  authenticate(user: User): FutureInstance<ResponseError, {token: string}> {
+    return this.client.post<ResponseError, HttpResponse>(Endpoints.PUBLIC, {uri: `signin`, body: JSON.stringify(user)})
     .map(res => res.body)
     .chain<{token: string}>(encase(JSON.parse))
   }

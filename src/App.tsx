@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { pathOr, startsWith } from 'ramda';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import jwt from 'jsonwebtoken'
+import { ToastContainer } from 'react-toastify';
 
 import { AppState } from './App-store'
 import {ApiClient} from './api'
@@ -20,6 +19,7 @@ import { TaskService } from './services/task';
 import {isEmpty, isNil, map} from 'ramda';
 import { LoginState } from './components/login/login-types';
 
+import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/scss/bootstrap.scss';
 
 dotenv.config();
@@ -96,6 +96,16 @@ class App extends Component<AppProps> {
         <MuiThemeProvider theme={muiTheme}>
           <Router>
             <NavBar />
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              draggable
+              pauseOnHover
+            />
             {content}
           </Router>
         </MuiThemeProvider>

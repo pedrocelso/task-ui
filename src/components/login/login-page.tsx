@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import jwt from 'jsonwebtoken'
+import { toast } from 'react-toastify';
 import './login-page.scss'
 import { authenticate } from './login-actions'
-import { AppState } from '../../App-store';
 import {UserService, User} from '../../services/user'
 import pathOr from 'ramda/es/pathOr';
 
@@ -39,19 +38,32 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
 
       service.authenticate({email, password})
       .fork(
-        () => console.error,
+        (e) => {
+          if (e.statusCode === 401) {
+            this.notify(`Wrong email/password!`, -1)
+          }
+        },
         ({token}) => {
           sessionStorage.setItem(`jwtToken`, token)
           authenticate(token)
           redirect()
         }
       )
+    } else {
+      this.notify(`Invalid credentials!`, -1)
+    }
+  }
+
+  notify = (msg: string, feeling: number) => {
+    switch(feeling) {
+      case(-1):
+        toast.error(msg);
     }
   }
 
   render() {
     const {email} = pathOr(``, [`state`], this)
-    
+
     return (
       <div id="myModal" className="">
         <div className="modal-dialog modal-login">

@@ -11,6 +11,10 @@ export interface HttpResponse {
   body: string;
 }
 
+export interface ResponseError {
+  statusCode: number;
+}
+
 export const Endpoints = {
   USERS: `users/`,
   TASKS: `tasks/`,
