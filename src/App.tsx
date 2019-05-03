@@ -56,15 +56,9 @@ class App extends Component<AppProps> {
   componentWillMount() {
     if (!this.props.login.authenticated) {
       const token = sessionStorage.getItem(`jwtToken`) as string;
-  
       if (isValidToken(token)) {
-        const jwtSecret = process.env.REACT_APP_JWT_SECRET as string
-        const decodedJwt = jwt.verify(token, jwtSecret)
-        const email = pathOr(``, [`email`], decodedJwt)
-        const name = pathOr(``, [`name`], decodedJwt)
-        this.props.authenticate(token, name, email)
+        this.props.authenticate(token)
       }
-
     }
   }
 
@@ -95,7 +89,7 @@ class App extends Component<AppProps> {
           map((r: JSX.Element) => r, privateRoutes)
         }
       </div>
-    ) : <LoginPage redirect={redirect(`/tasks`)}/>
+    ) : <LoginPage redirect={redirect(`/tasks`)} service={userService} />
 
     return (
       <div>

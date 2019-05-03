@@ -3,6 +3,8 @@ import Future, { FutureInstance } from 'fluture'
 
 export interface ApiClient {
   get<T, P>(endpoint: string, options?: request.Options): FutureInstance<T, P>;
+  post<T, P>(endpoint: string, options: request.Options): FutureInstance<T, P>;
+  setAuthorizationToken(token: string): void;
 }
 
 export interface HttpResponse {
@@ -11,7 +13,8 @@ export interface HttpResponse {
 
 export const Endpoints = {
   USERS: `users/`,
-  TASKS: `tasks/`
+  TASKS: `tasks/`,
+  PUBLIC: `public/`
 }
 
 export class ApiClient implements ApiClient {
@@ -25,15 +28,32 @@ export class ApiClient implements ApiClient {
           removeRefererHeader: true,
           followAllRedirects: true,
           resolveWithFullResponse: true,
-          headers: {
+          headers: !!jwtToken ? {
               'Access-Control-Allow-Origin': `*`,
               'Authorization': `Bearer ${jwtToken}`
+          } : {
+            'Access-Control-Allow-Origin': `*`
           },
         }
     }
 
+    setAuthorizationToken(token: string) {
+      this.options.headers = {
+        'Access-Control-Allow-Origin': `*`,
+        'Authorization': `Bearer ${token}`
+      }
+    }
+
     get<T, P>(endpoint: string, options?: request.Options): FutureInstance<T, P> {
       return Future<T, P>((rej, res) => request({...this.options, baseUrl: `${this.options.baseUrl}${endpoint}`, ...options})
+        .then(res)
+        .catch(rej)
+        .done()
+      )
+    }
+
+    post<T, P>(endpoint: string, options: request.Options): FutureInstance<T, P> {
+      return Future<T, P>((rej, res) => request.post({...this.options, baseUrl: `${this.options.baseUrl}${endpoint}`, ...options})
         .then(res)
         .catch(rej)
         .done()
