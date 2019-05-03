@@ -13,7 +13,7 @@ export class TaskItem extends Component<TaskItemProps> {
     const {task} = this.props
 
     return (
-      <div className="list-group-item list-group-item-action d-flex justify-content-between align-items-center row">
+      <div className="list-group-item d-flex row">
         <div className="col-md-7">
           <b>{task.name} - {task.description}</b>
         </div>
@@ -23,7 +23,9 @@ export class TaskItem extends Component<TaskItemProps> {
         <div className="col-md-2">
           {formatTime(task.updateTime)}
         </div>
-        <span className="badge badge-primary badge-pill col-md-1">0</span>
+        <div className="col-md-1">
+          <span className="badge badge-primary badge-pill">0</span>
+        </div>
       </div>)
   }
 }
