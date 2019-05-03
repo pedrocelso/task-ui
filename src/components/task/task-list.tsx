@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {isEmpty, isNil, map} from 'ramda'
 
 import { TaskService, Task } from '../../services/task';
+import { TaskItem } from './task-item'
 import './task-list.scss'
 
 interface TaskProps {
@@ -35,17 +36,7 @@ class TaskList extends Component<TaskProps, TaskState> {
 
     const listEl = !isNil(taskList) && !isEmpty(taskList) ? (
       <div className="list-group">
-        {
-          map(({id, name, description}) => {
-            return (<a
-              href="#"
-              className="list-group-item list-group-item-action"
-              key={id}
-            >
-              {name} - {description}
-            </a>)
-          }, taskList)
-        }
+        {map((t) => (<TaskItem task={t} key={t.id}/>), taskList)}
       </div>
     ) : null
 

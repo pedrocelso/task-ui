@@ -5,6 +5,8 @@ export interface Task {
   id: number;
   name: string;
   description: string;
+  creationTime: number;
+  updateTime: number;
 }
 
 export interface TaskService {
