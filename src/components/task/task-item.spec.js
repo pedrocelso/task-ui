@@ -19,9 +19,4 @@ describe(`<TaskItem />`, () => {
 
     expect(component).toMatchSnapshot();
   });
-
-  it(`.formatTime() - Should format date properly`, () => {
-    const formattedDate = formatTime(1556924666404)
-    expect(formattedDate).toEqual(`2019/05/04, 1:04:26 am`)
-  });
 });
