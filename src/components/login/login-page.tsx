@@ -18,6 +18,12 @@ interface LoginPageState {
 
 const emailRegexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const isValidEmail = (email: string) => emailRegexp.test(email)
+const notify = (msg: string, feeling: number) => {
+  switch(feeling) {
+    case(-1):
+      toast.error(msg);
+  }
+}
 
 export class LoginPage extends Component<LoginPageProps, LoginPageState> {
   constructor(props: LoginPageProps) {
@@ -41,13 +47,13 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
   redirect = () => {
     const {authenticate, redirect, service} = this.props
     const {email, password} = this.state
-    if (isValidEmail(email) && !!password) {
 
+    if (isValidEmail(email) && !!password) {
       service.authenticate({email, password})
       .fork(
         (e) => {
           if (e.statusCode === 401) {
-            this.notify(`Wrong email/password!`, -1)
+            notify(`Wrong email/password!`, -1)
           }
         },
         ({token}) => {
@@ -57,14 +63,7 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
         }
       )
     } else {
-      this.notify(`Invalid credentials!`, -1)
-    }
-  }
-
-  notify = (msg: string, feeling: number) => {
-    switch(feeling) {
-      case(-1):
-        toast.error(msg);
+      notify(`Invalid credentials!`, -1)
     }
   }
 

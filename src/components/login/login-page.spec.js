@@ -4,6 +4,7 @@ import sinon from 'sinon'
 
 import { LoginPage } from './login-page'
 
+const baseNotify = sinon.spy()
 const baseProps = {
   authenticate: sinon.fake(),
   redirect: sinon.fake(),
@@ -26,7 +27,6 @@ describe(`<LoginPage />`, () => {
   });
 
   it(`.handlePasswordChange() - Setting valid name`, () => {
-    expect.assertions(1);
     const props = {
       ...baseProps
     }
@@ -37,7 +37,6 @@ describe(`<LoginPage />`, () => {
   });
 
   it(`.handleEmailChange() - Setting valid email`, () => {
-    expect.assertions(1);
     const props = {
       ...baseProps
     }
@@ -47,8 +46,6 @@ describe(`<LoginPage />`, () => {
   });
 
   it(`.redirect() - valid state`, () => {
-    expect.assertions(2);
-
     const redirect = sinon.spy()
     const authenticate = sinon.spy()
 
@@ -60,7 +57,7 @@ describe(`<LoginPage />`, () => {
 
     const wrapper = shallow(<LoginPage {...props} />);
 
-    wrapper.setState({ name: 'bar', email: 'foo@bar.com' });
+    wrapper.setState({ password: 'bar', email: 'foo@bar.com' });
 
     wrapper.instance().redirect();
     expect(authenticate.called).toBeTruthy();
@@ -68,8 +65,6 @@ describe(`<LoginPage />`, () => {
   });
 
   it(`.redirect() - invalid email`, () => {
-    expect.assertions(2);
-
     const props = {
       ...baseProps,
       redirect: sinon.spy(),
@@ -77,7 +72,7 @@ describe(`<LoginPage />`, () => {
     }
 
     const wrapper = shallow(<LoginPage {...props} />);
-    wrapper.setState({ name: 'bar', email: 'foo@bar' });
+    wrapper.setState({ password: 'bar', email: 'foo@bar' });
 
     wrapper.instance().redirect();
     expect(props.redirect.called).toBeFalsy();
@@ -85,8 +80,6 @@ describe(`<LoginPage />`, () => {
   });
 
   it(`.redirect() - empty email`, () => {
-    expect.assertions(2);
-
     const props = {
       ...baseProps,
       redirect: sinon.spy(),
@@ -94,7 +87,7 @@ describe(`<LoginPage />`, () => {
     }
 
     const wrapper = shallow(<LoginPage {...props} />);
-    wrapper.setState({ name: 'bar' });
+    wrapper.setState({ password: 'bar' });
 
     wrapper.instance().redirect();
     expect(props.redirect.called).toBeFalsy();
@@ -102,8 +95,6 @@ describe(`<LoginPage />`, () => {
   });
 
   it(`.redirect() - empty name`, () => {
-    expect.assertions(2);
-
     const props = {
       ...baseProps,
       redirect: sinon.spy(),
@@ -117,4 +108,30 @@ describe(`<LoginPage />`, () => {
     expect(props.redirect.called).toBeFalsy();
     expect(props.authenticate.called).toBeFalsy();
   });
+
+//   it(`.redirect() - 401 response from server`, () => {
+
+//     const props = {
+//       ...baseProps,
+//       service: {
+//         authenticate: (_) => ({
+//           fork: (rej, res) => {
+//             rej({statusCode: 401})
+//           }
+//         })
+//       }
+//     }
+
+//     const notify = (msg, feeling) => {
+//       expect(msg).toEqual(`Wrong email/password!`)
+//       expect(feeling).toEqual(-1)
+//     }
+
+//     const wrapper = shallow(<LoginPage {...props} />);
+//     wrapper.setState({ password: 'bar', email: 'foo@bar.com' });
+
+//     wrapper.instance().redirect(notify);
+//     expect(props.redirect.called).toBeFalsy();
+//     expect(props.authenticate.called).toBeFalsy();
+//   });
 });

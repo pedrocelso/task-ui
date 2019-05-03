@@ -41,13 +41,6 @@ export class ApiClient implements ApiClient {
         }
     }
 
-    setAuthorizationToken(token: string) {
-      this.options.headers = {
-        'Access-Control-Allow-Origin': `*`,
-        'Authorization': `Bearer ${token}`
-      }
-    }
-
     get<T, P>(endpoint: string, options?: request.Options): FutureInstance<T, P> {
       return Future<T, P>((rej, res) => request({...this.options, baseUrl: `${this.options.baseUrl}${endpoint}`, ...options})
         .then(res)
