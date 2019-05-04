@@ -30,6 +30,7 @@ export class TaskItem extends Component<TaskItemProps> {
         <div className="col-md-1">
           <span className="badge badge-primary badge-pill">0</span>
         </div>
-      </div>)
+      </div>
+    )
   }
 }

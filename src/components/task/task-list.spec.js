@@ -1,7 +1,8 @@
 import React from 'react';
 import {shallow} from 'enzyme'
+import sinon from 'sinon'
 
-import TaskList from './task-list'
+import {TaskList} from './task-list'
 
 describe(`<TaskList />`, () => {
   it(`Should fetch the tasks from service and render`, () => {
@@ -17,7 +18,7 @@ describe(`<TaskList />`, () => {
     }
 
     const component = shallow(
-      <TaskList service={service}/>,
+      <TaskList service={service} deauthenticate={sinon.fake()} />,
     );
 
     expect(component).toMatchSnapshot();
@@ -33,9 +34,28 @@ describe(`<TaskList />`, () => {
     }
 
     const component = shallow(
-      <TaskList service={service}/>,
+      <TaskList service={service} deauthenticate={sinon.fake()}/>,
     );
 
     expect(component).toMatchSnapshot();
+  });
+
+  it(`Should deauthenticate user in case of 401 return from server`, () => {
+    const props = {
+      service: {
+        getTasks: (_) => ({
+          fork: (rej, res) => {
+            rej({statusCode: 401})
+          }
+        })
+      },
+      deauthenticate: sinon.spy()
+    }
+
+    const component = shallow(
+      <TaskList {...props} />,
+    );
+
+    expect(props.deauthenticate.called).toBeTruthy();
   });
 });

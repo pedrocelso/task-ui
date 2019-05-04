@@ -74,7 +74,6 @@ class App extends Component<AppProps> {
       (<Route key="Logout" path="/logout" render={() => {
         this.props.deauthenticate();
         sessionStorage.removeItem(`jwtToken`)
-        this.setState({isUserAuthenticated: false})
         return (
           <Typography variant="h6" color="inherit">
             You have been logged out

@@ -1,5 +1,5 @@
 import {encase, FutureInstance} from 'fluture'
-import {ApiClient, Endpoints, HttpResponse} from '../api'
+import {ApiClient, Endpoints, HttpResponse, ResponseError} from '../api'
 
 export interface Task {
   id: number;
@@ -21,14 +21,14 @@ export class TaskService implements TaskService {
     this.client = client;
   }
 
-  getTasks(): FutureInstance<{}, Task[]> {
-    return this.client.get<{}, HttpResponse>(Endpoints.TASKS)
+  getTasks(): FutureInstance<ResponseError, Task[]> {
+    return this.client.get<ResponseError, HttpResponse>(Endpoints.TASKS)
     .map(res => res.body)
     .chain<Task[]>(encase(JSON.parse))
   }
   
-  getTask(id: number): FutureInstance<{}, Task> {
-    return this.client.get<{}, HttpResponse>(Endpoints.TASKS, {uri: `${id}`})
+  getTask(id: number): FutureInstance<ResponseError, Task> {
+    return this.client.get<ResponseError, HttpResponse>(Endpoints.TASKS, {uri: `${id}`})
     .map(res => res.body)
     .chain<Task>(encase(JSON.parse))
   }
