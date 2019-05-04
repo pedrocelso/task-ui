@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TaskItem /> Should render the task without errors 1`] = `
+<TaskItem
+  task={
+    Object {
+      "creationTime": 1556924666404,
+      "description": "Do A POI quest service",
+      "id": 123,
+      "name": "POI quest service",
+      "updateTime": 1556924566404,
+    }
+  }
+>
+  <div
+    className="list-group-item d-flex row"
+  >
+    <div
+      className="col-md-7"
+    >
+      <b>
+        POI quest service
+         - 
+        Do A POI quest service
+      </b>
+    </div>
+    <div
+      className="col-md-2"
+    >
+      2019/05/03, 4:04:26 pm
+    </div>
+    <div
+      className="col-md-2"
+    >
+      2019/05/03, 4:02:46 pm
+    </div>
+    <div
+      className="col-md-1"
+    >
+      <span
+        className="badge badge-primary badge-pill"
+      >
+        0
+      </span>
+    </div>
+  </div>
+</TaskItem>
+`;

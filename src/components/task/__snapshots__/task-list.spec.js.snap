@@ -7,24 +7,58 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
   <div
     className="list-group"
   >
-    <a
-      className="list-group-item list-group-item-action"
-      href="#"
+    <div
+      className="list-group-item d-flex row"
+    >
+      <div
+        className="col-md-7"
+      >
+        <h5>
+          Task Details
+        </h5>
+      </div>
+      <div
+        className="col-md-2"
+      >
+        <h5>
+          Created at
+        </h5>
+      </div>
+      <div
+        className="col-md-2"
+      >
+        <h5>
+          Updated at
+        </h5>
+      </div>
+      <div
+        className="col-md-1"
+      >
+        <h5>
+          Inccidents
+        </h5>
+      </div>
+    </div>
+    <TaskItem
       key="10"
-    >
-      test
-       - 
-      test@test.com
-    </a>
-    <a
-      className="list-group-item list-group-item-action"
-      href="#"
+      task={
+        Object {
+          "description": "test@test.com",
+          "id": 10,
+          "name": "test",
+        }
+      }
+    />
+    <TaskItem
       key="11"
-    >
-      test1
-       - 
-      test1@test.com
-    </a>
+      task={
+        Object {
+          "description": "test1@test.com",
+          "id": 11,
+          "name": "test1",
+        }
+      }
+    />
   </div>
 </div>
 `;
