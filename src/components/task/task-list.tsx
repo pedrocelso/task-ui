@@ -42,22 +42,20 @@ export class TaskList extends Component<TaskProps, TaskState> {
     const {state} = this
     const {taskList} = state
 
-    const listEl = !isNil(taskList) && !isEmpty(taskList) ? (
-      <div className="list-group">
-        <div className="list-group-item d-flex row">
-          <div className="col-md-7"><h5>Task Details</h5></div>
-          <div className="col-md-2"><h5>Created at</h5></div>
-          <div className="col-md-2"><h5>Updated at</h5></div>
-          <div className="col-md-1"><h5>Inccidents</h5></div>
-        </div>
-        {map((t) => (<TaskItem task={t} key={t.id}/>), taskList)}
-      </div>
-    ) : null
-
     return (
-      <div className="panel panel-default">
-        {listEl}
-      </div>
+      <table className="table">
+        <thead className="d-none" id="d-md-table-header-group">
+          <tr>
+            <th className="d-sm-none d-md-table-cell">Details</th>
+            <th className="d-sm-none d-md-table-cell">Created at</th>
+            <th className="d-sm-none d-md-table-cell">Updated at</th>
+            <th className="d-sm-none d-md-table-cell">Incidents</th>
+          </tr>
+        </thead>
+        <tbody>
+          {map((t) => (<TaskItem task={t} key={t.id}/>), taskList)}
+        </tbody>
+      </table>
     )
   }
 }

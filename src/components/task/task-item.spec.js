@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme'
+import {shallow} from 'enzyme'
 
 import {formatTime, TaskItem} from './task-item'
 
@@ -13,7 +13,7 @@ const baseTask = {
 
 describe(`<TaskItem />`, () => {
   it(`Should render the task without errors`, () => {
-    const component = mount(
+    const component = shallow(
       <TaskItem task={baseTask}/>,
     );
 
@@ -23,5 +23,10 @@ describe(`<TaskItem />`, () => {
   it(`.formatTime() - Should format date properly`, () => {
     const formattedDate = formatTime(1556924666404)
     expect(formattedDate).toEqual(`2019/05/03, 4:04:26 pm`)
+  });
+
+  it(`.formatTime() - Should retutn n/a for 0 millis`, () => {
+    const formattedDate = formatTime(0)
+    expect(formattedDate).toEqual(`n/a`)
   });
 });
