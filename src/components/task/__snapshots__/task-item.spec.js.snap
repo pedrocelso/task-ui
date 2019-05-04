@@ -12,37 +12,65 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
     }
   }
 >
-  <div
-    className="list-group-item d-flex row"
-  >
-    <div
-      className="col-md-7"
+  <tr>
+    <td
+      className="d-md-none d-table-cell"
     >
-      <b>
-        POI quest service
-         - 
-        Do A POI quest service
-      </b>
-    </div>
-    <div
-      className="col-md-2"
+      <div
+        className="card"
+      >
+        <div
+          className="card-body"
+        >
+          <strong
+            className="card-title"
+          >
+            POI quest service
+          </strong>
+          <p
+            className="card-text"
+          >
+            Do A POI quest service
+            <br />
+            2019/05/03, 4:04:26 pm
+            <br />
+            2019/05/03, 4:02:46 pm
+            <br />
+          </p>
+          <span
+            className="badge badge-primary badge-pill"
+          >
+            0
+          </span>
+        </div>
+      </div>
+    </td>
+    <td
+      className="d-none d-md-table-cell"
+    >
+      POI quest service
+       - 
+      Do A POI quest service
+    </td>
+    <td
+      className="d-none d-md-table-cell"
     >
       2019/05/03, 4:04:26 pm
-    </div>
-    <div
-      className="col-md-2"
+    </td>
+    <td
+      className="d-none d-md-table-cell"
     >
       2019/05/03, 4:02:46 pm
-    </div>
-    <div
-      className="col-md-1"
+    </td>
+    <td
+      className="d-none d-md-table-cell"
     >
       <span
         className="badge badge-primary badge-pill"
       >
         0
       </span>
-    </div>
-  </div>
+    </td>
+  </tr>
 </TaskItem>
 `;

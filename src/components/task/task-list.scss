@@ -1,0 +1,9 @@
+.table th, .table td {
+  border-top: none !important;
+}
+
+@media (min-width: 768px) {
+  #d-md-table-header-group {
+    display: table-header-group !important;
+  }
+}

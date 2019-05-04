@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import moment from 'moment-timezone'
 import { Task } from '../../services/task';
 
@@ -8,7 +8,7 @@ interface TaskItemProps {
 
 export const formatTime = (time: number): string => {
   const date = new Date(time)
-  return moment(date, moment.tz.guess()).format("YYYY/MM/DD, h:mm:ss a")
+  return time ? moment(date, moment.tz.guess()).format("YYYY/MM/DD, h:mm:ss a") : `n/a`
 }
 
 export class TaskItem extends Component<TaskItemProps> {
@@ -17,20 +17,29 @@ export class TaskItem extends Component<TaskItemProps> {
     const timezone = moment.tz.guess()
 
     return (
-      <div className="list-group-item d-flex row">
-        <div className="col-md-7">
-          <b>{task.name} - {task.description}</b>
-        </div>
-        <div className="col-md-2">
-          {formatTime(task.creationTime)}
-        </div>
-        <div className="col-md-2">
-          {formatTime(task.updateTime)}
-        </div>
-        <div className="col-md-1">
-          <span className="badge badge-primary badge-pill">0</span>
-        </div>
-      </div>
+      <Fragment>
+        <tr>
+          <td className="d-md-none d-table-cell">
+            <div className="card">
+              <div className="card-body">
+                <strong className="card-title">{task.name}</strong>
+                <p className="card-text">
+                  {task.description}<br />
+                  {formatTime(task.creationTime)}<br />
+                  {formatTime(task.updateTime)}<br />
+                </p>
+                <span className="badge badge-primary badge-pill">0</span>
+              </div>
+            </div>
+          </td>
+          <td className="d-none d-md-table-cell">{task.name} - {task.description}</td>
+          <td className="d-none d-md-table-cell">{formatTime(task.creationTime)}</td>
+          <td className="d-none d-md-table-cell">{formatTime(task.updateTime)}</td>
+          <td className="d-none d-md-table-cell">
+            <span className="badge badge-primary badge-pill">0</span>
+          </td>
+        </tr>
+      </Fragment>
     )
   }
 }

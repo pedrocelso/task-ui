@@ -1,44 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
-<div
-  className="panel panel-default"
+<table
+  className="table"
 >
-  <div
-    className="list-group"
+  <thead
+    className="d-none"
+    id="d-md-table-header-group"
   >
-    <div
-      className="list-group-item d-flex row"
-    >
-      <div
-        className="col-md-7"
+    <tr>
+      <th
+        className="d-sm-none d-md-table-cell"
       >
-        <h5>
-          Task Details
-        </h5>
-      </div>
-      <div
-        className="col-md-2"
+        Details
+      </th>
+      <th
+        className="d-sm-none d-md-table-cell"
       >
-        <h5>
-          Created at
-        </h5>
-      </div>
-      <div
-        className="col-md-2"
+        Created at
+      </th>
+      <th
+        className="d-sm-none d-md-table-cell"
       >
-        <h5>
-          Updated at
-        </h5>
-      </div>
-      <div
-        className="col-md-1"
+        Updated at
+      </th>
+      <th
+        className="d-sm-none d-md-table-cell"
       >
-        <h5>
-          Inccidents
-        </h5>
-      </div>
-    </div>
+        Incidents
+      </th>
+    </tr>
+  </thead>
+  <tbody>
     <TaskItem
       key="10"
       task={
@@ -59,12 +52,41 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
         }
       }
     />
-  </div>
-</div>
+  </tbody>
+</table>
 `;
 
 exports[`<TaskList /> Should not display tasks if service returns an error 1`] = `
-<div
-  className="panel panel-default"
-/>
+<table
+  className="table"
+>
+  <thead
+    className="d-none"
+    id="d-md-table-header-group"
+  >
+    <tr>
+      <th
+        className="d-sm-none d-md-table-cell"
+      >
+        Details
+      </th>
+      <th
+        className="d-sm-none d-md-table-cell"
+      >
+        Created at
+      </th>
+      <th
+        className="d-sm-none d-md-table-cell"
+      >
+        Updated at
+      </th>
+      <th
+        className="d-sm-none d-md-table-cell"
+      >
+        Incidents
+      </th>
+    </tr>
+  </thead>
+  <tbody />
+</table>
 `;
