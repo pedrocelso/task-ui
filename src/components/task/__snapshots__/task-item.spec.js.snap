@@ -1,17 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TaskItem /> Should render the task without errors 1`] = `
-<TaskItem
-  task={
-    Object {
-      "creationTime": 1556924666404,
-      "description": "Do A POI quest service",
-      "id": 123,
-      "name": "POI quest service",
-      "updateTime": 1556924566404,
-    }
-  }
->
+<Fragment>
+  &gt;
   <tr>
     <td
       className="d-md-none d-table-cell"
@@ -72,5 +63,5 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
       </span>
     </td>
   </tr>
-</TaskItem>
+</Fragment>
 `;

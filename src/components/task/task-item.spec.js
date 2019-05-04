@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme'
+import {shallow} from 'enzyme'
 
 import {formatTime, TaskItem} from './task-item'
 
@@ -13,7 +13,7 @@ const baseTask = {
 
 describe(`<TaskItem />`, () => {
   it(`Should render the task without errors`, () => {
-    const component = mount(
+    const component = shallow(
       <TaskItem task={baseTask}/>,
     );
 

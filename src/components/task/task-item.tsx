@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import moment from 'moment-timezone'
 import { Task } from '../../services/task';
 
@@ -17,7 +17,7 @@ export class TaskItem extends Component<TaskItemProps> {
     const timezone = moment.tz.guess()
 
     return (
-      <Fragment>
+      <React.Fragment>>
         <tr>
           <td className="d-md-none d-table-cell">
             <div className="card">
@@ -39,7 +39,7 @@ export class TaskItem extends Component<TaskItemProps> {
             <span className="badge badge-primary badge-pill">0</span>
           </td>
         </tr>
-      </Fragment>
+      </React.Fragment>
     )
   }
 }
