@@ -2,7 +2,6 @@
 
 exports[`<TaskItem /> Should render the task without errors 1`] = `
 <Fragment>
-  &gt;
   <tr>
     <td
       className="d-md-none d-table-cell"
