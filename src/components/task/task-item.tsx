@@ -17,7 +17,7 @@ export class TaskItem extends Component<TaskItemProps> {
     const timezone = moment.tz.guess()
 
     return (
-      <React.Fragment>>
+      <React.Fragment>
         <tr>
           <td className="d-md-none d-table-cell">
             <div className="card">
