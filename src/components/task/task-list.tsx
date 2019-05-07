@@ -53,7 +53,7 @@ export class TaskList extends Component<TaskProps, TaskState> {
           </tr>
         </thead>
         <tbody>
-          {map((t) => (<TaskItem task={t} key={t.id}/>), taskList)}
+          {map((t) => (<TaskItem task={t} key={t.id} service={this.props.service} />), taskList)}
         </tbody>
       </table>
     )

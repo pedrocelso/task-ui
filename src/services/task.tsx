@@ -7,11 +7,23 @@ export interface Task {
   description: string;
   creationTime: number;
   updateTime: number;
+  incidentsCount: number;
+}
+
+export interface Incident {
+  id: number;
+  taskId: number;
+  name: string;
+  description: string;
+  creationTime: number;
+  updateTime: number;
 }
 
 export interface TaskService {
   getTasks(): FutureInstance<{}, Task[]>;
   getTask(id: number): FutureInstance<{}, Task>;
+  getIncidents(taskId: number): FutureInstance<{}, Incident[]>;
+  getIncident(taskId: number, id: number): FutureInstance<{}, Incident>;
 }
 
 export class TaskService implements TaskService {
@@ -31,5 +43,17 @@ export class TaskService implements TaskService {
     return this.client.get<ResponseError, HttpResponse>(Endpoints.TASKS, {uri: `${id}`})
     .map(res => res.body)
     .chain<Task>(encase(JSON.parse))
+  }
+
+  getIncidents(taskId: number): FutureInstance<ResponseError, Incident[]> {
+    return this.client.get<ResponseError, HttpResponse>(Endpoints.INCIDENT(taskId))
+    .map(res => res.body)
+    .chain<Incident[]>(encase(JSON.parse))
+  }
+
+  getIncident(taskId: number, id: number): FutureInstance<ResponseError, Incident> {
+    return this.client.get<ResponseError, HttpResponse>(Endpoints.INCIDENT(taskId), {uri: `${id}`})
+    .map(res => res.body)
+    .chain<Incident>(encase(JSON.parse))
   }
 }
