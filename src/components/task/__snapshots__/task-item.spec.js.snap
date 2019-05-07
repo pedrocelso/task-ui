@@ -27,11 +27,17 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
             2019/05/03, 4:02:46 pm
             <br />
           </p>
-          <span
-            className="badge badge-primary badge-pill"
-          >
-            0
-          </span>
+          <Component
+            task={
+              Object {
+                "creationTime": 1556924666404,
+                "description": "Do A POI quest service",
+                "id": 123,
+                "name": "POI quest service",
+                "updateTime": 1556924566404,
+              }
+            }
+          />
         </div>
       </div>
     </td>
@@ -55,11 +61,17 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
     <td
       className="d-none d-md-table-cell"
     >
-      <span
-        className="badge badge-primary badge-pill"
-      >
-        0
-      </span>
+      <Component
+        task={
+          Object {
+            "creationTime": 1556924666404,
+            "description": "Do A POI quest service",
+            "id": 123,
+            "name": "POI quest service",
+            "updateTime": 1556924566404,
+          }
+        }
+      />
     </td>
   </tr>
 </Fragment>

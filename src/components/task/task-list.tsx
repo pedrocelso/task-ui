@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {isEmpty, isNil, map} from 'ramda'
+import {map} from 'ramda'
 
 import { deauthenticate } from '../login/login-actions'
 import { TaskService, Task } from '../../services/task';

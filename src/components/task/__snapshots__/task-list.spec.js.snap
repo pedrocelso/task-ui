@@ -34,6 +34,11 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
   <tbody>
     <TaskItem
       key="10"
+      service={
+        Object {
+          "getTasks": [Function],
+        }
+      }
       task={
         Object {
           "description": "test@test.com",
@@ -44,6 +49,11 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
     />
     <TaskItem
       key="11"
+      service={
+        Object {
+          "getTasks": [Function],
+        }
+      }
       task={
         Object {
           "description": "test1@test.com",

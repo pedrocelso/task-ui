@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone'
 import { Task, TaskService } from '../../services/task';
+import IncidentPill from '../incident/incident-pill';
 
 interface TaskItemProps {
   task: Task;
@@ -13,28 +14,9 @@ export const formatTime = (time: number): string => {
 }
 
 export class TaskItem extends Component<TaskItemProps> {
-  getIncidents(taskId: number) {
-    return () => {
-      const {service} = this.props
-      service.getIncidents(taskId)
-        .fork(
-          (e) => {
-            console.error(e)
-            // if (e.statusCode === 401) {
-            //   this.props.deauthenticate();
-            //   sessionStorage.removeItem(`jwtToken`)
-            // }
-          },
-          (incidentList) => {
-            console.log(incidentList)
-          }
-        )
-    }
-  }
-
   render() {
-    const {task} = this.props
-    const badgePill = (<span className="badge badge-primary badge-pill" onClick={this.getIncidents(task.id)}>{task.incidentsCount}</span>)
+    const {service, task} = this.props
+    const badgePill = (<IncidentPill task={task} service={service} />)
 
     return (
       <React.Fragment>

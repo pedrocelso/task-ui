@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<IncidentPill /> Should render the loading icon when service is loading 1`] = `
+<div
+  className="spinner-border"
+  role="status"
+>
+  <span
+    className="sr-only"
+  >
+    Loading...
+  </span>
+</div>
+`;
+
+exports[`<IncidentPill /> Should render the pill with the right incident count 1`] = `
+<span
+  className="badge badge-primary badge-pill cursor-pointer"
+  onClick={[Function]}
+>
+  55
+</span>
+`;

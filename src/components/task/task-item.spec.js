@@ -1,5 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme'
+import sinon from 'sinon'
 
 import {formatTime, TaskItem} from './task-item'
 
@@ -13,6 +14,9 @@ const baseTask = {
 
 describe(`<TaskItem />`, () => {
   it(`Should render the task without errors`, () => {
+    const service = {
+      getTasks: sinon.fake()
+    }
     const component = shallow(
       <TaskItem task={baseTask}/>,
     );
