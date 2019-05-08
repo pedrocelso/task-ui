@@ -4,7 +4,7 @@ import {map} from 'ramda'
 
 import { deauthenticate } from '../login/login-actions'
 import { TaskService, Task } from '../../services/task';
-import { TaskItem } from './task-item'
+import TaskItem from './task-item'
 import './task-list.scss'
 
 interface TaskProps {

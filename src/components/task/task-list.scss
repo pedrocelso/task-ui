@@ -2,6 +2,21 @@
   border-top: none !important;
 }
 
+.card {
+  margin: 0 !important;
+  &__grid {
+    padding: 0.5rem;
+    &-center {
+      align-self: center
+    }
+    
+    &__pill {
+      margin: auto;
+      display: block !important;
+    }
+  }
+}
+
 @media (min-width: 768px) {
   #d-md-table-header-group {
     display: table-header-group !important;

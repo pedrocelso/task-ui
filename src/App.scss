@@ -1,7 +1,17 @@
 body {
-  background-color: #DCDCDC;
+  background-color: #F5F5F5 !important;
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.content {
+  background-color: #F5F5F5;
+  height: stretch;
+  min-width: fit-content;
+}
+
+.paper-content {
+  margin: 2vh 4vw;
 }

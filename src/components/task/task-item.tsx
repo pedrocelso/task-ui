@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import moment from 'moment-timezone'
 import { Incident, Task, TaskService } from '../../services/task';
-import IncidentPill from '../incident/incident-pill';
+import { deauthenticate } from '../login/login-actions'
+import { Grid, Paper, Typography, LinearProgress } from '@material-ui/core';
 
 interface TaskItemProps {
+  deauthenticate: typeof deauthenticate
   task: Task;
   service: TaskService;
 }
 
 interface TaskItemState {
+  loadingIncidents: boolean
   incidents: Incident[]
 }
 
@@ -19,34 +23,65 @@ export const formatTime = (time: number): string => {
 
 export class TaskItem extends Component<TaskItemProps, TaskItemState> {
   state = {
-    incidents: []
+    incidents: [],
+    loadingIncidents: false
   }
 
-  incidentsLoadedHandler() {
-    return (incidentList: Incident[]) => {
-      this.setState({incidents: incidentList})
+  loadIncidents() {
+    return () => {
+      const {deauthenticate, service, task} = this.props
+      this.setState({loadingIncidents: true})
+      service.getIncidents(task.id)
+        .fork(
+          (e) => {
+            this.setState({loadingIncidents: false})
+            if (e.statusCode === 401) {
+              deauthenticate();
+              sessionStorage.removeItem(`jwtToken`)
+            }
+          },
+          (incidentList) => {
+            this.setState({loadingIncidents: false})
+            this.setState({incidents: incidentList})
+          }
+        )
     }
   }
 
   render() {
-    const {service, task} = this.props
-    const badgePill = (<IncidentPill task={task} service={service} handler={this.incidentsLoadedHandler()}/>)
+    const {task} = this.props
+    const {loadingIncidents} = this.state
+    const badgePill = loadingIncidents ? (
+      <LinearProgress variant="indeterminate" />
+    ) : (
+      <span className="badge badge-primary badge-pill cursor-pointer card__grid__pill" onClick={this.loadIncidents()}>
+        {task.incidentsCount}
+      </span>
+    )
 
     return (
       <React.Fragment>
         <tr>
           <td className="d-md-none d-table-cell">
-            <div className="card">
-              <div className="card-body">
-                <strong className="card-title">{task.name}</strong>
-                <p className="card-text">
-                  {task.description}<br />
-                  {formatTime(task.creationTime)}<br />
-                  {formatTime(task.updateTime)}<br />
-                </p>
-                {badgePill}
-              </div>
-            </div>
+            <Paper className="card paper-content" elevation={2}>
+              <Grid container className="card__grid">
+                <Grid item xs={10} sm container>
+                  <Grid item xs container direction="column">
+                    <Grid item xs>
+                      <Typography gutterBottom variant="subtitle1">
+                        {task.name}
+                      </Typography>
+                      <Typography gutterBottom noWrap>{task.description}</Typography>
+                      <Typography color="textSecondary">Created: {formatTime(task.creationTime)}</Typography>
+                      <Typography color="textSecondary">Updated: {formatTime(task.updateTime)}</Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={2} className="card__grid-center">
+                  {badgePill}
+                </Grid>
+              </Grid>
+            </Paper>
           </td>
           <td className="d-none d-md-table-cell">{task.name} - {task.description}</td>
           <td className="d-none d-md-table-cell">{formatTime(task.creationTime)}</td>
@@ -57,3 +92,6 @@ export class TaskItem extends Component<TaskItemProps, TaskItemState> {
     )
   }
 }
+
+const mapDispatchToProps = { deauthenticate }
+export default connect(null, mapDispatchToProps)(TaskItem)
