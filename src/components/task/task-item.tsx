@@ -34,10 +34,11 @@ export class TaskItem extends Component<TaskItemProps, TaskItemState> {
       service.getIncidents(task.id)
         .fork(
           (e) => {
-            this.setState({loadingIncidents: false})
             if (e.statusCode === 401) {
               deauthenticate();
               sessionStorage.removeItem(`jwtToken`)
+            } else {
+              this.setState({loadingIncidents: false})
             }
           },
           (incidentList) => {
