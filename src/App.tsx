@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 
@@ -67,14 +67,20 @@ class App extends Component<AppProps> {
     const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, token);
     const userService = new UserService(api);
     const taskService = new TaskService(api);
+
+    const paperWrapper = (el: JSX.Element): JSX.Element => (
+      <Paper className="paper-content" elevation={1}>
+        {el}
+      </Paper>
+    )
     
     const privateRoutes = [
-      (<Route key="Tasks" path="/tasks" render={() =><TaskList service={taskService} />} />),
-      (<Route key="Users" path="/users" render={() =><UserList service={userService} />} />),
+      (<Route key="Tasks" path="/tasks" render={() => paperWrapper(<TaskList service={taskService} />)} />),
+      (<Route key="Users" path="/users" render={() => paperWrapper(<UserList service={userService} />)} />),
       (<Route key="Logout" path="/logout" render={() => {
         this.props.deauthenticate();
         sessionStorage.removeItem(`jwtToken`)
-        return (
+        return paperWrapper(
           <Typography variant="h6" color="inherit">
             You have been logged out
           </Typography>
@@ -83,7 +89,7 @@ class App extends Component<AppProps> {
     ]
 
     const content = authenticated ? (
-      <div>
+      <div className="content">
         {
           map((r: JSX.Element) => r, privateRoutes)
         }

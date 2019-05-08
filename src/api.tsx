@@ -18,6 +18,7 @@ export interface ResponseError {
 export const Endpoints = {
   USERS: `users/`,
   TASKS: `tasks/`,
+  INCIDENT: (taskID: string | number) => `task/${taskID}/incidents/`,
   PUBLIC: `public/`
 }
 

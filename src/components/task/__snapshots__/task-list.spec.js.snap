@@ -32,8 +32,13 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
     </tr>
   </thead>
   <tbody>
-    <TaskItem
+    <Component
       key="10"
+      service={
+        Object {
+          "getTasks": [Function],
+        }
+      }
       task={
         Object {
           "description": "test@test.com",
@@ -42,8 +47,13 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
         }
       }
     />
-    <TaskItem
+    <Component
       key="11"
+      service={
+        Object {
+          "getTasks": [Function],
+        }
+      }
       task={
         Object {
           "description": "test1@test.com",

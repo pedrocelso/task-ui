@@ -6,34 +6,69 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
     <td
       className="d-md-none d-table-cell"
     >
-      <div
-        className="card"
+      <WithStyles(Paper)
+        className="card paper-content"
+        elevation={2}
       >
-        <div
-          className="card-body"
+        <WithStyles(Grid)
+          className="card__grid"
+          container={true}
         >
-          <strong
-            className="card-title"
+          <WithStyles(Grid)
+            container={true}
+            item={true}
+            sm={true}
+            xs={10}
           >
-            POI quest service
-          </strong>
-          <p
-            className="card-text"
+            <WithStyles(Grid)
+              container={true}
+              direction="column"
+              item={true}
+              xs={true}
+            >
+              <WithStyles(Grid)
+                item={true}
+                xs={true}
+              >
+                <WithStyles(Typography)
+                  gutterBottom={true}
+                  variant="subtitle1"
+                >
+                  POI quest service
+                </WithStyles(Typography)>
+                <WithStyles(Typography)
+                  gutterBottom={true}
+                  noWrap={true}
+                >
+                  Do A POI quest service
+                </WithStyles(Typography)>
+                <WithStyles(Typography)
+                  color="textSecondary"
+                >
+                  Created: 
+                  2019/05/03, 4:04:26 pm
+                </WithStyles(Typography)>
+                <WithStyles(Typography)
+                  color="textSecondary"
+                >
+                  Updated: 
+                  2019/05/03, 4:02:46 pm
+                </WithStyles(Typography)>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>
+          </WithStyles(Grid)>
+          <WithStyles(Grid)
+            className="card__grid-center"
+            item={true}
+            xs={2}
           >
-            Do A POI quest service
-            <br />
-            2019/05/03, 4:04:26 pm
-            <br />
-            2019/05/03, 4:02:46 pm
-            <br />
-          </p>
-          <span
-            className="badge badge-primary badge-pill"
-          >
-            0
-          </span>
-        </div>
-      </div>
+            <span
+              className="badge badge-primary badge-pill cursor-pointer card__grid__pill"
+              onClick={[Function]}
+            />
+          </WithStyles(Grid)>
+        </WithStyles(Grid)>
+      </WithStyles(Paper)>
     </td>
     <td
       className="d-none d-md-table-cell"
@@ -56,10 +91,9 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
       className="d-none d-md-table-cell"
     >
       <span
-        className="badge badge-primary badge-pill"
-      >
-        0
-      </span>
+        className="badge badge-primary badge-pill cursor-pointer card__grid__pill"
+        onClick={[Function]}
+      />
     </td>
   </tr>
 </Fragment>

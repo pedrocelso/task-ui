@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {isEmpty, isNil, map} from 'ramda'
+import {map} from 'ramda'
 
 import { deauthenticate } from '../login/login-actions'
 import { TaskService, Task } from '../../services/task';
-import { TaskItem } from './task-item'
+import TaskItem from './task-item'
 import './task-list.scss'
 
 interface TaskProps {
@@ -53,7 +53,7 @@ export class TaskList extends Component<TaskProps, TaskState> {
           </tr>
         </thead>
         <tbody>
-          {map((t) => (<TaskItem task={t} key={t.id}/>), taskList)}
+          {map((t) => (<TaskItem task={t} key={t.id} service={this.props.service} />), taskList)}
         </tbody>
       </table>
     )
