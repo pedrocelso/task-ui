@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { deauthenticate } from '../login/login-actions'
-import { Task, TaskService } from '../../services/task';
+import { Incident, Task, TaskService } from '../../services/task';
 
 interface IncidentPillProps {
   task: Task;
   service: TaskService;
+  handler: (incidents: Incident[]) => void
   deauthenticate: typeof deauthenticate
 }
 
@@ -20,8 +21,8 @@ export class IncidentPill extends Component<IncidentPillProps, IncidentPillState
   
   getIncidents(taskId: number) {
     return () => {
+      const {handler, service} = this.props
       this.setState({loading: true})
-      const {service} = this.props
       service.getIncidents(taskId)
         .fork(
           (e) => {
@@ -34,6 +35,7 @@ export class IncidentPill extends Component<IncidentPillProps, IncidentPillState
           (incidentList) => {
             this.setState({loading: false})
             console.log(incidentList)
+            handler(incidentList)
           }
         )
     }

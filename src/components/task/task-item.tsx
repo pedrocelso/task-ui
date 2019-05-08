@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone'
-import { Task, TaskService } from '../../services/task';
+import { Incident, Task, TaskService } from '../../services/task';
 import IncidentPill from '../incident/incident-pill';
 
 interface TaskItemProps {
@@ -8,15 +8,29 @@ interface TaskItemProps {
   service: TaskService;
 }
 
+interface TaskItemState {
+  incidents: Incident[]
+}
+
 export const formatTime = (time: number): string => {
   const date = new Date(time)
   return time ? moment(date, moment.tz.guess()).format("YYYY/MM/DD, h:mm:ss a") : `n/a`
 }
 
-export class TaskItem extends Component<TaskItemProps> {
+export class TaskItem extends Component<TaskItemProps, TaskItemState> {
+  state = {
+    incidents: []
+  }
+
+  incidentsLoadedHandler() {
+    return (incidentList: Incident[]) => {
+      this.setState({incidents: incidentList})
+    }
+  }
+
   render() {
     const {service, task} = this.props
-    const badgePill = (<IncidentPill task={task} service={service} />)
+    const badgePill = (<IncidentPill task={task} service={service} handler={this.incidentsLoadedHandler()}/>)
 
     return (
       <React.Fragment>
