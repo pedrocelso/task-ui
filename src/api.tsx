@@ -23,38 +23,38 @@ export const Endpoints = {
 }
 
 export class ApiClient implements ApiClient {
-    options: request.Options;
+  options: request.Options;
 
-    constructor(apiBaseUrl: string, jwtToken: string) {
-        this.options = {
-          baseUrl: apiBaseUrl,
-          uri: ``,
-          withCredentials: false,
-          removeRefererHeader: true,
-          followAllRedirects: true,
-          resolveWithFullResponse: true,
-          headers: !!jwtToken ? {
-              'Access-Control-Allow-Origin': `*`,
-              'Authorization': `Bearer ${jwtToken}`
-          } : {
-            'Access-Control-Allow-Origin': `*`
-          },
-        }
+  constructor(apiBaseUrl: string, jwtToken: string) {
+    this.options = {
+      baseUrl: apiBaseUrl,
+      uri: ``,
+      withCredentials: false,
+      removeRefererHeader: true,
+      followAllRedirects: true,
+      resolveWithFullResponse: true,
+      headers: !!jwtToken ? {
+        'Access-Control-Allow-Origin': `*`,
+        'Authorization': `Bearer ${jwtToken}`
+      } : {
+          'Access-Control-Allow-Origin': `*`
+        },
     }
+  }
 
-    get<T, P>(endpoint: string, options?: request.Options): FutureInstance<T, P> {
-      return Future<T, P>((rej, res) => request({...this.options, baseUrl: `${this.options.baseUrl}${endpoint}`, ...options})
-        .then(res)
-        .catch(rej)
-        .done()
-      )
-    }
+  get<T, P>(endpoint: string, options?: request.Options): FutureInstance<T, P> {
+    return Future<T, P>((rej, res) => request({ ...this.options, baseUrl: `${this.options.baseUrl}${endpoint}`, ...options })
+      .then(res)
+      .catch(rej)
+      .done()
+    )
+  }
 
-    post<T, P>(endpoint: string, options: request.Options): FutureInstance<T, P> {
-      return Future<T, P>((rej, res) => request.post({...this.options, baseUrl: `${this.options.baseUrl}${endpoint}`, ...options})
-        .then(res)
-        .catch(rej)
-        .done()
-      )
-    }
+  post<T, P>(endpoint: string, options: request.Options): FutureInstance<T, P> {
+    return Future<T, P>((rej, res) => request.post({ ...this.options, baseUrl: `${this.options.baseUrl}${endpoint}`, ...options })
+      .then(res)
+      .catch(rej)
+      .done()
+    )
+  }
 }

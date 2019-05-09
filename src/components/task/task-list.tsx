@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {map} from 'ramda'
+import { map } from 'ramda'
 
 import { deauthenticate } from '../login/login-actions'
 import { TaskService, Task } from '../../services/task';
@@ -19,11 +19,11 @@ interface TaskState {
 export class TaskList extends Component<TaskProps, TaskState> {
   constructor(props: TaskProps) {
     super(props)
-    this.state = {taskList: []}
+    this.state = { taskList: [] }
   }
 
-  componentWillMount() {
-    const {service} = this.props
+  componentDidMount() {
+    const { service } = this.props
     service.getTasks()
       .fork(
         (e) => {
@@ -33,14 +33,14 @@ export class TaskList extends Component<TaskProps, TaskState> {
           }
         },
         (taskList) => {
-          this.setState({taskList})
+          this.setState({ taskList })
         }
       )
   }
 
   render() {
-    const {state} = this
-    const {taskList} = state
+    const { state } = this
+    const { taskList } = state
 
     return (
       <table className="table">

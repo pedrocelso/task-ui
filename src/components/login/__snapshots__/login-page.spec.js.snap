@@ -6,6 +6,9 @@ exports[`<LoginPage /> Should render without errors 1`] = `
   id="myModal"
 >
   <div
+    className="loading-bar"
+  />
+  <div
     className="modal-dialog modal-login"
   >
     <div

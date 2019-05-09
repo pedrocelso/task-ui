@@ -29,8 +29,8 @@ export class TaskItem extends Component<TaskItemProps, TaskItemState> {
 
   loadIncidents() {
     return () => {
-      const {deauthenticate, service, task} = this.props
-      this.setState({loadingIncidents: true})
+      const { deauthenticate, service, task } = this.props
+      this.setState({ loadingIncidents: true })
       service.getIncidents(task.id)
         .fork(
           (e) => {
@@ -38,27 +38,27 @@ export class TaskItem extends Component<TaskItemProps, TaskItemState> {
               deauthenticate();
               sessionStorage.removeItem(`jwtToken`)
             } else {
-              this.setState({loadingIncidents: false})
+              this.setState({ loadingIncidents: false })
             }
           },
           (incidentList) => {
-            this.setState({loadingIncidents: false})
-            this.setState({incidents: incidentList})
+            this.setState({ loadingIncidents: false })
+            this.setState({ incidents: incidentList })
           }
         )
     }
   }
 
   render() {
-    const {task} = this.props
-    const {loadingIncidents} = this.state
+    const { task } = this.props
+    const { loadingIncidents } = this.state
     const badgePill = loadingIncidents ? (
       <LinearProgress variant="indeterminate" />
     ) : (
-      <span className="badge badge-primary badge-pill cursor-pointer card__grid__pill" onClick={this.loadIncidents()}>
-        {task.incidentsCount}
-      </span>
-    )
+        <span className="badge badge-primary badge-pill cursor-pointer card__grid__pill" onClick={this.loadIncidents()}>
+          {task.incidentsCount}
+        </span>
+      )
 
     return (
       <React.Fragment>
