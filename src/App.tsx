@@ -2,12 +2,12 @@ import dotenv from 'dotenv'
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Paper, Typography } from '@material-ui/core';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Paper } from '@material-ui/core';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 
 import { AppState } from './App-store'
-import {ApiClient} from './api'
+import { ApiClient } from './api'
 import LoginPage from './components/login/login-page'
 import { authenticate, deauthenticate } from './components/login/login-actions'
 import TaskList from './components/task/task-list'
@@ -16,7 +16,7 @@ import NavBar from './components/navbar'
 import { UserService } from './services/user'
 import './App.scss';
 import { TaskService } from './services/task';
-import {isEmpty, isNil, map} from 'ramda';
+import { isEmpty, isNil, map } from 'ramda';
 import { LoginState } from './components/login/login-types';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,7 +24,6 @@ import 'bootstrap/scss/bootstrap.scss';
 
 dotenv.config();
 
-const redirect = (path: string) => () => document.location.pathname = path
 const isValidToken = (token: string) => !isNil(token) && !isEmpty(token)
 const muiTheme = createMuiTheme({
   palette: {
@@ -53,7 +52,7 @@ interface AppProps {
 }
 
 class App extends Component<AppProps> {
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.login.authenticated) {
       const token = sessionStorage.getItem(`jwtToken`) as string;
       if (isValidToken(token)) {
@@ -63,7 +62,7 @@ class App extends Component<AppProps> {
   }
 
   render() {
-    const {authenticated, token} = this.props.login
+    const { authenticated, token } = this.props.login
     const api = new ApiClient(process.env.REACT_APP_SERVER_BASE_URL as string, token);
     const userService = new UserService(api);
     const taskService = new TaskService(api);
@@ -73,17 +72,15 @@ class App extends Component<AppProps> {
         {el}
       </Paper>
     )
-    
+
     const privateRoutes = [
       (<Route key="Tasks" path="/tasks" render={() => paperWrapper(<TaskList service={taskService} />)} />),
       (<Route key="Users" path="/users" render={() => paperWrapper(<UserList service={userService} />)} />),
       (<Route key="Logout" path="/logout" render={() => {
         this.props.deauthenticate();
         sessionStorage.removeItem(`jwtToken`)
-        return paperWrapper(
-          <Typography variant="h6" color="inherit">
-            You have been logged out
-          </Typography>
+        return (
+          <Redirect to="/" />
         )
       }} />)
     ]
@@ -94,7 +91,7 @@ class App extends Component<AppProps> {
           map((r: JSX.Element) => r, privateRoutes)
         }
       </div>
-    ) : <LoginPage redirect={redirect(`/tasks`)} service={userService} />
+    ) : <LoginPage service={userService} />
 
     return (
       <div>

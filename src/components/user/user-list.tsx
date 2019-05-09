@@ -18,7 +18,7 @@ class UserList extends Component<UserProps, UserState> {
     this.state = {userList: []}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const {service} = this.props
     service.getUsers()
       .fork(
