@@ -14,6 +14,9 @@
 }
 
 .incident {
-  width: stretch;
-  min-width: fit-content;
+  padding: 0 !important;
+  &__paper {
+      width: stretch;
+      min-width: fit-content;
+    }
 }

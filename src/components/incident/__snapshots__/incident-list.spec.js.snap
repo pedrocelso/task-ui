@@ -1,71 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<TaskItem /> Should render the task with no incidents without errors 1`] = `
-<WithStyles(ExpansionPanel)>
-  <WithStyles(ExpansionPanelSummary)
-    onClick={[Function]}
-  >
-    <WithStyles(Grid)
-      className="card__grid"
-      container={true}
-    >
-      <WithStyles(Grid)
-        container={true}
-        item={true}
-        sm={true}
-        xs={10}
-      >
-        <WithStyles(Grid)
-          container={true}
-          direction="column"
-          item={true}
-          xs={true}
-        >
-          <WithStyles(Grid)
-            item={true}
-            xs={true}
-          >
-            <WithStyles(Typography)
-              gutterBottom={true}
-              variant="subtitle1"
-            >
-              POI quest service
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
-              className="d-none d-lg-block"
-              gutterBottom={true}
-            >
-              Do A POI quest service
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
-              color="textSecondary"
-            >
-              Created: 
-              2019/05/03, 4:04:26 pm
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
-              color="textSecondary"
-            >
-              Updated: 
-              2019/05/03, 4:02:46 pm
-            </WithStyles(Typography)>
-          </WithStyles(Grid)>
-        </WithStyles(Grid)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
-        className="card__grid-center"
-        item={true}
-        xs={1}
-      />
-    </WithStyles(Grid)>
-  </WithStyles(ExpansionPanelSummary)>
-</WithStyles(ExpansionPanel)>
+exports[`<IncidentList /> Should render an empty list 1`] = `
+<div
+  className="incident__paper"
+/>
 `;
 
-exports[`<TaskItem /> Should render the task without errors 1`] = `
-<WithStyles(ExpansionPanel)>
-  <WithStyles(ExpansionPanelSummary)
-    onClick={[Function]}
+exports[`<IncidentList /> Should render the list 1`] = `
+<div
+  className="incident__paper"
+>
+  <WithStyles(Paper)
+    elevation={2}
+    key="10"
+    square={true}
   >
     <WithStyles(Grid)
       className="card__grid"
@@ -75,7 +23,7 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
         container={true}
         item={true}
         sm={true}
-        xs={10}
+        xs={12}
       >
         <WithStyles(Grid)
           container={true}
@@ -91,19 +39,13 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
               gutterBottom={true}
               variant="subtitle1"
             >
-              POI quest service
+              test
             </WithStyles(Typography)>
             <WithStyles(Typography)
               className="d-none d-lg-block"
               gutterBottom={true}
             >
-              Do A POI quest service
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
-              color="textSecondary"
-            >
-              Total Incidents: 
-              1
+              test@test.com
             </WithStyles(Typography)>
             <WithStyles(Typography)
               color="textSecondary"
@@ -120,18 +62,61 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
           </WithStyles(Grid)>
         </WithStyles(Grid)>
       </WithStyles(Grid)>
+    </WithStyles(Grid)>
+  </WithStyles(Paper)>
+  <WithStyles(Paper)
+    elevation={2}
+    key="11"
+    square={true}
+  >
+    <WithStyles(Grid)
+      className="card__grid"
+      container={true}
+    >
       <WithStyles(Grid)
-        className="card__grid-center"
+        container={true}
         item={true}
-        xs={1}
+        sm={true}
+        xs={12}
       >
-        <span
-          className="badge badge-primary badge-pill cursor-pointer card__grid__pill"
+        <WithStyles(Grid)
+          container={true}
+          direction="column"
+          item={true}
+          xs={true}
         >
-          1
-        </span>
+          <WithStyles(Grid)
+            item={true}
+            xs={true}
+          >
+            <WithStyles(Typography)
+              gutterBottom={true}
+              variant="subtitle1"
+            >
+              test1
+            </WithStyles(Typography)>
+            <WithStyles(Typography)
+              className="d-none d-lg-block"
+              gutterBottom={true}
+            >
+              test1@test.com
+            </WithStyles(Typography)>
+            <WithStyles(Typography)
+              color="textSecondary"
+            >
+              Created: 
+              2019/05/03, 4:04:26 pm
+            </WithStyles(Typography)>
+            <WithStyles(Typography)
+              color="textSecondary"
+            >
+              Updated: 
+              n/a
+            </WithStyles(Typography)>
+          </WithStyles(Grid)>
+        </WithStyles(Grid)>
       </WithStyles(Grid)>
     </WithStyles(Grid)>
-  </WithStyles(ExpansionPanelSummary)>
-</WithStyles(ExpansionPanel)>
+  </WithStyles(Paper)>
+</div>
 `;

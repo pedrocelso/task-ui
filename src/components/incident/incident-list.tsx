@@ -22,24 +22,26 @@ export class IncidentList extends Component<Props, {}> {
     const { incidentList } = this.props
 
     return (
-      <Paper elevation={1} className="incident">
+      <div className="incident__paper">
         {map((t) => (
-          <Grid container className="card__grid" key={t.id}>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column">
-                <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1">
-                    {t.name}
-                  </Typography>
-                  <Typography className="d-none d-lg-block" gutterBottom noWrap>{t.description}</Typography>
-                  <Typography color="textSecondary">Created: {formatTime(t.creationTime)}</Typography>
-                  <Typography color="textSecondary">Updated: {formatTime(t.updateTime)}</Typography>
+          <Paper elevation={2} square={true} key={t.id}>
+            <Grid container className="card__grid">
+              <Grid item xs={12} sm container>
+                <Grid item xs container direction="column">
+                  <Grid item xs>
+                    <Typography gutterBottom variant="subtitle1">
+                      {t.name}
+                    </Typography>
+                    <Typography className="d-none d-lg-block" gutterBottom>{t.description}</Typography>
+                    <Typography color="textSecondary">Created: {formatTime(t.creationTime)}</Typography>
+                    <Typography color="textSecondary">Updated: {formatTime(t.updateTime)}</Typography>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          </Paper>
         ), incidentList)}
-      </Paper>
+      </div>
     )
   }
 }
