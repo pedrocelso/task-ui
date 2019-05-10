@@ -1,7 +1,3 @@
-.table th, .table td {
-  border-top: none !important;
-}
-
 .card {
   margin: 0 !important;
   &__grid {
@@ -17,8 +13,10 @@
   }
 }
 
-@media (min-width: 768px) {
-  #d-md-table-header-group {
-    display: table-header-group !important;
-  }
+.incident {
+  padding: 0 !important;
+  &__paper {
+      width: stretch;
+      min-width: fit-content;
+    }
 }

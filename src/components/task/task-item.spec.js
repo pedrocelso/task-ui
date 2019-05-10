@@ -9,7 +9,8 @@ const baseTask = {
   name: `POI quest service`,
   description: `Do A POI quest service`,
   creationTime: 1556924666404,
-  updateTime: 1556924566404
+  updateTime: 1556924566404,
+  incidentsCount: 1
 }
 
 const deauthenticate = sinon.fake()
@@ -19,6 +20,19 @@ describe(`<TaskItem />`, () => {
     const service = sinon.fake()
     const component = shallow(
       <TaskItem task={baseTask} service={service} deauthenticate={deauthenticate} />,
+    );
+
+    expect(component).toMatchSnapshot();
+  });
+
+  it(`Should render the task with no incidents without errors`, () => {
+    const service = sinon.fake()
+    const task = {
+      ...baseTask,
+      incidentsCount: 0
+    }
+    const component = shallow(
+      <TaskItem task={task} service={service} deauthenticate={deauthenticate} />,
     );
 
     expect(component).toMatchSnapshot();
@@ -102,6 +116,29 @@ describe(`<TaskItem />`, () => {
     component.setState({loadingIncidents: true})
     component.instance().loadIncidents()();
     expect(deauthenticate.called).toBeFalsy()
+    expect(component.instance().state.loadingIncidents).toBeFalsy()
+  });
+
+  it(`Should not load anythong if task has no incidents`, () => {
+    const forkSpy = sinon.spy()
+    const service = {
+      getIncidents: (_) => ({
+        fork: forkSpy
+      })
+    }
+
+    const deauthenticate = sinon.spy()
+    const task = {
+      ...baseTask,
+      incidentsCount: 0
+    }
+
+    const component = shallow(
+      <TaskItem task={task} service={service} deauthenticate={deauthenticate} />,
+    );
+
+    component.instance().loadIncidents()();
+    expect(forkSpy.called).toBeFalsy()
     expect(component.instance().state.loadingIncidents).toBeFalsy()
   });
 });

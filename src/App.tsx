@@ -68,7 +68,7 @@ class App extends Component<AppProps> {
     const taskService = new TaskService(api);
 
     const paperWrapper = (el: JSX.Element): JSX.Element => (
-      <Paper className="paper-content" elevation={1}>
+      <Paper className="paper-content" elevation={0}>
         {el}
       </Paper>
     )

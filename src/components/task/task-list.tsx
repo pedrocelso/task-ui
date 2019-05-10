@@ -43,19 +43,9 @@ export class TaskList extends Component<TaskProps, TaskState> {
     const { taskList } = state
 
     return (
-      <table className="table">
-        <thead className="d-none" id="d-md-table-header-group">
-          <tr>
-            <th className="d-sm-none d-md-table-cell">Details</th>
-            <th className="d-sm-none d-md-table-cell">Created at</th>
-            <th className="d-sm-none d-md-table-cell">Updated at</th>
-            <th className="d-sm-none d-md-table-cell">Incidents</th>
-          </tr>
-        </thead>
-        <tbody>
-          {map((t) => (<TaskItem task={t} key={t.id} service={this.props.service} />), taskList)}
-        </tbody>
-      </table>
+      <div>
+        {map((t) => (<TaskItem task={t} key={t.id} service={this.props.service} />), taskList)}
+      </div>
     )
   }
 }
