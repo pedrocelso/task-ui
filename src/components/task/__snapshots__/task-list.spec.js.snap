@@ -1,102 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
-<table
-  className="table"
->
-  <thead
-    className="d-none"
-    id="d-md-table-header-group"
-  >
-    <tr>
-      <th
-        className="d-sm-none d-md-table-cell"
-      >
-        Details
-      </th>
-      <th
-        className="d-sm-none d-md-table-cell"
-      >
-        Created at
-      </th>
-      <th
-        className="d-sm-none d-md-table-cell"
-      >
-        Updated at
-      </th>
-      <th
-        className="d-sm-none d-md-table-cell"
-      >
-        Incidents
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <Component
-      key="10"
-      service={
-        Object {
-          "getTasks": [Function],
-        }
+<div>
+  <Component
+    key="10"
+    service={
+      Object {
+        "getTasks": [Function],
       }
-      task={
-        Object {
-          "description": "test@test.com",
-          "id": 10,
-          "name": "test",
-        }
+    }
+    task={
+      Object {
+        "description": "test@test.com",
+        "id": 10,
+        "name": "test",
       }
-    />
-    <Component
-      key="11"
-      service={
-        Object {
-          "getTasks": [Function],
-        }
+    }
+  />
+  <Component
+    key="11"
+    service={
+      Object {
+        "getTasks": [Function],
       }
-      task={
-        Object {
-          "description": "test1@test.com",
-          "id": 11,
-          "name": "test1",
-        }
+    }
+    task={
+      Object {
+        "description": "test1@test.com",
+        "id": 11,
+        "name": "test1",
       }
-    />
-  </tbody>
-</table>
+    }
+  />
+</div>
 `;
 
-exports[`<TaskList /> Should not display tasks if service returns an error 1`] = `
-<table
-  className="table"
->
-  <thead
-    className="d-none"
-    id="d-md-table-header-group"
-  >
-    <tr>
-      <th
-        className="d-sm-none d-md-table-cell"
-      >
-        Details
-      </th>
-      <th
-        className="d-sm-none d-md-table-cell"
-      >
-        Created at
-      </th>
-      <th
-        className="d-sm-none d-md-table-cell"
-      >
-        Updated at
-      </th>
-      <th
-        className="d-sm-none d-md-table-cell"
-      >
-        Incidents
-      </th>
-    </tr>
-  </thead>
-  <tbody />
-</table>
-`;
+exports[`<TaskList /> Should not display tasks if service returns an error 1`] = `<div />`;
