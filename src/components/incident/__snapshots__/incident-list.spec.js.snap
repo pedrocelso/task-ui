@@ -36,10 +36,12 @@ exports[`<IncidentList /> Should render the list 1`] = `
             xs={true}
           >
             <WithStyles(Typography)
+              color="default"
               gutterBottom={true}
               variant="subtitle1"
             >
               test
+               
             </WithStyles(Typography)>
             <WithStyles(Typography)
               className="d-none d-lg-block"
@@ -90,10 +92,17 @@ exports[`<IncidentList /> Should render the list 1`] = `
             xs={true}
           >
             <WithStyles(Typography)
+              color="error"
               gutterBottom={true}
               variant="subtitle1"
             >
               test1
+               
+              <span
+                className="badge badge-primary badge-pill"
+              >
+                Pending
+              </span>
             </WithStyles(Typography)>
             <WithStyles(Typography)
               className="d-none d-lg-block"

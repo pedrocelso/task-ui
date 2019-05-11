@@ -23,24 +23,32 @@ export class IncidentList extends Component<Props, {}> {
 
     return (
       <div className="incident__paper">
-        {map((t) => (
-          <Paper elevation={2} square={true} key={t.id}>
-            <Grid container className="card__grid">
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column">
-                  <Grid item xs>
-                    <Typography gutterBottom variant="subtitle1">
-                      {t.name}
-                    </Typography>
-                    <Typography className="d-none d-lg-block" gutterBottom>{t.description}</Typography>
-                    <Typography color="textSecondary">Created: {formatTime(t.creationTime)}</Typography>
-                    <Typography color="textSecondary">Updated: {formatTime(t.updateTime)}</Typography>
+        {map((t) => {
+          const pendingPill = (<span className="badge badge-primary badge-pill">Pending</span>)
+          const isPending = t.status === 1
+          const nameEl = (
+            <Typography gutterBottom variant="subtitle1" color={isPending ? `error` : `default`}>
+              {t.name} {isPending ? pendingPill : null }
+            </Typography>
+          )
+
+          return (
+            <Paper elevation={2} square={true} key={t.id}>
+              <Grid container className="card__grid">
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column">
+                    <Grid item xs>
+                      {nameEl}
+                      <Typography className="d-none d-lg-block" gutterBottom>{t.description}</Typography>
+                      <Typography color="textSecondary">Created: {formatTime(t.creationTime)}</Typography>
+                      <Typography color="textSecondary">Updated: {formatTime(t.updateTime)}</Typography>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          </Paper>
-        ), incidentList)}
+            </Paper>
+          )
+        }, incidentList)}
       </div>
     )
   }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import moment from 'moment-timezone'
-import { Grid, Typography, LinearProgress, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Paper } from '@material-ui/core';
+import { Grid, Typography, LinearProgress, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Incident, Task, TaskService } from '../../services/task'
 import { deauthenticate } from '../login/login-actions'
 import IncidentList from '../incident/incident-list'
@@ -63,15 +64,15 @@ export class TaskItem extends Component<TaskItemProps, TaskItemState> {
       </ExpansionPanelDetails>
     ) : null
 
-    const incidentCount = task.incidentsCount && incidents.length === 0 ? (<span className="badge badge-primary badge-pill cursor-pointer card__grid__pill">
-        {task.incidentsCount}
+    const pendingIncidents = !!task.pendingIncidentsCount ? (<span className="badge badge-primary badge-pill cursor-pointer card__grid__pill">
+        {task.pendingIncidentsCount}
       </span>): null;
 
     const totalIncidents = task.incidentsCount ? (<Typography color="textSecondary">Total Incidents: {task.incidentsCount}</Typography>) : null
 
     return (
         <ExpansionPanel>
-          <ExpansionPanelSummary onClick={this.loadIncidents()}>
+          <ExpansionPanelSummary onClick={this.loadIncidents()} expandIcon={<ExpandMoreIcon />}>
             <Grid container className="card__grid">
               <Grid item xs={10} sm container>
                 <Grid item xs container direction="column">
@@ -87,7 +88,7 @@ export class TaskItem extends Component<TaskItemProps, TaskItemState> {
                 </Grid>
               </Grid>
               <Grid item xs={1} className="card__grid-center">
-                {incidentCount}
+                {pendingIncidents}
               </Grid>
             </Grid>
           </ExpansionPanelSummary>

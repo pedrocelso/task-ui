@@ -8,6 +8,7 @@ export interface Task {
   creationTime: number;
   updateTime: number;
   incidentsCount: number;
+  pendingIncidentsCount: number;
 }
 
 export interface Incident {
@@ -17,6 +18,7 @@ export interface Incident {
   description: string;
   creationTime: number;
   updateTime: number;
+  status: number;
 }
 
 export interface TaskService {

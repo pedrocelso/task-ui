@@ -3,6 +3,7 @@
 exports[`<TaskItem /> Should render the task with no incidents without errors 1`] = `
 <WithStyles(ExpansionPanel)>
   <WithStyles(ExpansionPanelSummary)
+    expandIcon={<pure(ExpandMoreIcon) />}
     onClick={[Function]}
   >
     <WithStyles(Grid)
@@ -65,6 +66,7 @@ exports[`<TaskItem /> Should render the task with no incidents without errors 1`
 exports[`<TaskItem /> Should render the task without errors 1`] = `
 <WithStyles(ExpansionPanel)>
   <WithStyles(ExpansionPanelSummary)
+    expandIcon={<pure(ExpandMoreIcon) />}
     onClick={[Function]}
   >
     <WithStyles(Grid)
