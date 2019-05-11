@@ -12,62 +12,6 @@ exports[`<IncidentList /> Should render the list 1`] = `
 >
   <WithStyles(Paper)
     elevation={2}
-    key="10"
-    square={true}
-  >
-    <WithStyles(Grid)
-      className="card__grid"
-      container={true}
-    >
-      <WithStyles(Grid)
-        container={true}
-        item={true}
-        sm={true}
-        xs={12}
-      >
-        <WithStyles(Grid)
-          container={true}
-          direction="column"
-          item={true}
-          xs={true}
-        >
-          <WithStyles(Grid)
-            item={true}
-            xs={true}
-          >
-            <WithStyles(Typography)
-              color="default"
-              gutterBottom={true}
-              variant="subtitle1"
-            >
-              test
-               
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
-              className="d-none d-lg-block"
-              gutterBottom={true}
-            >
-              test@test.com
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
-              color="textSecondary"
-            >
-              Created: 
-              2019/05/03, 4:04:26 pm
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
-              color="textSecondary"
-            >
-              Updated: 
-              2019/05/03, 4:02:46 pm
-            </WithStyles(Typography)>
-          </WithStyles(Grid)>
-        </WithStyles(Grid)>
-      </WithStyles(Grid)>
-    </WithStyles(Grid)>
-  </WithStyles(Paper)>
-  <WithStyles(Paper)
-    elevation={2}
     key="11"
     square={true}
   >
@@ -121,6 +65,62 @@ exports[`<IncidentList /> Should render the list 1`] = `
             >
               Updated: 
               n/a
+            </WithStyles(Typography)>
+          </WithStyles(Grid)>
+        </WithStyles(Grid)>
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+  </WithStyles(Paper)>
+  <WithStyles(Paper)
+    elevation={2}
+    key="10"
+    square={true}
+  >
+    <WithStyles(Grid)
+      className="card__grid"
+      container={true}
+    >
+      <WithStyles(Grid)
+        container={true}
+        item={true}
+        sm={true}
+        xs={12}
+      >
+        <WithStyles(Grid)
+          container={true}
+          direction="column"
+          item={true}
+          xs={true}
+        >
+          <WithStyles(Grid)
+            item={true}
+            xs={true}
+          >
+            <WithStyles(Typography)
+              color="default"
+              gutterBottom={true}
+              variant="subtitle1"
+            >
+              test
+               
+            </WithStyles(Typography)>
+            <WithStyles(Typography)
+              className="d-none d-lg-block"
+              gutterBottom={true}
+            >
+              test@test.com
+            </WithStyles(Typography)>
+            <WithStyles(Typography)
+              color="textSecondary"
+            >
+              Created: 
+              2019/05/03, 4:04:26 pm
+            </WithStyles(Typography)>
+            <WithStyles(Typography)
+              color="textSecondary"
+            >
+              Updated: 
+              2019/05/03, 4:02:46 pm
             </WithStyles(Typography)>
           </WithStyles(Grid)>
         </WithStyles(Grid)>

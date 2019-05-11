@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import moment from 'moment-timezone'
-import { map } from 'ramda'
+import { map, sort } from 'ramda'
 import { Grid, Typography, Paper } from '@material-ui/core';
 
 import { deauthenticate } from '../login/login-actions'
@@ -19,7 +19,8 @@ export const formatTime = (time: number): string => {
 
 export class IncidentList extends Component<Props, {}> {
   render() {
-    const { incidentList } = this.props
+    const sortIncidents = (a: Incident, b: Incident): number => b.status - a.status
+    const incidentList = sort(sortIncidents, this.props.incidentList)
 
     return (
       <div className="incident__paper">
