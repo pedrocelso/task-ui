@@ -10,7 +10,8 @@ const baseTask = {
   description: `Do A POI quest service`,
   creationTime: 1556924666404,
   updateTime: 1556924566404,
-  incidentsCount: 1
+  incidentsCount: 1,
+  pendingIncidentsCount: 1
 }
 
 const deauthenticate = sinon.fake()
@@ -29,7 +30,8 @@ describe(`<TaskItem />`, () => {
     const service = sinon.fake()
     const task = {
       ...baseTask,
-      incidentsCount: 0
+      incidentsCount: 0,
+      pendingIncidentsCount: 0
     }
     const component = shallow(
       <TaskItem task={task} service={service} deauthenticate={deauthenticate} />,
