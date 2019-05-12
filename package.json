@@ -51,7 +51,9 @@
       }
     },
     "coverageReporters": [
-      "text"
+      "text",
+      "lcov",
+      "html"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
