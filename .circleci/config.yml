@@ -23,7 +23,7 @@ jobs:
           command: yarn test
       - run:
           name: Upload code coverage
-          command: <(curl -s https://codecov.io/bash)
+          command: bash <(curl -s https://codecov.io/bash) || echo 'Codecov failed to upload'
       - store_artifacts:
           path: coverage
       - persist_to_workspace:
