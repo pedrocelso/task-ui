@@ -108,36 +108,38 @@ export class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
 
     const validData = this.validateForm()
 
-    const loadingbar = loading ? <LinearProgress variant="indeterminate" /> : null
+    const loadingbar = loading ? <LinearProgress className="loading-bar" variant="indeterminate" /> : null
 
     return (
-      <div className="modal__dialog">
-        <Grid container className="modal__grid" alignContent="center" spacing={16} direction="column">
-          {loadingbar}
-          <Grid item xs={10} container alignContent="center" direction="column">
-            <Typography variant="h4">Sign Up</Typography>
+      <div>
+        {loadingbar}
+        <div className="modal__dialog">
+          <Grid container className="modal__grid" alignContent="center" spacing={16} direction="column">
+            <Grid item xs={10} container alignContent="center" direction="column">
+              <Typography variant="h4">Sign Up</Typography>
+            </Grid>
+            <Grid item xs={10} container direction="row">
+              <input type="text" className="form-control" name="name" placeholder="Name" onChange={this.handleNameChange} />
+            </Grid>
+            <Grid item xs={10} container direction="row">
+              <input type="text" className={`form-control ${!isValidEmail(email) ? "is-invalid" : ""}`} name="email" placeholder="E-mail" onChange={this.handleEmailChange} />
+            </Grid>
+            <Grid item xs={10} container direction="row">
+              <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.handlePasswordChange} />
+            </Grid>
+            <Grid item xs={10} container direction="row">
+              <input type="password" className="form-control" name="passwordConfirmation" placeholder="Confirm Password" onChange={this.handlePasswordConfirmationChange} />
+            </Grid>
+            <Grid item xs={10} container direction="column">
+              <Button disabled={!validData} variant="contained" color="primary" onClick={this.signUp} className="btnSignUp">
+                Sign Up
+              </Button>
+            </Grid>
+            <Grid item xs={10} container alignContent="center" direction="column">
+              <Typography>Already registered? <Link to="/">Click here</Link></Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={10} container direction="row">
-            <input type="text" className="form-control" name="name" placeholder="Name" onChange={this.handleNameChange} />
-          </Grid>
-          <Grid item xs={10} container direction="row">
-            <input type="text" className={`form-control ${!isValidEmail(email) ? "is-invalid" : ""}`} name="email" placeholder="E-mail" onChange={this.handleEmailChange} />
-          </Grid>
-          <Grid item xs={10} container direction="row">
-            <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.handlePasswordChange} />
-          </Grid>
-          <Grid item xs={10} container direction="row">
-            <input type="password" className="form-control" name="passwordConfirmation" placeholder="Confirm Password" onChange={this.handlePasswordConfirmationChange} />
-          </Grid>
-          <Grid item xs={10} container direction="column">
-            <Button disabled={!validData} variant="contained" color="primary" onClick={this.signUp} className="btnSignUp">
-              Sign Up
-            </Button>
-          </Grid>
-          <Grid item xs={10} container alignContent="center" direction="column">
-            <Typography>Already registered? <Link to="/">Click here</Link></Typography>
-          </Grid>
-        </Grid>
+        </div>
       </div>
     )
   }

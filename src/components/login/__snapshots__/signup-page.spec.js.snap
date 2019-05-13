@@ -1,117 +1,119 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SignUpPage /> Should render without errors 1`] = `
-<div
-  className="modal__dialog"
->
-  <WithStyles(Grid)
-    alignContent="center"
-    className="modal__grid"
-    container={true}
-    direction="column"
-    spacing={16}
+<div>
+  <div
+    className="modal__dialog"
   >
     <WithStyles(Grid)
       alignContent="center"
+      className="modal__grid"
       container={true}
       direction="column"
-      item={true}
-      xs={10}
+      spacing={16}
     >
-      <WithStyles(Typography)
-        variant="h4"
+      <WithStyles(Grid)
+        alignContent="center"
+        container={true}
+        direction="column"
+        item={true}
+        xs={10}
       >
-        Sign Up
-      </WithStyles(Typography)>
-    </WithStyles(Grid)>
-    <WithStyles(Grid)
-      container={true}
-      direction="row"
-      item={true}
-      xs={10}
-    >
-      <input
-        className="form-control"
-        name="name"
-        onChange={[Function]}
-        placeholder="Name"
-        type="text"
-      />
-    </WithStyles(Grid)>
-    <WithStyles(Grid)
-      container={true}
-      direction="row"
-      item={true}
-      xs={10}
-    >
-      <input
-        className="form-control is-invalid"
-        name="email"
-        onChange={[Function]}
-        placeholder="E-mail"
-        type="text"
-      />
-    </WithStyles(Grid)>
-    <WithStyles(Grid)
-      container={true}
-      direction="row"
-      item={true}
-      xs={10}
-    >
-      <input
-        className="form-control"
-        name="password"
-        onChange={[Function]}
-        placeholder="Password"
-        type="password"
-      />
-    </WithStyles(Grid)>
-    <WithStyles(Grid)
-      container={true}
-      direction="row"
-      item={true}
-      xs={10}
-    >
-      <input
-        className="form-control"
-        name="passwordConfirmation"
-        onChange={[Function]}
-        placeholder="Confirm Password"
-        type="password"
-      />
-    </WithStyles(Grid)>
-    <WithStyles(Grid)
-      container={true}
-      direction="column"
-      item={true}
-      xs={10}
-    >
-      <WithStyles(Button)
-        className="btnSignUp"
-        color="primary"
-        disabled={true}
-        onClick={[Function]}
-        variant="contained"
-      >
-        Sign Up
-      </WithStyles(Button)>
-    </WithStyles(Grid)>
-    <WithStyles(Grid)
-      alignContent="center"
-      container={true}
-      direction="column"
-      item={true}
-      xs={10}
-    >
-      <WithStyles(Typography)>
-        Already registered? 
-        <Link
-          to="/"
+        <WithStyles(Typography)
+          variant="h4"
         >
-          Click here
-        </Link>
-      </WithStyles(Typography)>
+          Sign Up
+        </WithStyles(Typography)>
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        container={true}
+        direction="row"
+        item={true}
+        xs={10}
+      >
+        <input
+          className="form-control"
+          name="name"
+          onChange={[Function]}
+          placeholder="Name"
+          type="text"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        container={true}
+        direction="row"
+        item={true}
+        xs={10}
+      >
+        <input
+          className="form-control is-invalid"
+          name="email"
+          onChange={[Function]}
+          placeholder="E-mail"
+          type="text"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        container={true}
+        direction="row"
+        item={true}
+        xs={10}
+      >
+        <input
+          className="form-control"
+          name="password"
+          onChange={[Function]}
+          placeholder="Password"
+          type="password"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        container={true}
+        direction="row"
+        item={true}
+        xs={10}
+      >
+        <input
+          className="form-control"
+          name="passwordConfirmation"
+          onChange={[Function]}
+          placeholder="Confirm Password"
+          type="password"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        container={true}
+        direction="column"
+        item={true}
+        xs={10}
+      >
+        <WithStyles(Button)
+          className="btnSignUp"
+          color="primary"
+          disabled={true}
+          onClick={[Function]}
+          variant="contained"
+        >
+          Sign Up
+        </WithStyles(Button)>
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        alignContent="center"
+        container={true}
+        direction="column"
+        item={true}
+        xs={10}
+      >
+        <WithStyles(Typography)>
+          Already registered? 
+          <Link
+            to="/"
+          >
+            Click here
+          </Link>
+        </WithStyles(Typography)>
+      </WithStyles(Grid)>
     </WithStyles(Grid)>
-  </WithStyles(Grid)>
+  </div>
 </div>
 `;
