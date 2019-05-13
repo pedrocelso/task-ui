@@ -11,8 +11,8 @@ import {
   Typography
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import {Lock, LockOpen, Menu, People, Storage} from "@material-ui/icons";
-import {equals, find, findIndex, filter, insert, map, pathOr, pipe, startsWith} from 'ramda';
+import { Menu } from "@material-ui/icons";
+import { equals, find, findIndex, insert, map, pathOr, pipe, startsWith } from 'ramda';
 
 import './navbar.scss'
 import { AppState } from '../App-store';
@@ -22,51 +22,36 @@ export interface Item {
   path: string
   icon: JSX.Element
   private: boolean
+  route: JSX.Element
 }
 
 interface MenuProps {
-  authenticated: boolean
+  items?: Item[]
 }
 
 interface MenuState {
   drawerOpened: boolean
 }
 
-const menuItems: Item[] = [
-  {title: `Login`, path: `/login`, icon: (<Lock color="primary" />), private: false},
-  {title: `Users`, path: `/users`, icon: (<People color="primary" />), private: true},
-  {title: `Tasks`, path: `/tasks`, icon: (<Storage color="primary" />), private: true},
-  {title: `Logout`, path: `/logout`, icon: (<LockOpen color="primary" />), private: true}
-]
-
 export class NavBar extends Component<MenuProps, MenuState> {
-  constructor(props: any) {
+  constructor(props: MenuProps) {
     super(props)
-
-    this.state = {drawerOpened: false}
+    this.state = { drawerOpened: false }
   }
-  
+
   toggleDrawer = (flag: boolean): React.ReactEventHandler<{}> => () => {
-    this.setState({drawerOpened: flag});
+    this.setState({ drawerOpened: flag });
   }
 
   getTitle = (path: string) => {
     return pipe(
       find<Item>(item => startsWith(item.path, path)),
       pathOr(``, [`title`])
-    )(menuItems)
-  }
-
-  getMenuItems = (authenticated: boolean): Item[] => {
-    return filter<Item>((i: Item): boolean => {
-      return i.private === authenticated
-    }, menuItems)
+    )(this.props.items!)
   }
 
   render() {
-    const {drawerOpened} = this.state
-    const {authenticated} = this.props
-    const menuItems = this.getMenuItems(authenticated)
+    const { drawerOpened } = this.state
 
     const title = this.getTitle(document.location.pathname)
 
@@ -84,7 +69,7 @@ export class NavBar extends Component<MenuProps, MenuState> {
         </ListItem>
       )),
       divideList
-    )(menuItems)
+    )(this.props.items!)
 
     return (
       <div>
@@ -105,8 +90,3 @@ export class NavBar extends Component<MenuProps, MenuState> {
     );
   }
 }
-
-const mapStateToProps = (state: AppState) => ({
-  authenticated: state.login.authenticated
-})
-export default connect(mapStateToProps)(NavBar)

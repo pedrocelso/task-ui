@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify';
+import { LinearProgress, Typography, Grid, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom'
 import './login-page.scss'
 import { authenticate } from './login-actions'
 import { UserService } from '../../services/user'
-import { LinearProgress } from '@material-ui/core';
 
 interface LoginPageProps {
   authenticate: typeof authenticate
@@ -18,7 +19,7 @@ interface LoginPageState {
 }
 
 const emailRegexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-const isValidEmail = (email: string) => emailRegexp.test(email)
+export const isValidEmail = (email: string) => emailRegexp.test(email)
 const notify = (msg: string, feeling: number) => {
   switch (feeling) {
     case (-1):
@@ -46,7 +47,7 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
     this.setState({ password: value })
   }
 
-  redirect = () => {
+  login = () => {
     const { authenticate, service } = this.props
     const { email, password } = this.state
 
@@ -74,36 +75,31 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
   render() {
     const { email, loading } = this.state
 
-    const loadingbar = loading ? <LinearProgress variant="indeterminate" /> : null
+    const loadingbar = loading ? <LinearProgress className="loading-bar" variant="indeterminate" /> : null
 
     return (
-      <div id="myModal" className="">
-        <div className="loading-bar">
-          {loadingbar}
-        </div>
-        <div className="modal-dialog modal-login">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h4 className="modal-title">Sign In</h4>
-            </div>
-            <div className="modal-body">
-              <div className="form-group">
-                <div className="input-group">
-                  <span className="input-group-addon"><i className="fa fa-user"></i></span>
-                  <input type="text" className={`form-control ${!isValidEmail(email) ? "is-invalid" : ""}`} name="email" placeholder="E-mail" onChange={this.handleEmailChange} />
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="input-group">
-                  <span className="input-group-addon"><i className="fa fa-lock"></i></span>
-                  <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.handlePasswordChange} />
-                </div>
-              </div>
-              <div className="form-group">
-                <button type="button" className="btn btn-primary btn-block btn-lg" onClick={this.redirect}>Sign In</button>
-              </div>
-            </div>
-          </div>
+      <div>
+        {loadingbar}
+        <div className="modal__dialog">
+          <Grid container className="modal__grid" alignContent="center" spacing={16} direction="column">
+            <Grid item xs={10} container alignContent="center" direction="column">
+              <Typography variant="h4">Sign In</Typography>
+            </Grid>
+            <Grid item xs={10} container direction="row">
+              <input type="text" className={`form-control ${!isValidEmail(email) ? "is-invalid" : ""}`} name="email" placeholder="E-mail" onChange={this.handleEmailChange} />
+            </Grid>
+            <Grid item xs={10} container direction="row">
+              <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.handlePasswordChange} />
+            </Grid>
+            <Grid item xs={10} container direction="column">
+              <Button variant="contained" color="primary" onClick={this.login} className="btnLogin">
+                Sign In
+              </Button>
+            </Grid>
+            <Grid item xs={10} container alignContent="center" direction="column">
+              <Typography>Don't have an account? <Link to="/signup">Click here</Link></Typography>
+            </Grid>
+          </Grid>
         </div>
       </div>
     )

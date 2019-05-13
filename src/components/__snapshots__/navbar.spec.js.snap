@@ -92,7 +92,9 @@ exports[`<NavBar /> Should render without errors for unauthenticated users 1`] =
       <WithStyles(Typography)
         color="inherit"
         variant="h6"
-      />
+      >
+        Login
+      </WithStyles(Typography)>
     </WithStyles(Toolbar)>
   </WithStyles(AppBar)>
   <WithStyles(Drawer)
@@ -106,7 +108,7 @@ exports[`<NavBar /> Should render without errors for unauthenticated users 1`] =
       component={[Function]}
       key="Login"
       onClick={[Function]}
-      to="/login"
+      to="/"
     >
       <pure(LockIcon)
         color="primary"

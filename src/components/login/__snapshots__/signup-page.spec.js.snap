@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<LoginPage /> Should render without errors 1`] = `
+exports[`<SignUpPage /> Should render without errors 1`] = `
 <div>
   <div
     className="modal__dialog"
@@ -22,8 +22,22 @@ exports[`<LoginPage /> Should render without errors 1`] = `
         <WithStyles(Typography)
           variant="h4"
         >
-          Sign In
+          Sign Up
         </WithStyles(Typography)>
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        container={true}
+        direction="row"
+        item={true}
+        xs={10}
+      >
+        <input
+          className="form-control"
+          name="name"
+          onChange={[Function]}
+          placeholder="Name"
+          type="text"
+        />
       </WithStyles(Grid)>
       <WithStyles(Grid)
         container={true}
@@ -55,17 +69,32 @@ exports[`<LoginPage /> Should render without errors 1`] = `
       </WithStyles(Grid)>
       <WithStyles(Grid)
         container={true}
+        direction="row"
+        item={true}
+        xs={10}
+      >
+        <input
+          className="form-control"
+          name="passwordConfirmation"
+          onChange={[Function]}
+          placeholder="Confirm Password"
+          type="password"
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        container={true}
         direction="column"
         item={true}
         xs={10}
       >
         <WithStyles(Button)
-          className="btnLogin"
+          className="btnSignUp"
           color="primary"
+          disabled={true}
           onClick={[Function]}
           variant="contained"
         >
-          Sign In
+          Sign Up
         </WithStyles(Button)>
       </WithStyles(Grid)>
       <WithStyles(Grid)
@@ -76,9 +105,9 @@ exports[`<LoginPage /> Should render without errors 1`] = `
         xs={10}
       >
         <WithStyles(Typography)>
-          Don't have an account? 
+          Already registered? 
           <Link
-            to="/signup"
+            to="/"
           >
             Click here
           </Link>

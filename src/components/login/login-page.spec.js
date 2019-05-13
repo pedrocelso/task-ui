@@ -43,7 +43,7 @@ describe(`<LoginPage />`, () => {
     expect(wrapper.state().email).toEqual(`bororoska@test.com`)
   });
 
-  it(`.redirect() - valid state`, () => {
+  it(`.login() - valid state`, () => {
     const authenticate = sinon.spy()
 
     const props = {
@@ -55,11 +55,11 @@ describe(`<LoginPage />`, () => {
 
     wrapper.setState({ password: 'bar', email: 'foo@bar.com' });
 
-    wrapper.instance().redirect();
+    wrapper.instance().login();
     expect(authenticate.called).toBeTruthy();
   });
 
-  it(`.redirect() - invalid email`, () => {
+  it(`.login() - invalid email`, () => {
     const props = {
       ...baseProps,
       authenticate: sinon.spy()
@@ -68,11 +68,11 @@ describe(`<LoginPage />`, () => {
     const wrapper = shallow(<LoginPage {...props} />);
     wrapper.setState({ password: 'bar', email: 'foo@bar' });
 
-    wrapper.instance().redirect();
+    wrapper.instance().login();
     expect(props.authenticate.called).toBeFalsy();
   });
 
-  it(`.redirect() - empty email`, () => {
+  it(`.login() - empty email`, () => {
     const props = {
       ...baseProps,
       authenticate: sinon.spy()
@@ -81,11 +81,11 @@ describe(`<LoginPage />`, () => {
     const wrapper = shallow(<LoginPage {...props} />);
     wrapper.setState({ password: 'bar' });
 
-    wrapper.instance().redirect();
+    wrapper.instance().login();
     expect(props.authenticate.called).toBeFalsy();
   });
 
-  it(`.redirect() - empty name`, () => {
+  it(`.login() - empty name`, () => {
     const props = {
       ...baseProps,
       authenticate: sinon.spy()
@@ -94,7 +94,32 @@ describe(`<LoginPage />`, () => {
     const wrapper = shallow(<LoginPage {...props} />);
     wrapper.setState({ email: 'foo@bar.com' });
 
-    wrapper.instance().redirect();
+    wrapper.instance().login();
     expect(props.authenticate.called).toBeFalsy();
+  });
+
+  it(`.login() - bad response from server`, () => {
+    const authenticate = sinon.spy()
+    const service = {
+      authenticate: (_) => ({
+        fork: (rej, res) => {
+          rej({ statusCode: 401 })
+        }
+      })
+    }
+
+    const props = {
+      ...baseProps,
+      service,
+      authenticate
+    }
+
+    const wrapper = shallow(<LoginPage {...props} />);
+
+    wrapper.setState({ password: 'bar', email: 'foo@bar.com' });
+
+    wrapper.instance().login();
+    expect(wrapper.state().loading).toBeFalsy()
+    expect(authenticate.called).toBeFalsy();
   });
 });
