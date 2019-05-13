@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { Menu } from "@material-ui/icons";
-import { equals, find, findIndex, filter, insert, map, pathOr, pipe, startsWith } from 'ramda';
+import { equals, find, findIndex, insert, map, pathOr, pipe, startsWith } from 'ramda';
 
 import './navbar.scss'
 import { AppState } from '../App-store';
@@ -26,7 +26,6 @@ export interface Item {
 }
 
 interface MenuProps {
-  authenticated: boolean
   items?: Item[]
 }
 
@@ -53,7 +52,6 @@ export class NavBar extends Component<MenuProps, MenuState> {
 
   render() {
     const { drawerOpened } = this.state
-    const { authenticated } = this.props
 
     const title = this.getTitle(document.location.pathname)
 
@@ -92,8 +90,3 @@ export class NavBar extends Component<MenuProps, MenuState> {
     );
   }
 }
-
-const mapStateToProps = (state: AppState) => ({
-  authenticated: state.login.authenticated
-})
-export default connect(mapStateToProps)(NavBar)

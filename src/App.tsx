@@ -13,7 +13,7 @@ import LoginPage from './components/login/login-page'
 import { authenticate, deauthenticate } from './components/login/login-actions'
 import TaskList from './components/task/task-list'
 import UserList from './components/user/user-list'
-import NavBar, { Item } from './components/navbar'
+import { Item, NavBar } from './components/navbar'
 import { UserService } from './services/user'
 import './App.scss';
 import { TaskService } from './services/task';
