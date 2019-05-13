@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<LoginPage /> Should render without errors 1`] = `
-<div>
+<WithStyles(Paper)
+  elevation={0}
+  id="login"
+>
+  <div
+    className="loading-bar"
+  />
   <div
     className="modal__dialog"
   >
@@ -86,5 +92,5 @@ exports[`<LoginPage /> Should render without errors 1`] = `
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </div>
-</div>
+</WithStyles(Paper)>
 `;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import { equals } from 'ramda';
-import { LinearProgress, Typography, Grid, Button } from '@material-ui/core';
+import { LinearProgress, Typography, Grid, Button, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import { isValidEmail } from './login-page'
 import './login-page.scss'
@@ -111,8 +111,8 @@ export class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
     const loadingbar = loading ? <LinearProgress className="loading-bar" variant="indeterminate" /> : null
 
     return (
-      <div>
-        {loadingbar}
+      <Paper id="login" elevation={0}>
+        <div className="loading-bar">{loadingbar}</div>
         <div className="modal__dialog">
           <Grid container className="modal__grid" alignContent="center" spacing={16} direction="column">
             <Grid item xs={10} container alignContent="center" direction="column">
@@ -140,7 +140,7 @@ export class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
             </Grid>
           </Grid>
         </div>
-      </div>
+      </Paper>
     )
   }
 }
