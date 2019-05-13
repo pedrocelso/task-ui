@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify';
+import { LinearProgress, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom'
 import './login-page.scss'
 import { authenticate } from './login-actions'
 import { UserService } from '../../services/user'
-import { LinearProgress } from '@material-ui/core';
 
 interface LoginPageProps {
   authenticate: typeof authenticate
@@ -101,6 +102,9 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
               </div>
               <div className="form-group">
                 <button type="button" className="btn btn-primary btn-block btn-lg" onClick={this.login}>Sign In</button>
+              </div>
+              <div>
+                <Typography align="center">Don't have an account? <Link to="/signup">Click here</Link></Typography>
               </div>
             </div>
           </div>

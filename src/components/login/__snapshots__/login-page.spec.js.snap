@@ -81,6 +81,18 @@ exports[`<LoginPage /> Should render without errors 1`] = `
             Sign In
           </button>
         </div>
+        <div>
+          <WithStyles(Typography)
+            align="center"
+          >
+            Don't have an account? 
+            <Link
+              to="/signup"
+            >
+              Click here
+            </Link>
+          </WithStyles(Typography)>
+        </div>
       </div>
     </div>
   </div>

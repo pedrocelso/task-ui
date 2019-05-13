@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { Lock, LockOpen, People, Storage } from "@material-ui/icons";
 import { Paper } from '@material-ui/core';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
@@ -12,11 +13,11 @@ import LoginPage from './components/login/login-page'
 import { authenticate, deauthenticate } from './components/login/login-actions'
 import TaskList from './components/task/task-list'
 import UserList from './components/user/user-list'
-import NavBar from './components/navbar'
+import NavBar, { Item } from './components/navbar'
 import { UserService } from './services/user'
 import './App.scss';
 import { TaskService } from './services/task';
-import { isEmpty, isNil, map } from 'ramda';
+import { isEmpty, isNil, map, pipe, reject } from 'ramda';
 import { LoginState } from './components/login/login-types';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -73,31 +74,38 @@ class App extends Component<AppProps> {
       </Paper>
     )
 
-    const privateRoutes = [
-      (<Route key="Tasks" path="/tasks" render={() => paperWrapper(<TaskList service={taskService} />)} />),
-      (<Route key="Users" path="/users" render={() => paperWrapper(<UserList service={userService} />)} />),
-      (<Route key="Logout" path="/logout" render={() => {
-        this.props.deauthenticate();
-        sessionStorage.removeItem(`jwtToken`)
-        return (
-          <Redirect to="/" />
-        )
-      }} />)
+    const menuItems: Item[] = [
+      { title: `Login`, path: `/`, icon: (<Lock color="primary" />), private: false, route: (<Route key="Login" path="/" render={() => (<LoginPage service={userService} />)} />) },
+      { title: `Users`, path: `/users`, icon: (<People color="primary" />), private: true, route: (<Route key="Users" path="/users" render={() => paperWrapper(<UserList service={userService} />)} />) },
+      { title: `Tasks`, path: `/tasks`, icon: (<Storage color="primary" />), private: true, route: (<Route key="Tasks" path="/tasks" render={() => paperWrapper(<TaskList service={taskService} />)} />) },
+      {
+        title: `Logout`, path: `/logout`, icon: (<LockOpen color="primary" />), private: true, route: (<Route key="Logout" path="/logout" render={() => {
+          this.props.deauthenticate();
+          sessionStorage.removeItem(`jwtToken`)
+          return (
+            <Redirect to="/" />
+          )
+        }} />)
+      }
     ]
 
-    const content = authenticated ? (
+    const rejectRoutes = (i: Item) => authenticated ? !i.private : i.private
+
+    const filteredRoutes = reject(rejectRoutes, menuItems)
+
+    const content = (
       <div className="content">
         {
-          map((r: JSX.Element) => r, privateRoutes)
+          map((i) => i.route, filteredRoutes)
         }
       </div>
-    ) : <LoginPage service={userService} />
+    )
 
     return (
       <div>
         <MuiThemeProvider theme={muiTheme}>
           <Router>
-            <NavBar />
+            <NavBar items={filteredRoutes} />
             <ToastContainer
               position="top-center"
               autoClose={5000}
