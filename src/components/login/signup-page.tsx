@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 import { toast } from 'react-toastify';
 import { equals } from 'ramda';
 import { LinearProgress, Typography, Grid, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import { isValidEmail } from './login-page'
 import './login-page.scss'
-import { authenticate } from './login-actions'
 import { UserService } from '../../services/user'
 
 interface SignUpPageProps {
-  authenticate: typeof authenticate
   service: UserService;
 }
 
@@ -26,6 +23,10 @@ const notify = (msg: string, feeling: number) => {
   switch (feeling) {
     case (-1):
       toast.error(msg);
+      break;
+    case (1):
+      toast.success(msg);
+      break;
   }
 }
 
@@ -81,27 +82,25 @@ export class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
 
   signUp = () => {
     const { service } = this.props
-    const { email, password, passwordConfirmation, name } = this.state
+    const { email, password, name } = this.state
 
-    if (isValidEmail(email) && !!name && equals(password, passwordConfirmation)) {
-      this.setState({ loading: true })
-      service.authenticate({ email, password })
-        .fork(
-          (e) => {
-            this.setState({ loading: false })
-            if (e.statusCode === 401) {
-              notify(`Wrong email/password!`, -1)
-            }
-          },
-          ({ token }) => {
-            this.setState({ loading: false })
-            sessionStorage.setItem(`jwtToken`, token)
-            authenticate(token)
-          }
-        )
-    } else {
-      notify(`Invalid credentials!`, -1)
-    }
+    this.setState({ loading: true })
+    service.createUser({name, email, password})
+    .fork(
+      (e) => {
+        this.setState({ loading: false })
+        if (e.statusCode === 401) {
+          notify(`Wrong email/password!`, -1)
+        } else {
+          console.error(e)
+          notify(`An error has occured. Please try again later.`, -1)
+        }
+      },
+      ({user}) => {
+        this.setState({ loading: false })
+        notify(`User ${user.email} created!`, 1)
+      }
+    )
   }
 
   render() {
@@ -136,13 +135,10 @@ export class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
             </Button>
           </Grid>
           <Grid item xs={10} container alignContent="center" direction="column">
-            <Typography>Don't have an account? <Link to="/signup">Click here</Link></Typography>
+            <Typography>Already registered? <Link to="/">Click here</Link></Typography>
           </Grid>
         </Grid>
       </div>
     )
   }
 }
-
-const mapDispatchToProps = { authenticate }
-export default connect(null, mapDispatchToProps)(SignUpPage)

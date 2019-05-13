@@ -104,9 +104,9 @@ exports[`<SignUpPage /> Should render without errors 1`] = `
       xs={10}
     >
       <WithStyles(Typography)>
-        Don't have an account? 
+        Already registered? 
         <Link
-          to="/signup"
+          to="/"
         >
           Click here
         </Link>

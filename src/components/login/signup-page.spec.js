@@ -1,15 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme'
-import sinon from 'sinon'
 
 import { SignUpPage } from './signup-page'
 
 const baseProps = {
-  authenticate: sinon.fake(),
   service: {
-    authenticate: (_) => ({
+    createUser: (_) => ({
       fork: (rej, res) => {
-        res({ token: `token!` })
+        res({user: {name: `Foo`, email: `foo@bar.com`}})
       }
     })
   }
@@ -25,67 +23,77 @@ describe(`<SignUpPage />`, () => {
   });
 
   it(`.handlePasswordChange() - Setting valid name`, () => {
-    const props = {
-      ...baseProps
-    }
-    const wrapper = shallow(<SignUpPage {...props} />);
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
 
     wrapper.instance().handlePasswordChange({ currentTarget: { value: `bororoska` } })
     expect(wrapper.state().password).toEqual(`bororoska`)
   });
 
   it(`.handleEmailChange() - Setting valid email`, () => {
-    const props = {
-      ...baseProps
-    }
-    const wrapper = shallow(<SignUpPage {...props} />);
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
     wrapper.instance().handleEmailChange({ currentTarget: { value: `bororoska@test.com` } })
     expect(wrapper.state().email).toEqual(`bororoska@test.com`)
   });
 
   it(`.handlePasswordConfirmationChange() - Setting valid password confirmation`, () => {
-    const props = {
-      ...baseProps
-    }
-    const wrapper = shallow(<SignUpPage {...props} />);
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
     wrapper.instance().handlePasswordConfirmationChange({ currentTarget: { value: `bororoska` } })
     expect(wrapper.state().passwordConfirmation).toEqual(`bororoska`)
   });
 
   it(`.handleNameChange() - Setting valid name`, () => {
-    const props = {
-      ...baseProps
-    }
-    const wrapper = shallow(<SignUpPage {...props} />);
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
     wrapper.instance().handleNameChange({ currentTarget: { value: `Agric Malmim` } })
     expect(wrapper.state().name).toEqual(`Agric Malmim`)
   });
 
-  it(`.signUp() - valid state`, () => {
-    // const authenticate = sinon.spy()
-
-    // const props = {
-    //   ...baseProps,
-    //   authenticate
-    // }
-
-    // const wrapper = shallow(<SignUpPage {...props} />);
-
-    // wrapper.setState({ password: 'bar', email: 'foo@bar.com' });
-
-    // wrapper.instance().login();
-    // expect(authenticate.called).toBeTruthy();
+  it(`.signUp() - valid response`, () => {
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
+    wrapper.setState({ password: 'bar', email: 'foo@bar.com', name: `Foo`, passwordConfirmation: `bar` });
+    wrapper.instance().signUp();
+    
+    expect(wrapper.state().loading).toBeFalsy()
   });
 
-  it(`.validateForm() - valid state`, () => {
-    const authenticate = sinon.spy()
-
+  it(`.signUp() - 401 response`, () => {
     const props = {
-      ...baseProps,
-      authenticate
+      service: {
+        createUser: (_) => ({
+          fork: (rej, res) => {
+            rej({ statusCode: 401 })
+          }
+        })
+      }
     }
 
     const wrapper = shallow(<SignUpPage {...props} />);
+    wrapper.setState({ password: 'bar', email: 'foo@bar.com', name: `Foo`, passwordConfirmation: `bar` });
+    wrapper.instance().signUp();
+    
+    expect(wrapper.state().loading).toBeFalsy()
+  });
+
+  it(`.signUp() - 500 response`, () => {
+    const props = {
+      service: {
+        createUser: (_) => ({
+          fork: (rej, res) => {
+            rej({ statusCode: 500 })
+          }
+        })
+      }
+    }
+
+    const wrapper = shallow(<SignUpPage {...props} />);
+    wrapper.setState({ password: 'bar', email: 'foo@bar.com', name: `Foo`, passwordConfirmation: `bar` });
+    wrapper.instance().signUp();
+    
+    expect(wrapper.state().loading).toBeFalsy()
+  });
+
+  it(`.validateForm() - valid state`, () => {
+
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
 
     wrapper.setState({ password: 'bar', email: 'foo@bar.com', name: `Foo`, passwordConfirmation: `bar` });
 
@@ -93,29 +101,15 @@ describe(`<SignUpPage />`, () => {
   });
 
   it(`.validateForm() - invalid email`, () => {
-    const authenticate = sinon.spy()
 
-    const props = {
-      ...baseProps,
-      authenticate
-    }
-
-    const wrapper = shallow(<SignUpPage {...props} />);
-
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
     wrapper.setState({ password: 'bar', email: 'foobar.com', name: `Foo`, passwordConfirmation: `bar` });
-
     expect(wrapper.instance().validateForm()).toBeFalsy();
   });
 
   it(`.validateForm() - empty name`, () => {
-    const authenticate = sinon.spy()
 
-    const props = {
-      ...baseProps,
-      authenticate
-    }
-
-    const wrapper = shallow(<SignUpPage {...props} />);
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
 
     wrapper.setState({ password: 'bar', email: 'foo@bar.com', passwordConfirmation: `bar` });
 
@@ -123,14 +117,8 @@ describe(`<SignUpPage />`, () => {
   });
 
   it(`.validateForm() - empty password`, () => {
-    const authenticate = sinon.spy()
 
-    const props = {
-      ...baseProps,
-      authenticate
-    }
-
-    const wrapper = shallow(<SignUpPage {...props} />);
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
 
     wrapper.setState({ password: '', email: 'foo@bar.com', name: `Foo`, passwordConfirmation: `bar` });
 
@@ -138,14 +126,8 @@ describe(`<SignUpPage />`, () => {
   });
 
   it(`.validateForm() - password not matching confirmation`, () => {
-    const authenticate = sinon.spy()
 
-    const props = {
-      ...baseProps,
-      authenticate
-    }
-
-    const wrapper = shallow(<SignUpPage {...props} />);
+    const wrapper = shallow(<SignUpPage {...baseProps} />);
 
     wrapper.setState({ password: 'bar', email: 'foo@bar.com', name: `Foo`, passwordConfirmation: `bar1` });
 

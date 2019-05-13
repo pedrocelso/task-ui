@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import { AppState } from './App-store'
 import { ApiClient } from './api'
 import LoginPage from './components/login/login-page'
-import SignupPage from './components/login/signup-page'
+import {SignUpPage} from './components/login/signup-page'
 import { authenticate, deauthenticate } from './components/login/login-actions'
 import TaskList from './components/task/task-list'
 import UserList from './components/user/user-list'
@@ -76,7 +76,7 @@ class App extends Component<AppProps> {
     )
 
     const menuItems: Item[] = [
-      { title: `Sign Up`, path: `/signup`, icon: (<PersonAdd color="primary" />), private: false, route: (<Route key="Signup" path="/signup" render={() => paperWrapper(<SignupPage service={userService} />)} />) },
+      { title: `Sign Up`, path: `/signup`, icon: (<PersonAdd color="primary" />), private: false, route: (<Route key="Signup" path="/signup" render={() => paperWrapper(<SignUpPage service={userService} />)} />) },
       { title: `Login`, path: `/`, icon: (<Lock color="primary" />), private: false, route: (<Route exact key="Login" path="/" render={() => paperWrapper(<LoginPage service={userService} />)} />) },
       { title: `Users`, path: `/users`, icon: (<People color="primary" />), private: true, route: (<Route key="Users" path="/users" render={() => paperWrapper(<UserList service={userService} />)} />) },
       { title: `Tasks`, path: `/tasks`, icon: (<Storage color="primary" />), private: true, route: (<Route key="Tasks" path="/tasks" render={() => paperWrapper(<TaskList service={taskService} />)} />) },

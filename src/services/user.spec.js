@@ -79,17 +79,14 @@ describe(`Users Service`, () => {
   it(`Should create an user properly`, () => {
     nock(baseUrl)
       .post(`/public/signup`)
-      .reply(200, `{
-        "name": "Renato Russo",
-        "email": "renato@legiao.com.br"
-      }`)
+      .reply(200, `{"user":{"name": "Renato Russo", "email": "renato@legiao.com.br"}}`)
 
     const publicUserService = new UserService(new ApiClient(baseUrl));
 
     expect.assertions(2);
     return publicUserService.createUser({ name: `Renato Russo`, email: `renato@legiao.com.br`, password: `utevo lux` })
       .promise()
-      .then((user) => {
+      .then(({user}) => {
         expect(user.name).toEqual(`Renato Russo`)
         expect(user.email).toEqual(`renato@legiao.com.br`)
       })

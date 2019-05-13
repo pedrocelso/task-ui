@@ -1,5 +1,6 @@
 import { encase, FutureInstance } from 'fluture'
 import { ApiClient, Endpoints, HttpResponse, ResponseError } from '../api'
+import { pathOr } from 'ramda';
 
 export interface User {
   email: string;
@@ -8,9 +9,10 @@ export interface User {
 }
 
 export interface UserService {
-  getUsers(): FutureInstance<{}, User[]>;
-  getUser(userEmail: string): FutureInstance<{}, User>;
-  authenticate(user: User): FutureInstance<{}, { token: string }>;
+  getUsers(): FutureInstance<ResponseError, User[]>;
+  getUser(userEmail: string): FutureInstance<ResponseError, User>;
+  createUser(user: User): FutureInstance<ResponseError, { user: User }>;
+  authenticate(user: User): FutureInstance<ResponseError, { token: string }>;
 }
 
 export class UserService implements UserService {
@@ -26,16 +28,16 @@ export class UserService implements UserService {
       .chain<User[]>(encase(JSON.parse))
   }
 
-  getUser(userEmail: string): FutureInstance<{}, User> {
-    return this.client.get<{}, HttpResponse>(Endpoints.USERS, { uri: userEmail })
+  getUser(userEmail: string): FutureInstance<ResponseError, User> {
+    return this.client.get<ResponseError, HttpResponse>(Endpoints.USERS, { uri: userEmail })
       .map(res => res.body)
       .chain<User>(encase(JSON.parse))
   }
 
-  createUser(user: User): FutureInstance<{}, User> {
+  createUser(user: User): FutureInstance<ResponseError, { user: User }> {
     return this.client.post<ResponseError, HttpResponse>(Endpoints.PUBLIC, { uri: `signup`, body: JSON.stringify(user) })
       .map(res => res.body)
-      .chain<User>(encase(JSON.parse))
+      .chain<{ user: User }>(encase(JSON.parse))
   }
 
   authenticate(user: User): FutureInstance<ResponseError, { token: string }> {
