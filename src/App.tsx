@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Lock, LockOpen, People, Storage } from "@material-ui/icons";
+import { Lock, LockOpen, People, PersonAdd, Storage } from "@material-ui/icons";
 import { Paper } from '@material-ui/core';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import { AppState } from './App-store'
 import { ApiClient } from './api'
 import LoginPage from './components/login/login-page'
+import SignupPage from './components/login/signup-page'
 import { authenticate, deauthenticate } from './components/login/login-actions'
 import TaskList from './components/task/task-list'
 import UserList from './components/user/user-list'
@@ -17,7 +18,7 @@ import { Item, NavBar } from './components/navbar'
 import { UserService } from './services/user'
 import './App.scss';
 import { TaskService } from './services/task';
-import { isEmpty, isNil, map, pipe, reject } from 'ramda';
+import { isEmpty, isNil, map, reject } from 'ramda';
 import { LoginState } from './components/login/login-types';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -75,7 +76,8 @@ class App extends Component<AppProps> {
     )
 
     const menuItems: Item[] = [
-      { title: `Login`, path: `/`, icon: (<Lock color="primary" />), private: false, route: (<Route key="Login" path="/" render={() => paperWrapper(<LoginPage service={userService} />)} />) },
+      { title: `Sign Up`, path: `/signup`, icon: (<PersonAdd color="primary" />), private: false, route: (<Route key="Signup" path="/signup" render={() => paperWrapper(<SignupPage service={userService} />)} />) },
+      { title: `Login`, path: `/`, icon: (<Lock color="primary" />), private: false, route: (<Route exact key="Login" path="/" render={() => paperWrapper(<LoginPage service={userService} />)} />) },
       { title: `Users`, path: `/users`, icon: (<People color="primary" />), private: true, route: (<Route key="Users" path="/users" render={() => paperWrapper(<UserList service={userService} />)} />) },
       { title: `Tasks`, path: `/tasks`, icon: (<Storage color="primary" />), private: true, route: (<Route key="Tasks" path="/tasks" render={() => paperWrapper(<TaskList service={taskService} />)} />) },
       {

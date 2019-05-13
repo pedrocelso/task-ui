@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify';
+import { equals } from 'ramda';
 import { LinearProgress, Typography, Grid, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom'
+import { isValidEmail } from './login-page'
 import './login-page.scss'
 import { authenticate } from './login-actions'
 import { UserService } from '../../services/user'
 
-interface LoginPageProps {
+interface SignUpPageProps {
   authenticate: typeof authenticate
   service: UserService;
 }
 
-interface LoginPageState {
+interface SignUpPageState {
   email: string
+  name: string
   password: string
+  passwordConfirmation: string
   loading: boolean
 }
 
-const emailRegexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-export const isValidEmail = (email: string) => emailRegexp.test(email)
 const notify = (msg: string, feeling: number) => {
   switch (feeling) {
     case (-1):
@@ -27,12 +29,14 @@ const notify = (msg: string, feeling: number) => {
   }
 }
 
-export class LoginPage extends Component<LoginPageProps, LoginPageState> {
-  constructor(props: LoginPageProps) {
+export class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
+  constructor(props: SignUpPageProps) {
     super(props)
     this.state = {
       email: ``,
+      name: ``,
       password: ``,
+      passwordConfirmation: ``,
       loading: false
     }
   }
@@ -47,11 +51,39 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
     this.setState({ password: value })
   }
 
-  login = () => {
-    const { authenticate, service } = this.props
-    const { email, password } = this.state
+  handlePasswordConfirmationChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget
+    this.setState({ passwordConfirmation: value })
+  }
 
-    if (isValidEmail(email) && !!password) {
+  handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget
+    this.setState({ name: value })
+  }
+
+  validateForm = () => {
+    const { email, password, passwordConfirmation, name } = this.state
+
+    if (!isValidEmail(email)) {
+      return false
+    }
+
+    if (!name || !password) {
+      return false
+    }
+
+    if (!equals(password, passwordConfirmation)) {
+      return false
+    }
+
+    return true
+  }
+
+  signUp = () => {
+    const { service } = this.props
+    const { email, password, passwordConfirmation, name } = this.state
+
+    if (isValidEmail(email) && !!name && equals(password, passwordConfirmation)) {
       this.setState({ loading: true })
       service.authenticate({ email, password })
         .fork(
@@ -75,6 +107,8 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
   render() {
     const { email, loading } = this.state
 
+    const validData = this.validateForm()
+
     const loadingbar = loading ? <LinearProgress variant="indeterminate" /> : null
 
     return (
@@ -82,7 +116,10 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
         <Grid container className="modal__grid" alignContent="center" spacing={16} direction="column">
           {loadingbar}
           <Grid item xs={10} container alignContent="center" direction="column">
-            <Typography variant="h4">Sign In</Typography>
+            <Typography variant="h4">Sign Up</Typography>
+          </Grid>
+          <Grid item xs={10} container direction="row">
+            <input type="text" className="form-control" name="name" placeholder="Name" onChange={this.handleNameChange} />
           </Grid>
           <Grid item xs={10} container direction="row">
             <input type="text" className={`form-control ${!isValidEmail(email) ? "is-invalid" : ""}`} name="email" placeholder="E-mail" onChange={this.handleEmailChange} />
@@ -90,9 +127,12 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
           <Grid item xs={10} container direction="row">
             <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.handlePasswordChange} />
           </Grid>
+          <Grid item xs={10} container direction="row">
+            <input type="password" className="form-control" name="passwordConfirmation" placeholder="Confirm Password" onChange={this.handlePasswordConfirmationChange} />
+          </Grid>
           <Grid item xs={10} container direction="column">
-            <Button variant="contained" color="primary" onClick={this.login} className="btnLogin">
-              Sign In
+            <Button disabled={!validData} variant="contained" color="primary" onClick={this.signUp} className="btnSignUp">
+              Sign Up
             </Button>
           </Grid>
           <Grid item xs={10} container alignContent="center" direction="column">
@@ -105,4 +145,4 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
 }
 
 const mapDispatchToProps = { authenticate }
-export default connect(null, mapDispatchToProps)(LoginPage)
+export default connect(null, mapDispatchToProps)(SignUpPage)
