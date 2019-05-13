@@ -46,7 +46,7 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
     this.setState({ password: value })
   }
 
-  redirect = () => {
+  login = () => {
     const { authenticate, service } = this.props
     const { email, password } = this.state
 
@@ -100,7 +100,7 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
                 </div>
               </div>
               <div className="form-group">
-                <button type="button" className="btn btn-primary btn-block btn-lg" onClick={this.redirect}>Sign In</button>
+                <button type="button" className="btn btn-primary btn-block btn-lg" onClick={this.login}>Sign In</button>
               </div>
             </div>
           </div>
