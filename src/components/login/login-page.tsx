@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify';
-import { LinearProgress, Typography, Grid, Button } from '@material-ui/core';
+import { LinearProgress, Typography, Grid, Button, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import './login-page.scss'
 import { authenticate } from './login-actions'
@@ -78,8 +78,8 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
     const loadingbar = loading ? <LinearProgress className="loading-bar" variant="indeterminate" /> : null
 
     return (
-      <div>
-        {loadingbar}
+      <Paper id="login" elevation={0}>
+        <div className="loading-bar">{loadingbar}</div>
         <div className="modal__dialog">
           <Grid container className="modal__grid" alignContent="center" spacing={16} direction="column">
             <Grid item xs={10} container alignContent="center" direction="column">
@@ -101,7 +101,7 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
             </Grid>
           </Grid>
         </div>
-      </div>
+      </Paper>
     )
   }
 }
