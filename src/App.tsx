@@ -75,7 +75,7 @@ class App extends Component<AppProps> {
     )
 
     const menuItems: Item[] = [
-      { title: `Login`, path: `/`, icon: (<Lock color="primary" />), private: false, route: (<Route key="Login" path="/" render={() => (<LoginPage service={userService} />)} />) },
+      { title: `Login`, path: `/`, icon: (<Lock color="primary" />), private: false, route: (<Route key="Login" path="/" render={() => paperWrapper(<LoginPage service={userService} />)} />) },
       { title: `Users`, path: `/users`, icon: (<People color="primary" />), private: true, route: (<Route key="Users" path="/users" render={() => paperWrapper(<UserList service={userService} />)} />) },
       { title: `Tasks`, path: `/tasks`, icon: (<Storage color="primary" />), private: true, route: (<Route key="Tasks" path="/tasks" render={() => paperWrapper(<TaskList service={taskService} />)} />) },
       {

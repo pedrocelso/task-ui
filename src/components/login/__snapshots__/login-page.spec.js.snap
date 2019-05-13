@@ -2,99 +2,87 @@
 
 exports[`<LoginPage /> Should render without errors 1`] = `
 <div
-  className=""
-  id="myModal"
+  className="modal__dialog"
 >
-  <div
-    className="loading-bar"
-  />
-  <div
-    className="modal-dialog modal-login"
+  <WithStyles(Grid)
+    alignContent="center"
+    className="modal__grid"
+    container={true}
+    direction="column"
+    spacing={16}
   >
-    <div
-      className="modal-content"
+    <WithStyles(Grid)
+      alignContent="center"
+      container={true}
+      direction="column"
+      item={true}
+      xs={10}
     >
-      <div
-        className="modal-header"
+      <WithStyles(Typography)
+        variant="h4"
       >
-        <h4
-          className="modal-title"
-        >
-          Sign In
-        </h4>
-      </div>
-      <div
-        className="modal-body"
+        Sign In
+      </WithStyles(Typography)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      container={true}
+      direction="row"
+      item={true}
+      xs={10}
+    >
+      <input
+        className="form-control is-invalid"
+        name="email"
+        onChange={[Function]}
+        placeholder="E-mail"
+        type="text"
+      />
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      container={true}
+      direction="row"
+      item={true}
+      xs={10}
+    >
+      <input
+        className="form-control"
+        name="password"
+        onChange={[Function]}
+        placeholder="Password"
+        type="password"
+      />
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      container={true}
+      direction="column"
+      item={true}
+      xs={10}
+    >
+      <WithStyles(Button)
+        className="btnLogin"
+        color="primary"
+        onClick={[Function]}
+        variant="contained"
       >
-        <div
-          className="form-group"
+        Sign In
+      </WithStyles(Button)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      alignContent="center"
+      container={true}
+      direction="column"
+      item={true}
+      xs={10}
+    >
+      <WithStyles(Typography)>
+        Don't have an account? 
+        <Link
+          to="/signup"
         >
-          <div
-            className="input-group"
-          >
-            <span
-              className="input-group-addon"
-            >
-              <i
-                className="fa fa-user"
-              />
-            </span>
-            <input
-              className="form-control is-invalid"
-              name="email"
-              onChange={[Function]}
-              placeholder="E-mail"
-              type="text"
-            />
-          </div>
-        </div>
-        <div
-          className="form-group"
-        >
-          <div
-            className="input-group"
-          >
-            <span
-              className="input-group-addon"
-            >
-              <i
-                className="fa fa-lock"
-              />
-            </span>
-            <input
-              className="form-control"
-              name="password"
-              onChange={[Function]}
-              placeholder="Password"
-              type="password"
-            />
-          </div>
-        </div>
-        <div
-          className="form-group"
-        >
-          <button
-            className="btn btn-primary btn-block btn-lg"
-            onClick={[Function]}
-            type="button"
-          >
-            Sign In
-          </button>
-        </div>
-        <div>
-          <WithStyles(Typography)
-            align="center"
-          >
-            Don't have an account? 
-            <Link
-              to="/signup"
-            >
-              Click here
-            </Link>
-          </WithStyles(Typography)>
-        </div>
-      </div>
-    </div>
-  </div>
+          Click here
+        </Link>
+      </WithStyles(Typography)>
+    </WithStyles(Grid)>
+  </WithStyles(Grid)>
 </div>
 `;
