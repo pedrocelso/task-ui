@@ -15,7 +15,6 @@ import { Menu } from "@material-ui/icons";
 import { equals, find, findIndex, insert, map, pathOr, pipe, startsWith } from 'ramda';
 
 import './navbar.scss'
-import { AppState } from '../App-store';
 
 export interface Item {
   title: string
