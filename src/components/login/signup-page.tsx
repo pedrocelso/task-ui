@@ -111,7 +111,7 @@ export class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
     const loadingbar = loading ? <LinearProgress className="loading-bar" variant="indeterminate" /> : null
 
     return (
-      <Paper id="login" elevation={0}>
+      <Paper id="login" elevation={1}>
         <div className="loading-bar">{loadingbar}</div>
         <div className="modal__dialog">
           <Grid container className="modal__grid" alignContent="center" spacing={16} direction="column">
