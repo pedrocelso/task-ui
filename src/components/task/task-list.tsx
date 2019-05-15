@@ -8,6 +8,7 @@ import { TaskService, Task } from '../../services/task';
 import TaskItem from './task-item'
 import './task-list.scss'
 import { Fab } from '@material-ui/core';
+import { TaskEditor } from './task-editor';
 
 interface TaskProps {
   deauthenticate: typeof deauthenticate
@@ -16,12 +17,13 @@ interface TaskProps {
 
 interface TaskState {
   taskList: Task[];
+  editorOpen: boolean
 }
 
 export class TaskList extends Component<TaskProps, TaskState> {
   constructor(props: TaskProps) {
     super(props)
-    this.state = { taskList: [] }
+    this.state = { taskList: [], editorOpen: false }
   }
 
   componentDidMount() {
@@ -40,14 +42,29 @@ export class TaskList extends Component<TaskProps, TaskState> {
       )
   }
 
+  toggleEditor = () => (b: boolean) => {
+    this.setState({editorOpen: b})
+  }
+
+  showEditor = () => {
+    this.toggleEditor()(true)
+  }
+
+  closeEditor = () => {
+    this.toggleEditor()(false)
+  }
+
   render() {
     const { state } = this
-    const { taskList } = state
+    const { editorOpen, taskList } = state
+
+    const editor = (<TaskEditor open={editorOpen} close={this.toggleEditor()} />)
 
     return (
       <div>
+        {editor}
         {map((t) => (<TaskItem task={t} key={t.id} service={this.props.service} />), taskList)}
-        <Fab color="primary" className="fab" aria-label="Add">
+        <Fab color="primary" className="fab" aria-label="Add" onClick={this.showEditor}>
           <AddIcon />
         </Fab>
       </div>
