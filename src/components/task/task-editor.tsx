@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LinearProgress, Typography, Button, Dialog, AppBar, Toolbar, IconButton, Slide } from '@material-ui/core';
+import { LinearProgress, Typography, Button, Dialog, AppBar, Toolbar, IconButton, Slide, DialogContent } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import Form, { UiSchema } from "react-jsonschema-form"
 import { JSONSchema6 } from 'json-schema';
@@ -125,37 +125,39 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
 
     return (
       <Dialog
-        fullScreen
         open={this.props.open}
         onClose={this.handleClose}
         TransitionComponent={Transition}
         className="editor"
+        scroll="paper"
       >
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" className="toolbar-title">
-              {taskActionLabel} Task
-            </Typography>
-            <Button color="inherit" onClick={this.handleSubmit}>
-              Save
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <div className="loading-bar">{loadingbar}</div>
-        <Form
-          className="editor__form"
-          schema={taskSchema}
-          uiSchema={uiSchema}
-          formData={this.state.formData}
-          onError={notify(-1)}
-          onChange={this.handleChange}
-          onSubmit={this.handleSubmit}
-        >
-          <button className="hidden" />
-        </Form>
+        <DialogContent className="editor__content">
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="h6" color="inherit" className="toolbar-title">
+                {taskActionLabel} Task
+              </Typography>
+              <Button color="inherit" onClick={this.handleSubmit}>
+                Save
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <div className="loading-bar">{loadingbar}</div>
+          <Form
+            className="editor__form"
+            schema={taskSchema}
+            uiSchema={uiSchema}
+            formData={this.state.formData}
+            onError={notify(-1)}
+            onChange={this.handleChange}
+            onSubmit={this.handleSubmit}
+          >
+            <button className="hidden" />
+          </Form>
+        </DialogContent>
       </Dialog>
     )
   }
