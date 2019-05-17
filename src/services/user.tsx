@@ -1,6 +1,5 @@
 import { encase, FutureInstance } from 'fluture'
 import { ApiClient, Endpoints, HttpResponse, ResponseError } from '../api'
-import { pathOr } from 'ramda';
 
 export interface User {
   email: string;

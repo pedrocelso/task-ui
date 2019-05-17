@@ -19,3 +19,27 @@ body {
 .loading-bar {
   height: 0.3rem;
 }
+
+.toolbar-title {
+  flex-grow: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+.editor {
+  width: 70%;
+  height: 80%;
+  margin: auto;
+  label {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+  }
+  &__form {
+    width: 90%;
+    margin: 1.75rem auto;
+  }
+}
