@@ -1,38 +1,128 @@
 import React, { Component } from 'react';
-import { Typography, Button, Dialog, AppBar, Toolbar, IconButton, Slide, Paper } from '@material-ui/core';
+import { LinearProgress, Typography, Button, Dialog, AppBar, Toolbar, IconButton, Slide } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import Form, { UiSchema } from "react-jsonschema-form"
 import { JSONSchema6 } from 'json-schema';
+import { toast } from 'react-toastify';
+import { TaskService, Task } from '../../services/task';
+import { connect } from 'react-redux';
+import { deauthenticate } from '../login/login-actions';
 
 function Transition(props: any) {
   return <Slide direction="up" {...props} />;
 }
 
 export interface TaskEditorProps {
+  deauthenticate: typeof deauthenticate
+  service: TaskService;
   open: boolean
   close: (b: boolean) => void
 }
 
-const schema: JSONSchema6 = {
+export interface TaskEditorState {
+  formData: Object
+  loading: boolean
+}
+
+const notify = (feeling: number) => (msg: string) => {
+  switch (feeling) {
+    case (-1):
+      toast.error(msg);
+  }
+}
+
+const taskSchema: JSONSchema6 = {
   type: "object",
   required: ["name"],
   properties: {
     name: { type: "string", title: "Task name", default: "" },
-    done: { type: "boolean", title: "Done?", default: false }
+    description: { type: "string", title: "Description", default: "" }
   }
 };
 
-const log = (type: any) => console.log.bind(console, type);
+const incidentSchema: JSONSchema6 = {
+  type: "object",
+  required: ["name"],
+  properties: {
+    name: { type: "string", title: "Task name", default: "" },
+    status: {
+      type: "number", title: "Status", default: 1, anyOf: [
+        {
+          "type": "number",
+          "title": "Done",
+          "enum": [
+            0
+          ]
+        },
+        {
+          "type": "number",
+          "title": "Pending",
+          "enum": [
+            1
+          ]
+        }
+      ]
+    },
+    description: { type: "string", title: "Description", default: "" }
+  }
+};
 
-export class TaskEditor extends Component<TaskEditorProps, {}> {
+const uiSchema: UiSchema = {
+  description: {
+    "ui:widget": "textarea",
+    "ui:options": {
+      "rows": 5
+    }
+  }
+}
+
+export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
+  state = {
+    formData: {},
+    loading: false
+  }
+
   handleClose = () => {
     this.props.close(false)
   };
 
+  handleSubmit = () => {
+    const { formData } = this.state
+    const { service } = this.props
+
+    this.setState({ loading: true })
+    service.createTask(formData as Task)
+      .fork(
+        (e) => {
+          this.setState({ loading: false })
+          if (e.statusCode === 401) {
+            deauthenticate();
+            sessionStorage.removeItem(`jwtToken`)
+          } else {
+            console.error(e)
+            notify(-1)(`An error has occured. Please try again later.`)
+          }
+        },
+        ({ task }) => {
+          this.setState({ loading: false })
+          notify(1)(`User ${task.name} created!`)
+          this.props.close(false)
+        }
+      )
+
+  }
+
+  handleChange = ({ formData }: { formData: Object }) => {
+    this.setState({ formData })
+  }
+
   render() {
-    const onSubmit = ({ formData }: any) => console.log("Data submitted: ", formData);
-    let yourForm
     const taskActionLabel = "Create"
+
+    const { loading } = this.state
+
+    const loadingbar = loading ? <LinearProgress className="loading-bar" variant="indeterminate" /> : null
+
     return (
       <Dialog
         fullScreen
@@ -49,20 +139,27 @@ export class TaskEditor extends Component<TaskEditorProps, {}> {
             <Typography variant="h6" color="inherit" className="toolbar-title">
               {taskActionLabel} Task
             </Typography>
-            <Button color="inherit" onClick={this.handleClose}>
+            <Button color="inherit" onClick={this.handleSubmit}>
               Save
             </Button>
           </Toolbar>
         </AppBar>
+        <div className="loading-bar">{loadingbar}</div>
         <Form
           className="editor__form"
-          schema={schema}
-          ref={(form) => { yourForm = form; }}
-          onChange={log("changed")}
-          onError={log("errors")}>
+          schema={taskSchema}
+          uiSchema={uiSchema}
+          formData={this.state.formData}
+          onError={notify(-1)}
+          onChange={this.handleChange}
+          onSubmit={this.handleSubmit}
+        >
           <button className="hidden" />
         </Form>
       </Dialog>
     )
   }
 }
+
+const mapDispatchToProps = { deauthenticate }
+export default connect(null, mapDispatchToProps)(TaskEditor)

@@ -3,6 +3,15 @@
 exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
 <div>
   <Component
+    close={[Function]}
+    open={false}
+    service={
+      Object {
+        "getTasks": [Function],
+      }
+    }
+  />
+  <Component
     key="10"
     service={
       Object {
@@ -32,7 +41,35 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
       }
     }
   />
+  <WithStyles(Fab)
+    aria-label="Add"
+    className="fab"
+    color="secondary"
+    onClick={[Function]}
+  >
+    <pure(AddIcon) />
+  </WithStyles(Fab)>
 </div>
 `;
 
-exports[`<TaskList /> Should not display tasks if service returns an error 1`] = `<div />`;
+exports[`<TaskList /> Should not display tasks if service returns an error 1`] = `
+<div>
+  <Component
+    close={[Function]}
+    open={false}
+    service={
+      Object {
+        "getTasks": [Function],
+      }
+    }
+  />
+  <WithStyles(Fab)
+    aria-label="Add"
+    className="fab"
+    color="secondary"
+    onClick={[Function]}
+  >
+    <pure(AddIcon) />
+  </WithStyles(Fab)>
+</div>
+`;
