@@ -8,10 +8,6 @@ import { TaskService, Task } from '../../services/task';
 import { connect } from 'react-redux';
 import { deauthenticate } from '../login/login-actions';
 
-function Transition(props: any) {
-  return <Slide direction="up" {...props} />;
-}
-
 export interface TaskEditorProps {
   deauthenticate: typeof deauthenticate
   service: TaskService;
@@ -88,7 +84,7 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
 
   handleSubmit = () => {
     const { formData } = this.state
-    const { service } = this.props
+    const { service, deauthenticate } = this.props
 
     this.setState({ loading: true })
     service.createTask(formData as Task)
@@ -104,7 +100,7 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
           }
         },
         ({ task }) => {
-          this.setState({ loading: false })
+          this.setState({ loading: false, formData: {} })
           notify(1)(`User ${task.name} created!`)
           this.props.close(false)
         }
@@ -128,7 +124,7 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
         fullScreen
         open={this.props.open}
         onClose={this.handleClose}
-        TransitionComponent={Transition}
+        TransitionComponent={(props) => <Slide direction="up" {...props} />}
         className="editor"
       >
         <AppBar position="static">
