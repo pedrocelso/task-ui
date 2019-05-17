@@ -43,7 +43,7 @@ export class TaskList extends Component<TaskProps, TaskState> {
   }
 
   toggleEditor = () => (b: boolean) => {
-    this.setState({editorOpen: b})
+    this.setState({ editorOpen: b })
   }
 
   showEditor = () => {
@@ -64,7 +64,7 @@ export class TaskList extends Component<TaskProps, TaskState> {
       <div>
         {editor}
         {map((t) => (<TaskItem task={t} key={t.id} service={this.props.service} />), taskList)}
-        <Fab color="primary" className="fab" aria-label="Add" onClick={this.showEditor}>
+        <Fab color="secondary" className="fab" aria-label="Add" onClick={this.showEditor}>
           <AddIcon />
         </Fab>
       </div>

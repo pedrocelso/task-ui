@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { blue, red } from '@material-ui/core/colors'
 import { Lock, LockOpen, People, PersonAdd, Storage } from "@material-ui/icons";
 import { Paper } from '@material-ui/core';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
@@ -10,7 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import { AppState } from './App-store'
 import { ApiClient } from './api'
 import LoginPage from './components/login/login-page'
-import {SignUpPage} from './components/login/signup-page'
+import { SignUpPage } from './components/login/signup-page'
 import { authenticate, deauthenticate } from './components/login/login-actions'
 import TaskList from './components/task/task-list'
 import UserList from './components/user/user-list'
@@ -29,22 +30,12 @@ dotenv.config();
 const isValidToken = (token: string) => !isNil(token) && !isEmpty(token)
 const muiTheme = createMuiTheme({
   palette: {
-    primary: {
-      light: '#4f5b62',
-      main: '#263238',
-      dark: '#000a12',
-      contrastText: '#ffffff',
-    },
-    secondary: {
-      light: '#428e92',
-      main: '#006064',
-      dark: '#00363a',
-      contrastText: '#ffffff',
-    },
+    primary: blue,
+    secondary: red,
   },
   typography: {
     useNextVariants: true,
-  }
+  },
 });
 
 interface AppProps {
