@@ -4,87 +4,91 @@ exports[`<TaskEditor /> Should not render when it is open 1`] = `
 <WithStyles(Dialog)
   TransitionComponent={[Function]}
   className="editor"
-  fullScreen={true}
   onClose={[Function]}
   open={false}
+  scroll="paper"
 >
-  <WithStyles(AppBar)
-    position="static"
+  <WithStyles(DialogContent)
+    className="editor__content"
   >
-    <WithStyles(Toolbar)>
-      <WithStyles(IconButton)
-        aria-label="Close"
-        color="inherit"
-        onClick={[Function]}
-      >
-        <pure(CloseIcon) />
-      </WithStyles(IconButton)>
-      <WithStyles(Typography)
-        className="toolbar-title"
-        color="inherit"
-        variant="h6"
-      >
-        Create
-         Task
-      </WithStyles(Typography)>
-      <WithStyles(Button)
-        color="inherit"
-        onClick={[Function]}
-      >
-        Save
-      </WithStyles(Button)>
-    </WithStyles(Toolbar)>
-  </WithStyles(AppBar)>
-  <div
-    className="loading-bar"
-  />
-  <Form
-    ErrorList={[Function]}
-    className="editor__form"
-    disabled={false}
-    formData={Object {}}
-    liveValidate={false}
-    noHtml5Validate={false}
-    noValidate={false}
-    onChange={[Function]}
-    onError={[Function]}
-    onSubmit={[Function]}
-    safeRenderCompletion={false}
-    schema={
-      Object {
-        "properties": Object {
-          "description": Object {
-            "default": "",
-            "title": "Description",
-            "type": "string",
-          },
-          "name": Object {
-            "default": "",
-            "title": "Task name",
-            "type": "string",
-          },
-        },
-        "required": Array [
-          "name",
-        ],
-        "type": "object",
-      }
-    }
-    uiSchema={
-      Object {
-        "description": Object {
-          "ui:options": Object {
-            "rows": 5,
-          },
-          "ui:widget": "textarea",
-        },
-      }
-    }
-  >
-    <button
-      className="hidden"
+    <WithStyles(AppBar)
+      position="static"
+    >
+      <WithStyles(Toolbar)>
+        <WithStyles(IconButton)
+          aria-label="Close"
+          color="inherit"
+          onClick={[Function]}
+        >
+          <pure(CloseIcon) />
+        </WithStyles(IconButton)>
+        <WithStyles(Typography)
+          className="toolbar-title"
+          color="inherit"
+          variant="h6"
+        >
+          Create
+           Task
+        </WithStyles(Typography)>
+        <WithStyles(Button)
+          color="inherit"
+          onClick={[Function]}
+        >
+          Save
+        </WithStyles(Button)>
+      </WithStyles(Toolbar)>
+    </WithStyles(AppBar)>
+    <div
+      className="loading-bar"
     />
-  </Form>
+    <Form
+      ErrorList={[Function]}
+      className="editor__form"
+      disabled={false}
+      formData={Object {}}
+      liveValidate={false}
+      noHtml5Validate={false}
+      noValidate={false}
+      onChange={[Function]}
+      onError={[Function]}
+      onSubmit={[Function]}
+      safeRenderCompletion={false}
+      schema={
+        Object {
+          "properties": Object {
+            "description": Object {
+              "default": "",
+              "title": "Description",
+              "type": "string",
+            },
+            "name": Object {
+              "default": "",
+              "title": "Task name",
+              "type": "string",
+            },
+          },
+          "required": Array [
+            "name",
+          ],
+          "type": "object",
+        }
+      }
+      uiSchema={
+        Object {
+          "description": Object {
+            "ui:options": Object {
+              "rows": 5,
+            },
+            "ui:widget": "textarea",
+          },
+        }
+      }
+    >
+      <button
+        className="hidden"
+      />
+    </Form>
+  </WithStyles(DialogContent)>
 </WithStyles(Dialog)>
 `;
 
@@ -92,87 +96,91 @@ exports[`<TaskEditor /> Should render when it is open 1`] = `
 <WithStyles(Dialog)
   TransitionComponent={[Function]}
   className="editor"
-  fullScreen={true}
   onClose={[Function]}
   open={true}
+  scroll="paper"
 >
-  <WithStyles(AppBar)
-    position="static"
+  <WithStyles(DialogContent)
+    className="editor__content"
   >
-    <WithStyles(Toolbar)>
-      <WithStyles(IconButton)
-        aria-label="Close"
-        color="inherit"
-        onClick={[Function]}
-      >
-        <pure(CloseIcon) />
-      </WithStyles(IconButton)>
-      <WithStyles(Typography)
-        className="toolbar-title"
-        color="inherit"
-        variant="h6"
-      >
-        Create
-         Task
-      </WithStyles(Typography)>
-      <WithStyles(Button)
-        color="inherit"
-        onClick={[Function]}
-      >
-        Save
-      </WithStyles(Button)>
-    </WithStyles(Toolbar)>
-  </WithStyles(AppBar)>
-  <div
-    className="loading-bar"
-  />
-  <Form
-    ErrorList={[Function]}
-    className="editor__form"
-    disabled={false}
-    formData={Object {}}
-    liveValidate={false}
-    noHtml5Validate={false}
-    noValidate={false}
-    onChange={[Function]}
-    onError={[Function]}
-    onSubmit={[Function]}
-    safeRenderCompletion={false}
-    schema={
-      Object {
-        "properties": Object {
-          "description": Object {
-            "default": "",
-            "title": "Description",
-            "type": "string",
-          },
-          "name": Object {
-            "default": "",
-            "title": "Task name",
-            "type": "string",
-          },
-        },
-        "required": Array [
-          "name",
-        ],
-        "type": "object",
-      }
-    }
-    uiSchema={
-      Object {
-        "description": Object {
-          "ui:options": Object {
-            "rows": 5,
-          },
-          "ui:widget": "textarea",
-        },
-      }
-    }
-  >
-    <button
-      className="hidden"
+    <WithStyles(AppBar)
+      position="static"
+    >
+      <WithStyles(Toolbar)>
+        <WithStyles(IconButton)
+          aria-label="Close"
+          color="inherit"
+          onClick={[Function]}
+        >
+          <pure(CloseIcon) />
+        </WithStyles(IconButton)>
+        <WithStyles(Typography)
+          className="toolbar-title"
+          color="inherit"
+          variant="h6"
+        >
+          Create
+           Task
+        </WithStyles(Typography)>
+        <WithStyles(Button)
+          color="inherit"
+          onClick={[Function]}
+        >
+          Save
+        </WithStyles(Button)>
+      </WithStyles(Toolbar)>
+    </WithStyles(AppBar)>
+    <div
+      className="loading-bar"
     />
-  </Form>
+    <Form
+      ErrorList={[Function]}
+      className="editor__form"
+      disabled={false}
+      formData={Object {}}
+      liveValidate={false}
+      noHtml5Validate={false}
+      noValidate={false}
+      onChange={[Function]}
+      onError={[Function]}
+      onSubmit={[Function]}
+      safeRenderCompletion={false}
+      schema={
+        Object {
+          "properties": Object {
+            "description": Object {
+              "default": "",
+              "title": "Description",
+              "type": "string",
+            },
+            "name": Object {
+              "default": "",
+              "title": "Task name",
+              "type": "string",
+            },
+          },
+          "required": Array [
+            "name",
+          ],
+          "type": "object",
+        }
+      }
+      uiSchema={
+        Object {
+          "description": Object {
+            "ui:options": Object {
+              "rows": 5,
+            },
+            "ui:widget": "textarea",
+          },
+        }
+      }
+    >
+      <button
+        className="hidden"
+      />
+    </Form>
+  </WithStyles(DialogContent)>
 </WithStyles(Dialog)>
 `;
 

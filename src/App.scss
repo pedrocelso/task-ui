@@ -32,11 +32,20 @@ body {
   width: 70%;
   height: 80%;
   margin: auto;
+  min-width: 350px;
+  div {
+    width: 100%;
+  }
   label {
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: 0.0075em;
+  }
+  &__content {
+    width: 70%;
+    min-width: 350px;
+    padding: 0 !important;
   }
   &__form {
     width: 90%;
