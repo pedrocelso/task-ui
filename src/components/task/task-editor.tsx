@@ -8,6 +8,10 @@ import { TaskService, Task } from '../../services/task';
 import { connect } from 'react-redux';
 import { deauthenticate } from '../login/login-actions';
 
+export function Transition(props: any) {
+  return <Slide direction="up" {...props} />;
+}
+
 export interface TaskEditorProps {
   deauthenticate: typeof deauthenticate
   service: TaskService;
@@ -124,7 +128,7 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
         fullScreen
         open={this.props.open}
         onClose={this.handleClose}
-        TransitionComponent={(props) => <Slide direction="up" {...props} />}
+        TransitionComponent={Transition}
         className="editor"
       >
         <AppBar position="static">

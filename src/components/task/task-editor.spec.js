@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 
-import { TaskEditor } from './task-editor'
+import { TaskEditor, Transition } from './task-editor'
 
 const baseProps = {
   deauthenticate: sinon.fake(),
@@ -146,5 +146,13 @@ describe(`<TaskEditor />`, () => {
 
     component.instance().handleChange({ formData: { name: `migeh`, description: `maneh` } })
     expect(component.state().formData).toMatchObject({ name: 'migeh', description: 'maneh' })
+  });
+
+  it(`Transition - Should render when it is open`, () => {
+    const component = shallow(
+      Transition(baseProps),
+    );
+
+    expect(component).toMatchSnapshot();
   });
 });
