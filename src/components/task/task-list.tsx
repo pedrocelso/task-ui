@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { map } from 'ramda'
+import { map, pipe, reverse } from 'ramda'
 import { Add as AddIcon } from "@material-ui/icons";
 
 import { deauthenticate } from '../login/login-actions'
 import { TaskService, Task } from '../../services/task';
+import { sortByDate } from '../../modules/date';
 import TaskItem from './task-item'
 import './task-list.scss'
 import { Fab } from '@material-ui/core';
@@ -56,7 +57,13 @@ export class TaskList extends Component<TaskProps, TaskState> {
 
   render() {
     const { state } = this
-    const { editorOpen, taskList } = state
+    const { editorOpen } = state
+
+    const taskList = pipe(
+      // @ts-ignore until curry and pipe works fine with TS
+      sortByDate(`creationTime`) as Incident[],
+      reverse
+    )(this.state.taskList)
 
     const editor = (<TaskEditor service={this.props.service} open={editorOpen} close={this.toggleEditor()} />)
 
