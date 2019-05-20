@@ -19,7 +19,8 @@
     "noEmit": true,
     "jsx": "preserve",
     "types": [
-      "bluebird-global"
+      "bluebird-global",
+      "jest"
     ]
   },
   "include": [

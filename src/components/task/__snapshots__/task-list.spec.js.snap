@@ -12,21 +12,6 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
     }
   />
   <Component
-    key="10"
-    service={
-      Object {
-        "getTasks": [Function],
-      }
-    }
-    task={
-      Object {
-        "description": "test@test.com",
-        "id": 10,
-        "name": "test",
-      }
-    }
-  />
-  <Component
     key="11"
     service={
       Object {
@@ -38,6 +23,21 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
         "description": "test1@test.com",
         "id": 11,
         "name": "test1",
+      }
+    }
+  />
+  <Component
+    key="10"
+    service={
+      Object {
+        "getTasks": [Function],
+      }
+    }
+    task={
+      Object {
+        "description": "test@test.com",
+        "id": 10,
+        "name": "test",
       }
     }
   />

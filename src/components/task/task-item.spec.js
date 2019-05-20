@@ -1,8 +1,8 @@
 import React from 'react';
-import {shallow} from 'enzyme'
+import { shallow } from 'enzyme'
 import sinon from 'sinon'
 
-import {formatTime, TaskItem} from './task-item'
+import { formatTime, TaskItem } from './task-item'
 
 const baseTask = {
   id: 123,
@@ -40,16 +40,6 @@ describe(`<TaskItem />`, () => {
     expect(component).toMatchSnapshot();
   });
 
-  it(`.formatTime() - Should format date properly`, () => {
-    const formattedDate = formatTime(1556924666404)
-    expect(formattedDate).toEqual(`2019/05/03, 4:04:26 pm`)
-  });
-
-  it(`.formatTime() - Should retutn n/a for 0 millis`, () => {
-    const formattedDate = formatTime(0)
-    expect(formattedDate).toEqual(`n/a`)
-  });
-
   it(`Should load incidents from service`, () => {
     const service = {
       getIncidents: (_) => ({
@@ -65,7 +55,7 @@ describe(`<TaskItem />`, () => {
       <TaskItem task={baseTask} service={service} deauthenticate={deauthenticate} />,
     );
 
-    component.setState({loadingIncidents: true})
+    component.setState({ loadingIncidents: true })
 
     component.instance().loadIncidents()();
     const state = component.instance().state
@@ -84,7 +74,7 @@ describe(`<TaskItem />`, () => {
     const service = {
       getIncidents: (_) => ({
         fork: (rej, res) => {
-          rej({statusCode: 401})
+          rej({ statusCode: 401 })
         }
       })
     }
@@ -95,7 +85,7 @@ describe(`<TaskItem />`, () => {
       <TaskItem task={baseTask} service={service} deauthenticate={deauthenticate} />,
     );
 
-    component.setState({loadingIncidents: true})
+    component.setState({ loadingIncidents: true })
     component.instance().loadIncidents()();
     expect(deauthenticate.calledOnce).toBeTruthy()
   });
@@ -104,7 +94,7 @@ describe(`<TaskItem />`, () => {
     const service = {
       getIncidents: (_) => ({
         fork: (rej, res) => {
-          rej({statusCode: 503})
+          rej({ statusCode: 503 })
         }
       })
     }
@@ -115,7 +105,7 @@ describe(`<TaskItem />`, () => {
       <TaskItem task={baseTask} service={service} deauthenticate={deauthenticate} />,
     );
 
-    component.setState({loadingIncidents: true})
+    component.setState({ loadingIncidents: true })
     component.instance().loadIncidents()();
     expect(deauthenticate.called).toBeFalsy()
     expect(component.instance().state.loadingIncidents).toBeFalsy()
