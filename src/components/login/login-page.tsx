@@ -18,7 +18,7 @@ interface LoginPageState {
   loading: boolean
 }
 
-const emailRegexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 export const isValidEmail = (email: string) => emailRegexp.test(email)
 const notify = (msg: string, feeling: number) => {
   switch (feeling) {
@@ -81,7 +81,7 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
       <Paper id="login" elevation={1}>
         <div className="loading-bar">{loadingbar}</div>
         <div className="modal__dialog">
-          <Grid container className="modal__grid" alignContent="center" spacing={16} direction="column">
+          <Grid container className="modal__grid" alignContent="center" spacing={2} direction="column">
             <Grid item xs={10} container alignContent="center" direction="column">
               <Typography variant="h4">Sign In</Typography>
             </Grid>

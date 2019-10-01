@@ -114,7 +114,7 @@ export class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
       <Paper id="login" elevation={1}>
         <div className="loading-bar">{loadingbar}</div>
         <div className="modal__dialog">
-          <Grid container className="modal__grid" alignContent="center" spacing={16} direction="column">
+          <Grid container className="modal__grid" alignContent="center" spacing={2} direction="column">
             <Grid item xs={10} container alignContent="center" direction="column">
               <Typography variant="h4">Sign Up</Typography>
             </Grid>

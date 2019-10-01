@@ -28,7 +28,7 @@ export class IncidentList extends Component<Props, {}> {
           const pendingPill = (<span className="badge badge-primary badge-pill">Pending</span>)
           const isPending = t.status === 1
           const nameEl = (
-            <Typography gutterBottom variant="subtitle1" color={isPending ? `error` : `default`}>
+            <Typography gutterBottom variant="subtitle1" color={isPending ? `error` : `textPrimary`}>
               {t.name} {isPending ? pendingPill : null}
             </Typography>
           )

@@ -10,32 +10,32 @@ exports[`<IncidentList /> Should render the list 1`] = `
 <div
   className="incident__paper"
 >
-  <WithStyles(Paper)
+  <WithStyles(ForwardRef(Paper))
     elevation={2}
     key="11"
     square={true}
   >
-    <WithStyles(Grid)
+    <WithStyles(ForwardRef(Grid))
       className="card__grid"
       container={true}
     >
-      <WithStyles(Grid)
+      <WithStyles(ForwardRef(Grid))
         container={true}
         item={true}
         sm={true}
         xs={12}
       >
-        <WithStyles(Grid)
+        <WithStyles(ForwardRef(Grid))
           container={true}
           direction="column"
           item={true}
           xs={true}
         >
-          <WithStyles(Grid)
+          <WithStyles(ForwardRef(Grid))
             item={true}
             xs={true}
           >
-            <WithStyles(Typography)
+            <WithStyles(ForwardRef(Typography))
               color="error"
               gutterBottom={true}
               variant="subtitle1"
@@ -47,85 +47,85 @@ exports[`<IncidentList /> Should render the list 1`] = `
               >
                 Pending
               </span>
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               className="d-none d-lg-block"
               gutterBottom={true}
             >
               test1@test.com
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               color="textSecondary"
             >
               Created: 
               2019/05/03, 4:04:26 pm
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               color="textSecondary"
             >
               Updated: 
               n/a
-            </WithStyles(Typography)>
-          </WithStyles(Grid)>
-        </WithStyles(Grid)>
-      </WithStyles(Grid)>
-    </WithStyles(Grid)>
-  </WithStyles(Paper)>
-  <WithStyles(Paper)
+            </WithStyles(ForwardRef(Typography))>
+          </WithStyles(ForwardRef(Grid))>
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Paper))>
+  <WithStyles(ForwardRef(Paper))
     elevation={2}
     key="10"
     square={true}
   >
-    <WithStyles(Grid)
+    <WithStyles(ForwardRef(Grid))
       className="card__grid"
       container={true}
     >
-      <WithStyles(Grid)
+      <WithStyles(ForwardRef(Grid))
         container={true}
         item={true}
         sm={true}
         xs={12}
       >
-        <WithStyles(Grid)
+        <WithStyles(ForwardRef(Grid))
           container={true}
           direction="column"
           item={true}
           xs={true}
         >
-          <WithStyles(Grid)
+          <WithStyles(ForwardRef(Grid))
             item={true}
             xs={true}
           >
-            <WithStyles(Typography)
-              color="default"
+            <WithStyles(ForwardRef(Typography))
+              color="textPrimary"
               gutterBottom={true}
               variant="subtitle1"
             >
               test
                
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               className="d-none d-lg-block"
               gutterBottom={true}
             >
               test@test.com
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               color="textSecondary"
             >
               Created: 
               2019/05/03, 4:04:26 pm
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               color="textSecondary"
             >
               Updated: 
               2019/05/03, 4:02:46 pm
-            </WithStyles(Typography)>
-          </WithStyles(Grid)>
-        </WithStyles(Grid)>
-      </WithStyles(Grid)>
-    </WithStyles(Grid)>
-  </WithStyles(Paper)>
+            </WithStyles(ForwardRef(Typography))>
+          </WithStyles(ForwardRef(Grid))>
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(Paper))>
 </div>
 `;

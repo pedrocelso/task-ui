@@ -1,5 +1,5 @@
 import moment from 'moment-timezone'
-import { curry, pathOr, sort, pipe, reverse } from 'ramda';
+import { curry, pathOr, sort } from 'ramda';
 
 export function formatTime(time: number): string {
   const date = new Date(time)

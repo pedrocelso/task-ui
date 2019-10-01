@@ -33,9 +33,6 @@ const muiTheme = createMuiTheme({
     primary: blue,
     secondary: red,
   },
-  typography: {
-    useNextVariants: true,
-  },
 });
 
 interface AppProps {

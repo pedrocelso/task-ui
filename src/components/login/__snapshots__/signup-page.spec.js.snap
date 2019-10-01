@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SignUpPage /> Should render without errors 1`] = `
-<WithStyles(Paper)
+<WithStyles(ForwardRef(Paper))
   elevation={1}
   id="login"
 >
@@ -11,27 +11,27 @@ exports[`<SignUpPage /> Should render without errors 1`] = `
   <div
     className="modal__dialog"
   >
-    <WithStyles(Grid)
+    <WithStyles(ForwardRef(Grid))
       alignContent="center"
       className="modal__grid"
       container={true}
       direction="column"
-      spacing={16}
+      spacing={2}
     >
-      <WithStyles(Grid)
+      <WithStyles(ForwardRef(Grid))
         alignContent="center"
         container={true}
         direction="column"
         item={true}
         xs={10}
       >
-        <WithStyles(Typography)
+        <WithStyles(ForwardRef(Typography))
           variant="h4"
         >
           Sign Up
-        </WithStyles(Typography)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
+        </WithStyles(ForwardRef(Typography))>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
         container={true}
         direction="row"
         item={true}
@@ -44,8 +44,8 @@ exports[`<SignUpPage /> Should render without errors 1`] = `
           placeholder="Name"
           type="text"
         />
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
         container={true}
         direction="row"
         item={true}
@@ -58,8 +58,8 @@ exports[`<SignUpPage /> Should render without errors 1`] = `
           placeholder="E-mail"
           type="text"
         />
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
         container={true}
         direction="row"
         item={true}
@@ -72,8 +72,8 @@ exports[`<SignUpPage /> Should render without errors 1`] = `
           placeholder="Password"
           type="password"
         />
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
         container={true}
         direction="row"
         item={true}
@@ -86,14 +86,14 @@ exports[`<SignUpPage /> Should render without errors 1`] = `
           placeholder="Confirm Password"
           type="password"
         />
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
         container={true}
         direction="column"
         item={true}
         xs={10}
       >
-        <WithStyles(Button)
+        <WithStyles(ForwardRef(Button))
           className="btnSignUp"
           color="primary"
           disabled={true}
@@ -101,25 +101,25 @@ exports[`<SignUpPage /> Should render without errors 1`] = `
           variant="contained"
         >
           Sign Up
-        </WithStyles(Button)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
+        </WithStyles(ForwardRef(Button))>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
         alignContent="center"
         container={true}
         direction="column"
         item={true}
         xs={10}
       >
-        <WithStyles(Typography)>
+        <WithStyles(ForwardRef(Typography))>
           Already registered? 
           <Link
             to="/"
           >
             Click here
           </Link>
-        </WithStyles(Typography)>
-      </WithStyles(Grid)>
-    </WithStyles(Grid)>
+        </WithStyles(ForwardRef(Typography))>
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
   </div>
-</WithStyles(Paper)>
+</WithStyles(ForwardRef(Paper))>
 `;
