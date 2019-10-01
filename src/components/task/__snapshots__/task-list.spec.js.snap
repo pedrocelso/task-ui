@@ -2,7 +2,7 @@
 
 exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
 <div>
-  <Component
+  <Connect(TaskEditor)
     close={[Function]}
     open={false}
     service={
@@ -11,7 +11,7 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
       }
     }
   />
-  <Component
+  <Connect(TaskItem)
     key="11"
     service={
       Object {
@@ -26,7 +26,7 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
       }
     }
   />
-  <Component
+  <Connect(TaskItem)
     key="10"
     service={
       Object {
@@ -41,20 +41,20 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
       }
     }
   />
-  <WithStyles(Fab)
+  <WithStyles(ForwardRef(Fab))
     aria-label="Add"
     className="fab"
     color="secondary"
     onClick={[Function]}
   >
-    <pure(AddIcon) />
-  </WithStyles(Fab)>
+    <AddIcon />
+  </WithStyles(ForwardRef(Fab))>
 </div>
 `;
 
 exports[`<TaskList /> Should not display tasks if service returns an error 1`] = `
 <div>
-  <Component
+  <Connect(TaskEditor)
     close={[Function]}
     open={false}
     service={
@@ -63,13 +63,13 @@ exports[`<TaskList /> Should not display tasks if service returns an error 1`] =
       }
     }
   />
-  <WithStyles(Fab)
+  <WithStyles(ForwardRef(Fab))
     aria-label="Add"
     className="fab"
     color="secondary"
     onClick={[Function]}
   >
-    <pure(AddIcon) />
-  </WithStyles(Fab)>
+    <AddIcon />
+  </WithStyles(ForwardRef(Fab))>
 </div>
 `;

@@ -1,128 +1,128 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TaskItem /> Should render the task with no incidents without errors 1`] = `
-<WithStyles(ExpansionPanel)>
-  <WithStyles(ExpansionPanelSummary)
-    expandIcon={<pure(ExpandMoreIcon) />}
+<WithStyles(ForwardRef(ExpansionPanel))>
+  <WithStyles(ForwardRef(ExpansionPanelSummary))
+    expandIcon={<Memo(ExpandMoreIcon) />}
     onClick={[Function]}
   >
-    <WithStyles(Grid)
+    <WithStyles(ForwardRef(Grid))
       className="card__grid"
       container={true}
     >
-      <WithStyles(Grid)
+      <WithStyles(ForwardRef(Grid))
         container={true}
         item={true}
         sm={true}
         xs={10}
       >
-        <WithStyles(Grid)
+        <WithStyles(ForwardRef(Grid))
           container={true}
           direction="column"
           item={true}
           xs={true}
         >
-          <WithStyles(Grid)
+          <WithStyles(ForwardRef(Grid))
             item={true}
             xs={true}
           >
-            <WithStyles(Typography)
+            <WithStyles(ForwardRef(Typography))
               gutterBottom={true}
               variant="subtitle1"
             >
               POI quest service
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               className="d-none d-lg-block"
               gutterBottom={true}
             >
               Do A POI quest service
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               color="textSecondary"
             >
               Created: 
               2019/05/03, 4:04:26 pm
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               color="textSecondary"
             >
               Updated: 
               2019/05/03, 4:02:46 pm
-            </WithStyles(Typography)>
-          </WithStyles(Grid)>
-        </WithStyles(Grid)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
+            </WithStyles(ForwardRef(Typography))>
+          </WithStyles(ForwardRef(Grid))>
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
         className="card__grid-center"
         item={true}
         xs={1}
       />
-    </WithStyles(Grid)>
-  </WithStyles(ExpansionPanelSummary)>
-</WithStyles(ExpansionPanel)>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(ExpansionPanelSummary))>
+</WithStyles(ForwardRef(ExpansionPanel))>
 `;
 
 exports[`<TaskItem /> Should render the task without errors 1`] = `
-<WithStyles(ExpansionPanel)>
-  <WithStyles(ExpansionPanelSummary)
-    expandIcon={<pure(ExpandMoreIcon) />}
+<WithStyles(ForwardRef(ExpansionPanel))>
+  <WithStyles(ForwardRef(ExpansionPanelSummary))
+    expandIcon={<Memo(ExpandMoreIcon) />}
     onClick={[Function]}
   >
-    <WithStyles(Grid)
+    <WithStyles(ForwardRef(Grid))
       className="card__grid"
       container={true}
     >
-      <WithStyles(Grid)
+      <WithStyles(ForwardRef(Grid))
         container={true}
         item={true}
         sm={true}
         xs={10}
       >
-        <WithStyles(Grid)
+        <WithStyles(ForwardRef(Grid))
           container={true}
           direction="column"
           item={true}
           xs={true}
         >
-          <WithStyles(Grid)
+          <WithStyles(ForwardRef(Grid))
             item={true}
             xs={true}
           >
-            <WithStyles(Typography)
+            <WithStyles(ForwardRef(Typography))
               gutterBottom={true}
               variant="subtitle1"
             >
               POI quest service
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               className="d-none d-lg-block"
               gutterBottom={true}
             >
               Do A POI quest service
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               color="textSecondary"
             >
               Total Incidents: 
               1
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               color="textSecondary"
             >
               Created: 
               2019/05/03, 4:04:26 pm
-            </WithStyles(Typography)>
-            <WithStyles(Typography)
+            </WithStyles(ForwardRef(Typography))>
+            <WithStyles(ForwardRef(Typography))
               color="textSecondary"
             >
               Updated: 
               2019/05/03, 4:02:46 pm
-            </WithStyles(Typography)>
-          </WithStyles(Grid)>
-        </WithStyles(Grid)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
+            </WithStyles(ForwardRef(Typography))>
+          </WithStyles(ForwardRef(Grid))>
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
         className="card__grid-center"
         item={true}
         xs={1}
@@ -132,8 +132,8 @@ exports[`<TaskItem /> Should render the task without errors 1`] = `
         >
           1
         </span>
-      </WithStyles(Grid)>
-    </WithStyles(Grid)>
-  </WithStyles(ExpansionPanelSummary)>
-</WithStyles(ExpansionPanel)>
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </WithStyles(ForwardRef(ExpansionPanelSummary))>
+</WithStyles(ForwardRef(ExpansionPanel))>
 `;

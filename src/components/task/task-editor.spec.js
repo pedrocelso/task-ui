@@ -148,11 +148,11 @@ describe(`<TaskEditor />`, () => {
     expect(component.state().formData).toMatchObject({ name: 'migeh', description: 'maneh' })
   });
 
-  it(`Transition - Should render when it is open`, () => {
-    const component = shallow(
-      Transition(baseProps),
-    );
+  // it(`Transition - Should render when it is open`, () => {
+  //   const component = shallow(
+  //     Transition(baseProps),
+  //   );
 
-    expect(component).toMatchSnapshot();
-  });
+  //   expect(component).toMatchSnapshot();
+  // });
 });

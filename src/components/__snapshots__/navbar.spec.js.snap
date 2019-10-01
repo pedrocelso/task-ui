@@ -2,124 +2,176 @@
 
 exports[`<NavBar /> Should render without errors for authenticated users 1`] = `
 <div>
-  <WithStyles(AppBar)
+  <WithStyles(ForwardRef(AppBar))
     position="static"
   >
-    <WithStyles(Toolbar)>
-      <WithStyles(IconButton)
+    <WithStyles(ForwardRef(Toolbar))>
+      <WithStyles(ForwardRef(IconButton))
         aria-label="Menu"
         className="menu-button"
         color="inherit"
         onClick={[Function]}
       >
-        <pure(MenuIcon) />
-      </WithStyles(IconButton)>
-      <WithStyles(Typography)
+        <MenuIcon />
+      </WithStyles(ForwardRef(IconButton))>
+      <WithStyles(ForwardRef(Typography))
         color="inherit"
         variant="h6"
       />
-    </WithStyles(Toolbar)>
-  </WithStyles(AppBar)>
-  <WithStyles(Drawer)
+    </WithStyles(ForwardRef(Toolbar))>
+  </WithStyles(ForwardRef(AppBar))>
+  <WithStyles(ForwardRef(Drawer))
     anchor="left"
     onClose={[Function]}
     open={false}
     variant="temporary"
   >
-    <WithStyles(ListItem)
+    <WithStyles(ForwardRef(ListItem))
       button={true}
-      component={[Function]}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
       key="Users"
       onClick={[Function]}
       to="/users"
     >
-      <pure(PeopleIcon)
+      <PeopleIcon
         color="primary"
       />
-      <WithStyles(ListItemText)
+      <WithStyles(ForwardRef(ListItemText))
         primary="Users"
       />
-    </WithStyles(ListItem)>
-    <WithStyles(ListItem)
+    </WithStyles(ForwardRef(ListItem))>
+    <WithStyles(ForwardRef(ListItem))
       button={true}
-      component={[Function]}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
       key="Tasks"
       onClick={[Function]}
       to="/tasks"
     >
-      <pure(StorageIcon)
+      <StorageIcon
         color="primary"
       />
-      <WithStyles(ListItemText)
+      <WithStyles(ForwardRef(ListItemText))
         primary="Tasks"
       />
-    </WithStyles(ListItem)>
-    <WithStyles(Divider)
+    </WithStyles(ForwardRef(ListItem))>
+    <WithStyles(ForwardRef(Divider))
       key="divider"
     />
-    <WithStyles(ListItem)
+    <WithStyles(ForwardRef(ListItem))
       button={true}
-      component={[Function]}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
       key="Logout"
       onClick={[Function]}
       to="/logout"
     >
-      <pure(LockOpenIcon)
+      <LockOpenIcon
         color="primary"
       />
-      <WithStyles(ListItemText)
+      <WithStyles(ForwardRef(ListItemText))
         primary="Logout"
       />
-    </WithStyles(ListItem)>
-  </WithStyles(Drawer)>
+    </WithStyles(ForwardRef(ListItem))>
+  </WithStyles(ForwardRef(Drawer))>
 </div>
 `;
 
 exports[`<NavBar /> Should render without errors for unauthenticated users 1`] = `
 <div>
-  <WithStyles(AppBar)
+  <WithStyles(ForwardRef(AppBar))
     position="static"
   >
-    <WithStyles(Toolbar)>
-      <WithStyles(IconButton)
+    <WithStyles(ForwardRef(Toolbar))>
+      <WithStyles(ForwardRef(IconButton))
         aria-label="Menu"
         className="menu-button"
         color="inherit"
         onClick={[Function]}
       >
-        <pure(MenuIcon) />
-      </WithStyles(IconButton)>
-      <WithStyles(Typography)
+        <MenuIcon />
+      </WithStyles(ForwardRef(IconButton))>
+      <WithStyles(ForwardRef(Typography))
         color="inherit"
         variant="h6"
       >
         Login
-      </WithStyles(Typography)>
-    </WithStyles(Toolbar)>
-  </WithStyles(AppBar)>
-  <WithStyles(Drawer)
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(ForwardRef(Toolbar))>
+  </WithStyles(ForwardRef(AppBar))>
+  <WithStyles(ForwardRef(Drawer))
     anchor="left"
     onClose={[Function]}
     open={false}
     variant="temporary"
   >
-    <WithStyles(ListItem)
+    <WithStyles(ForwardRef(ListItem))
       button={true}
-      component={[Function]}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
       key="Login"
       onClick={[Function]}
       to="/"
     >
-      <pure(LockIcon)
+      <LockIcon
         color="primary"
       />
-      <WithStyles(ListItemText)
+      <WithStyles(ForwardRef(ListItemText))
         primary="Login"
       />
-    </WithStyles(ListItem)>
-    <WithStyles(Divider)
+    </WithStyles(ForwardRef(ListItem))>
+    <WithStyles(ForwardRef(Divider))
       key="divider"
     />
-  </WithStyles(Drawer)>
+  </WithStyles(ForwardRef(Drawer))>
 </div>
 `;
