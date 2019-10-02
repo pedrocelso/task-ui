@@ -7,33 +7,30 @@ exports[`<UserList /> Should fetch the users from service and render 1`] = `
   <div
     className="list-group"
   >
-    <a
-      className="list-group-item list-group-item-action"
-      href="#"
+    <div
+      className="list-group-item list-group-item-action cursor-pointer"
       key="john@whatever.com"
     >
       john
        - 
       john@whatever.com
-    </a>
-    <a
-      className="list-group-item list-group-item-action"
-      href="#"
+    </div>
+    <div
+      className="list-group-item list-group-item-action cursor-pointer"
       key="john@whatever.com"
     >
       john t
        - 
       john@whatever.com
-    </a>
-    <a
-      className="list-group-item list-group-item-action"
-      href="#"
+    </div>
+    <div
+      className="list-group-item list-group-item-action cursor-pointer"
       key="renato@legiao.com.br"
     >
       Renato Russo
        - 
       renato@legiao.com.br
-    </a>
+    </div>
   </div>
 </div>
 `;
