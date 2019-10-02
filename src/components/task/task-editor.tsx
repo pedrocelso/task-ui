@@ -40,32 +40,32 @@ const taskSchema: JSONSchema6 = {
   }
 };
 
-const incidentSchema: JSONSchema6 = {
-  type: "object",
-  required: ["name"],
-  properties: {
-    name: { type: "string", title: "Task name", default: "" },
-    status: {
-      type: "number", title: "Status", default: 1, anyOf: [
-        {
-          "type": "number",
-          "title": "Done",
-          "enum": [
-            0
-          ]
-        },
-        {
-          "type": "number",
-          "title": "Pending",
-          "enum": [
-            1
-          ]
-        }
-      ]
-    },
-    description: { type: "string", title: "Description", default: "" }
-  }
-};
+// const incidentSchema: JSONSchema6 = {
+//   type: "object",
+//   required: ["name"],
+//   properties: {
+//     name: { type: "string", title: "Task name", default: "" },
+//     status: {
+//       type: "number", title: "Status", default: 1, anyOf: [
+//         {
+//           "type": "number",
+//           "title": "Done",
+//           "enum": [
+//             0
+//           ]
+//         },
+//         {
+//           "type": "number",
+//           "title": "Pending",
+//           "enum": [
+//             1
+//           ]
+//         }
+//       ]
+//     },
+//     description: { type: "string", title: "Description", default: "" }
+//   }
+// };
 
 const uiSchema: UiSchema = {
   description: {

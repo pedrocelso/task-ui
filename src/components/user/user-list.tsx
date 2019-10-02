@@ -37,13 +37,12 @@ class UserList extends Component<UserProps, UserState> {
       <div className="list-group">
         {
           map(({email, name}) => {
-            return (<a
-              href="#"
-              className="list-group-item list-group-item-action"
+            return (<div
+              className="list-group-item list-group-item-action cursor-pointer"
               key={email}
             >
               {name} - {email}
-            </a>)
+            </div>)
           }, userList)
         }
       </div>
