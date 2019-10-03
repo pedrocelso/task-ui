@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import {
   AppBar,
+  Button,
   Divider,
   Drawer,
   IconButton,
@@ -13,7 +15,11 @@ import { Link } from 'react-router-dom'
 import { Menu } from "@material-ui/icons";
 import { equals, find, findIndex, insert, map, pathOr, pipe, startsWith } from 'ramda';
 
+import { open } from './task/editor-actions'
+
 import './navbar.scss'
+import { EditorState } from './task/editor-types';
+import { AppState } from '../App-store'
 
 export interface Item {
   title: string
@@ -24,6 +30,8 @@ export interface Item {
 }
 
 interface MenuProps {
+  editor: EditorState
+  open: typeof open
   items?: Item[]
 }
 
@@ -76,9 +84,10 @@ export class NavBar extends Component<MenuProps, MenuState> {
             <IconButton className="menu-button" color="inherit" aria-label="Menu" onClick={this.toggleDrawer(true)}>
               <Menu />
             </IconButton>
-            <Typography variant="h6" color="inherit">
+            <Typography className="toolbar-title" variant="h6" color="inherit">
               {title}
             </Typography>
+            {title === `Tasks` ? (<Button variant="contained" color="secondary" onClick={this.props.open}>Create</Button>) : null}
           </Toolbar>
         </AppBar>
         <Drawer anchor="left" variant="temporary" open={drawerOpened} onClose={this.toggleDrawer(false)} >
@@ -88,3 +97,9 @@ export class NavBar extends Component<MenuProps, MenuState> {
     );
   }
 }
+
+const mapStateToProps = (state: AppState) => ({
+  editor: state.editor
+})
+const mapDispatchToProps = { open }
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

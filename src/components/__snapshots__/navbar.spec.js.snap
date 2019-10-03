@@ -1,5 +1,243 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<NavBar /> .render() - Should render the create button for tasks 1`] = `
+<div>
+  <WithStyles(ForwardRef(AppBar))
+    position="static"
+  >
+    <WithStyles(ForwardRef(Toolbar))>
+      <WithStyles(ForwardRef(IconButton))
+        aria-label="Menu"
+        className="menu-button"
+        color="inherit"
+        onClick={[Function]}
+      >
+        <MenuIcon />
+      </WithStyles(ForwardRef(IconButton))>
+      <WithStyles(ForwardRef(Typography))
+        className="toolbar-title"
+        color="inherit"
+        variant="h6"
+      >
+        Tasks
+      </WithStyles(ForwardRef(Typography))>
+      <WithStyles(ForwardRef(Button))
+        color="secondary"
+        variant="contained"
+      >
+        Create
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Toolbar))>
+  </WithStyles(ForwardRef(AppBar))>
+  <WithStyles(ForwardRef(Drawer))
+    anchor="left"
+    onClose={[Function]}
+    open={false}
+    variant="temporary"
+  >
+    <WithStyles(ForwardRef(ListItem))
+      button={true}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
+      key="Users"
+      onClick={[Function]}
+      to="/users"
+    >
+      <PeopleIcon
+        color="primary"
+      />
+      <WithStyles(ForwardRef(ListItemText))
+        primary="Users"
+      />
+    </WithStyles(ForwardRef(ListItem))>
+    <WithStyles(ForwardRef(ListItem))
+      button={true}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
+      key="Tasks"
+      onClick={[Function]}
+      to="/tasks"
+    >
+      <StorageIcon
+        color="primary"
+      />
+      <WithStyles(ForwardRef(ListItemText))
+        primary="Tasks"
+      />
+    </WithStyles(ForwardRef(ListItem))>
+    <WithStyles(ForwardRef(Divider))
+      key="divider"
+    />
+    <WithStyles(ForwardRef(ListItem))
+      button={true}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
+      key="Logout"
+      onClick={[Function]}
+      to="/logout"
+    >
+      <LockOpenIcon
+        color="primary"
+      />
+      <WithStyles(ForwardRef(ListItemText))
+        primary="Logout"
+      />
+    </WithStyles(ForwardRef(ListItem))>
+  </WithStyles(ForwardRef(Drawer))>
+</div>
+`;
+
+exports[`<NavBar /> .render() - Should render the create button for tasks 2`] = `
+<div>
+  <WithStyles(ForwardRef(AppBar))
+    position="static"
+  >
+    <WithStyles(ForwardRef(Toolbar))>
+      <WithStyles(ForwardRef(IconButton))
+        aria-label="Menu"
+        className="menu-button"
+        color="inherit"
+        onClick={[Function]}
+      >
+        <MenuIcon />
+      </WithStyles(ForwardRef(IconButton))>
+      <WithStyles(ForwardRef(Typography))
+        className="toolbar-title"
+        color="inherit"
+        variant="h6"
+      />
+    </WithStyles(ForwardRef(Toolbar))>
+  </WithStyles(ForwardRef(AppBar))>
+  <WithStyles(ForwardRef(Drawer))
+    anchor="left"
+    onClose={[Function]}
+    open={false}
+    variant="temporary"
+  >
+    <WithStyles(ForwardRef(ListItem))
+      button={true}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
+      key="Users"
+      onClick={[Function]}
+      to="/users"
+    >
+      <PeopleIcon
+        color="primary"
+      />
+      <WithStyles(ForwardRef(ListItemText))
+        primary="Users"
+      />
+    </WithStyles(ForwardRef(ListItem))>
+    <WithStyles(ForwardRef(ListItem))
+      button={true}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
+      key="Tasks"
+      onClick={[Function]}
+      to="/tasks"
+    >
+      <StorageIcon
+        color="primary"
+      />
+      <WithStyles(ForwardRef(ListItemText))
+        primary="Tasks"
+      />
+    </WithStyles(ForwardRef(ListItem))>
+    <WithStyles(ForwardRef(Divider))
+      key="divider"
+    />
+    <WithStyles(ForwardRef(ListItem))
+      button={true}
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
+      key="Logout"
+      onClick={[Function]}
+      to="/logout"
+    >
+      <LockOpenIcon
+        color="primary"
+      />
+      <WithStyles(ForwardRef(ListItemText))
+        primary="Logout"
+      />
+    </WithStyles(ForwardRef(ListItem))>
+  </WithStyles(ForwardRef(Drawer))>
+</div>
+`;
+
 exports[`<NavBar /> Should render without errors for authenticated users 1`] = `
 <div>
   <WithStyles(ForwardRef(AppBar))
@@ -15,6 +253,7 @@ exports[`<NavBar /> Should render without errors for authenticated users 1`] = `
         <MenuIcon />
       </WithStyles(ForwardRef(IconButton))>
       <WithStyles(ForwardRef(Typography))
+        className="toolbar-title"
         color="inherit"
         variant="h6"
       />
@@ -129,6 +368,7 @@ exports[`<NavBar /> Should render without errors for unauthenticated users 1`] =
         <MenuIcon />
       </WithStyles(ForwardRef(IconButton))>
       <WithStyles(ForwardRef(Typography))
+        className="toolbar-title"
         color="inherit"
         variant="h6"
       >

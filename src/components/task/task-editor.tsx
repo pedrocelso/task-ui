@@ -5,8 +5,11 @@ import Form, { UiSchema } from "react-jsonschema-form"
 import { JSONSchema6 } from 'json-schema';
 import { toast } from 'react-toastify';
 import { TaskService, Task } from '../../services/task';
+import { AppState } from '../../App-store'
 import { connect } from 'react-redux';
 import { deauthenticate } from '../login/login-actions';
+import { open, close } from './editor-actions';
+import { EditorState } from './editor-types';
 
 export function Transition(props: any) {
   return <Slide direction="up" {...props} />;
@@ -14,9 +17,10 @@ export function Transition(props: any) {
 
 export interface TaskEditorProps {
   deauthenticate: typeof deauthenticate
+  editor: EditorState
+  open: typeof open
+  close: typeof close
   service: TaskService;
-  open: boolean
-  close: (b: boolean) => void
 }
 
 export interface TaskEditorState {
@@ -83,7 +87,7 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
   }
 
   handleClose = () => {
-    this.props.close(false)
+    this.props.close()
   };
 
   handleSubmit = () => {
@@ -106,7 +110,7 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
         ({ task }) => {
           this.setState({ loading: false, formData: {} })
           notify(1)(`User ${task.name} created!`)
-          this.props.close(false)
+          this.props.close()
         }
       )
 
@@ -125,7 +129,7 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
 
     return (
       <Dialog
-        open={this.props.open}
+        open={this.props.editor.open}
         onClose={this.handleClose}
         TransitionComponent={Transition}
         className="editor"
@@ -163,5 +167,8 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
   }
 }
 
-const mapDispatchToProps = { deauthenticate }
-export default connect(null, mapDispatchToProps)(TaskEditor)
+const mapStateToProps = (state: AppState) => ({
+  editor: state.editor
+})
+const mapDispatchToProps = { deauthenticate, open, close }
+export default connect(mapStateToProps, mapDispatchToProps)(TaskEditor)

@@ -6,8 +6,11 @@ import { TaskEditor, Transition } from './task-editor'
 
 const baseProps = {
   deauthenticate: sinon.fake(),
-  open: true,
+  open: sinon.fake(),
   close: sinon.fake(),
+  editor: {
+    open: false
+  },
   service: {
     createTask: (_) => ({
       fork: (rej, res) => {
@@ -29,7 +32,9 @@ describe(`<TaskEditor />`, () => {
   it(`Should not render when it is open`, () => {
     const props = {
       ...baseProps,
-      open: false
+      editor: {
+        open: false
+      }
     }
     const component = shallow(
       <TaskEditor {...props} />,
@@ -62,7 +67,7 @@ describe(`<TaskEditor />`, () => {
     component.setState({ formData: { name: 'bar', description: 'foo' } });
     component.instance().handleSubmit()
 
-    expect(close.calledWith(false)).toBeTruthy()
+    expect(close.called).toBeTruthy()
     expect(component.state().loading).toBeFalsy()
     expect(component.state().formData).toMatchObject({})
   });
@@ -136,7 +141,7 @@ describe(`<TaskEditor />`, () => {
     );
 
     component.instance().handleClose()
-    expect(close.calledWith(false)).toBeTruthy()
+    expect(close.called).toBeTruthy()
   });
 
   it(`.handleChange() - Should update the formData`, () => {
@@ -148,11 +153,17 @@ describe(`<TaskEditor />`, () => {
     expect(component.state().formData).toMatchObject({ name: 'migeh', description: 'maneh' })
   });
 
-  // it(`Transition - Should render when it is open`, () => {
-  //   const component = shallow(
-  //     Transition(baseProps),
-  //   );
+  it(`Transition - Should render when it is open`, () => {
+    const props = {
+      ...baseProps,
+      editor: {
+        open: true
+      }
+    }
+    const component = shallow(
+      <TaskEditor {...props} />,
+    );
 
-  //   expect(component).toMatchSnapshot();
-  // });
+    expect(component).toMatchSnapshot();  
+  });
 });

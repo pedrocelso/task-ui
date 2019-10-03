@@ -58,34 +58,4 @@ describe(`<TaskList />`, () => {
 
     expect(props.deauthenticate.called).toBeTruthy();
   });
-
-  it(`.toggleEditor() - Should toggle the Editor dialog`, () => {
-    const props = {
-      service: {
-        getTasks: (_) => ({
-          fork: (rej, res) => {
-            rej({ statusCode: 401 })
-          }
-        })
-      },
-      deauthenticate: sinon.spy()
-    }
-
-    const component = shallow(
-      <TaskList {...props} />,
-    );
-
-    const toggler = component.instance().toggleEditor()
-
-    toggler(true)
-    expect(component.state().editorOpen).toBeTruthy()
-    toggler(false)
-    expect(component.state().editorOpen).toBeFalsy()
-
-    component.instance().showEditor()
-    expect(component.state().editorOpen).toBeTruthy()
-
-    component.instance().closeEditor()
-    expect(component.state().editorOpen).toBeFalsy()
-  });
 });

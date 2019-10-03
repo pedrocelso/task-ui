@@ -3,8 +3,6 @@
 exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
 <div>
   <Connect(TaskEditor)
-    close={[Function]}
-    open={false}
     service={
       Object {
         "getTasks": [Function],
@@ -41,35 +39,17 @@ exports[`<TaskList /> Should fetch the tasks from service and render 1`] = `
       }
     }
   />
-  <WithStyles(ForwardRef(Fab))
-    aria-label="Add"
-    className="fab"
-    color="secondary"
-    onClick={[Function]}
-  >
-    <AddIcon />
-  </WithStyles(ForwardRef(Fab))>
 </div>
 `;
 
 exports[`<TaskList /> Should not display tasks if service returns an error 1`] = `
 <div>
   <Connect(TaskEditor)
-    close={[Function]}
-    open={false}
     service={
       Object {
         "getTasks": [Function],
       }
     }
   />
-  <WithStyles(ForwardRef(Fab))
-    aria-label="Add"
-    className="fab"
-    color="secondary"
-    onClick={[Function]}
-  >
-    <AddIcon />
-  </WithStyles(ForwardRef(Fab))>
 </div>
 `;
