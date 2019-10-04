@@ -31,6 +31,7 @@ export interface Item {
 
 interface MenuProps {
   editor: EditorState
+  location: string
   open: typeof open
   items?: Item[]
 }
@@ -59,7 +60,7 @@ export class NavBar extends Component<MenuProps, MenuState> {
   render() {
     const { drawerOpened } = this.state
 
-    const title = this.getTitle(document.location.pathname)
+    const title = this.getTitle(this.props.location)
 
     const divideList = (l: JSX.Element[]) => {
       const index = findIndex((a: JSX.Element) => equals(`Logout`, a.key), l)

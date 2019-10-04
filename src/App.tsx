@@ -95,7 +95,7 @@ class App extends Component<AppProps> {
       <div>
         <MuiThemeProvider theme={muiTheme}>
           <Router>
-            <NavBar items={filteredRoutes} />
+            <NavBar items={filteredRoutes} location={document.location.pathname} />
             <ToastContainer
               position="top-center"
               autoClose={5000}
