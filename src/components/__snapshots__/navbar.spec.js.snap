@@ -15,6 +15,7 @@ exports[`<NavBar /> Should render without errors for authenticated users 1`] = `
         <MenuIcon />
       </WithStyles(ForwardRef(IconButton))>
       <WithStyles(ForwardRef(Typography))
+        className="toolbar-title"
         color="inherit"
         variant="h6"
       />
@@ -129,6 +130,7 @@ exports[`<NavBar /> Should render without errors for unauthenticated users 1`] =
         <MenuIcon />
       </WithStyles(ForwardRef(IconButton))>
       <WithStyles(ForwardRef(Typography))
+        className="toolbar-title"
         color="inherit"
         variant="h6"
       >

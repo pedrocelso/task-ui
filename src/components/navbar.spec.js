@@ -52,4 +52,5 @@ describe(`<NavBar />`, () => {
     component.instance().toggleDrawer(false)();
     expect(component.state().drawerOpened).toBeFalsy();
   });
+
 });
