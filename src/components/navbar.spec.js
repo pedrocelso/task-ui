@@ -53,18 +53,4 @@ describe(`<NavBar />`, () => {
     expect(component.state().drawerOpened).toBeFalsy();
   });
 
-
-  it(`.render() - Should render the create button for tasks`, () => {
-    delete document.location.pathname
-    document.location.pathname = `/tasks`;
-    
-    const taskComponent = shallow(<NavBar items={privateItems} />, { context });
-    expect(taskComponent).toMatchSnapshot();
-
-    delete document.location.pathname
-    document.location.pathname = `/users`;
-    
-    const userComponent = shallow(<NavBar items={privateItems} />, { context });
-    expect(userComponent).toMatchSnapshot();
-  });
 });
