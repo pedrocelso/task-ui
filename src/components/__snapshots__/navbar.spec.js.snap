@@ -141,9 +141,7 @@ exports[`<NavBar /> .render() - Should render the create button on tasks 2`] = `
         className="toolbar-title"
         color="inherit"
         variant="h6"
-      >
-        Login
-      </WithStyles(ForwardRef(Typography))>
+      />
     </WithStyles(ForwardRef(Toolbar))>
   </WithStyles(ForwardRef(AppBar))>
   <WithStyles(ForwardRef(Drawer))
@@ -152,33 +150,6 @@ exports[`<NavBar /> .render() - Should render the create button on tasks 2`] = `
     open={false}
     variant="temporary"
   >
-    <WithStyles(ForwardRef(ListItem))
-      button={true}
-      component={
-        Object {
-          "$$typeof": Symbol(react.forward_ref),
-          "displayName": "Link",
-          "propTypes": Object {
-            "innerRef": [Function],
-            "onClick": [Function],
-            "replace": [Function],
-            "target": [Function],
-            "to": [Function],
-          },
-          "render": [Function],
-        }
-      }
-      key="Login"
-      onClick={[Function]}
-      to="/"
-    >
-      <LockIcon
-        color="primary"
-      />
-      <WithStyles(ForwardRef(ListItemText))
-        primary="Login"
-      />
-    </WithStyles(ForwardRef(ListItem))>
     <WithStyles(ForwardRef(Divider))
       key="divider"
     />
@@ -321,9 +292,7 @@ exports[`<NavBar /> Should render without errors for unauthenticated users 1`] =
         className="toolbar-title"
         color="inherit"
         variant="h6"
-      >
-        Login
-      </WithStyles(ForwardRef(Typography))>
+      />
     </WithStyles(ForwardRef(Toolbar))>
   </WithStyles(ForwardRef(AppBar))>
   <WithStyles(ForwardRef(Drawer))
@@ -332,33 +301,6 @@ exports[`<NavBar /> Should render without errors for unauthenticated users 1`] =
     open={false}
     variant="temporary"
   >
-    <WithStyles(ForwardRef(ListItem))
-      button={true}
-      component={
-        Object {
-          "$$typeof": Symbol(react.forward_ref),
-          "displayName": "Link",
-          "propTypes": Object {
-            "innerRef": [Function],
-            "onClick": [Function],
-            "replace": [Function],
-            "target": [Function],
-            "to": [Function],
-          },
-          "render": [Function],
-        }
-      }
-      key="Login"
-      onClick={[Function]}
-      to="/"
-    >
-      <LockIcon
-        color="primary"
-      />
-      <WithStyles(ForwardRef(ListItemText))
-        primary="Login"
-      />
-    </WithStyles(ForwardRef(ListItem))>
     <WithStyles(ForwardRef(Divider))
       key="divider"
     />
