@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from "react-router"
 import { connect } from 'react-redux'
 import {
   AppBar,
@@ -29,9 +30,8 @@ export interface Item {
   route: JSX.Element
 }
 
-interface MenuProps {
+interface MenuProps extends RouteComponentProps<any, any, any>{
   editor: EditorState
-  location: string
   open: typeof open
   items?: Item[]
 }
@@ -59,8 +59,9 @@ export class NavBar extends Component<MenuProps, MenuState> {
 
   render() {
     const { drawerOpened } = this.state
+    const { location } = this.props
 
-    const title = this.getTitle(this.props.location)
+    const title = this.getTitle(pathOr(``, [`pathname`], location))
 
     const divideList = (l: JSX.Element[]) => {
       const index = findIndex((a: JSX.Element) => equals(`Logout`, a.key), l)
@@ -103,4 +104,4 @@ const mapStateToProps = (state: AppState) => ({
   editor: state.editor
 })
 const mapDispatchToProps = { open }
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NavBar))
