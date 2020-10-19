@@ -1,4 +1,4 @@
-import { encase, FutureInstance } from 'fluture'
+import { chain, encase, FutureInstance, map } from 'fluture'
 import { ApiClient, Endpoints, HttpResponse, ResponseError } from '../api'
 
 export interface Task {
@@ -37,31 +37,31 @@ export class TaskService implements TaskService {
 
   getTasks(): FutureInstance<ResponseError, Task[]> {
     return this.client.get<ResponseError, HttpResponse>(Endpoints.TASKS)
-      .map(res => res.body)
-      .chain<Task[]>(encase(JSON.parse))
+      .pipe(map<HttpResponse, string>(res => res.body))
+      .pipe(chain<ResponseError, string, Task[]>(encase(JSON.parse)))
   }
 
   getTask(id: number): FutureInstance<ResponseError, Task> {
     return this.client.get<ResponseError, HttpResponse>(Endpoints.TASKS, { uri: `${id}` })
-      .map(res => res.body)
-      .chain<Task>(encase(JSON.parse))
+      .pipe(map<HttpResponse, string>(res => res.body))
+      .pipe(chain<ResponseError, string, Task>(encase(JSON.parse)))
   }
 
   getIncidents(taskId: number): FutureInstance<ResponseError, Incident[]> {
     return this.client.get<ResponseError, HttpResponse>(Endpoints.INCIDENT(taskId))
-      .map(res => res.body)
-      .chain<Incident[]>(encase(JSON.parse))
+      .pipe(map<HttpResponse, string>(res => res.body))
+      .pipe(chain<ResponseError, string, Incident[]>(encase(JSON.parse)))
   }
 
   getIncident(taskId: number, id: number): FutureInstance<ResponseError, Incident> {
     return this.client.get<ResponseError, HttpResponse>(Endpoints.INCIDENT(taskId), { uri: `${id}` })
-      .map(res => res.body)
-      .chain<Incident>(encase(JSON.parse))
+      .pipe(map<HttpResponse, string>(res => res.body))
+      .pipe(chain<ResponseError, string, Incident>(encase(JSON.parse)))
   }
 
   createTask(task: Task): FutureInstance<ResponseError, { task: Task }> {
     return this.client.post<ResponseError, HttpResponse>(Endpoints.TASKS, { uri: ``, body: JSON.stringify(task) })
-      .map(res => res.body)
-      .chain<{ task: Task }>(encase(JSON.parse))
+      .pipe(map<HttpResponse, string>(res => res.body))
+      .pipe(chain<ResponseError, string, { task: Task }>(encase(JSON.parse)))
   }
 }

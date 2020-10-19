@@ -6,6 +6,8 @@ import { Incident, Task, TaskService } from '../../services/task'
 import { deauthenticate } from '../login/login-actions'
 import IncidentList from '../incident/incident-list'
 import { formatTime } from '../../modules/date';
+import { ResponseError } from '../../api';
+import { fork } from 'fluture';
 
 interface TaskItemProps {
   deauthenticate: typeof deauthenticate
@@ -28,23 +30,23 @@ export class TaskItem extends Component<TaskItemProps, TaskItemState> {
     return () => {
       const { deauthenticate, service, task } = this.props
 
+      const errHandler = (e: ResponseError) => {
+        if (e.statusCode === 401) {
+          deauthenticate();
+          sessionStorage.removeItem(`jwtToken`)
+        } else {
+          this.setState({ loadingIncidents: false })
+        }
+      }
+      const successHandler = (incidentList: Incident[]) => {
+        this.setState({ loadingIncidents: false })
+        this.setState({ incidents: incidentList })
+      }
+
       if (task.incidentsCount) {
         this.setState({ loadingIncidents: true })
         service.getIncidents(task.id)
-          .fork(
-            (e) => {
-              if (e.statusCode === 401) {
-                deauthenticate();
-                sessionStorage.removeItem(`jwtToken`)
-              } else {
-                this.setState({ loadingIncidents: false })
-              }
-            },
-            (incidentList) => {
-              this.setState({ loadingIncidents: false })
-              this.setState({ incidents: incidentList })
-            }
-          )
+          .pipe(fork(errHandler)(successHandler))
       }
     }
   }

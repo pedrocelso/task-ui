@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify';
+import { fork } from 'fluture'
 import { LinearProgress, Typography, Grid, Button, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import './login-page.scss'
 import { authenticate } from './login-actions'
 import { UserService } from '../../services/user'
+import { ResponseError } from '../../api';
 
 interface LoginPageProps {
   authenticate: typeof authenticate
@@ -51,22 +53,23 @@ export class LoginPage extends Component<LoginPageProps, LoginPageState> {
     const { authenticate, service } = this.props
     const { email, password } = this.state
 
+    const errHandler = (e: ResponseError) => {
+      this.setState({ loading: false })
+      if (e.statusCode === 401) {
+        notify(`Wrong email/password!`, -1)
+      }
+    }
+
+    const successHandler = ({token}: { token: string }) => {
+      this.setState({ loading: false })
+      sessionStorage.setItem(`jwtToken`, token)
+      authenticate(token)
+    }
+
     if (isValidEmail(email) && !!password) {
       this.setState({ loading: true })
       service.authenticate({ email, password })
-        .fork(
-          (e) => {
-            this.setState({ loading: false })
-            if (e.statusCode === 401) {
-              notify(`Wrong email/password!`, -1)
-            }
-          },
-          ({ token }) => {
-            this.setState({ loading: false })
-            sessionStorage.setItem(`jwtToken`, token)
-            authenticate(token)
-          }
-        )
+        .pipe(fork(errHandler)(successHandler))
     } else {
       notify(`Invalid credentials!`, -1)
     }

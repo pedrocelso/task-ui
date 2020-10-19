@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { fork } from 'fluture'
 import {isEmpty, isNil, map} from 'ramda'
 
 import {UserService, User} from '../../services/user'
@@ -20,13 +21,17 @@ class UserList extends Component<UserProps, UserState> {
 
   componentDidMount() {
     const {service} = this.props
+
+    const successHandler = (userList: User[]) => {
+      this.setState({ userList })
+    }
+
+    console.log('================fork================')
+    console.log(fork)
+    console.log('==============================')
+
     service.getUsers()
-      .fork(
-        () => console.error,
-        (userList) => {
-          this.setState({userList})
-        }
-      )
+      .pipe(fork(console.error)(successHandler))
   }
 
   render() {

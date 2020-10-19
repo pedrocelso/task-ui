@@ -43,10 +43,11 @@ export class ApiClient implements ApiClient {
   }
 
   get<T, P>(endpoint: string, options?: request.Options): FutureInstance<T, P> {
+    // return fork(rej)(res)
     return Future<T, P>((rej, res) => request({ ...this.options, baseUrl: `${this.options.baseUrl}${endpoint}`, ...options })
       .then(res)
       .catch(rej)
-      .done()
+      .cancel
     )
   }
 
@@ -54,7 +55,7 @@ export class ApiClient implements ApiClient {
     return Future<T, P>((rej, res) => request.post({ ...this.options, baseUrl: `${this.options.baseUrl}${endpoint}`, ...options })
       .then(res)
       .catch(rej)
-      .done()
+      .cancel
     )
   }
 }

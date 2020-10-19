@@ -25,14 +25,28 @@ describe(`<UserList />`, () => {
   });
 
   it(`Should not display users if service returns an error`, () => {
+    // const service = {
+    //   getUsers: () => ({
+    //     pipe: (f) => {
+    //       console.log('================f================')
+    //       console.log(f)
+    //       console.log('==============================')
+    //     }
+    //   })
+    // }
     const service = {
-      getUsers: (_) => ({
-        fork: (rej, _) => {
-          rej(`error fetching users`)
+      getUsers: () => {
+        console.log('================ENTROU================')
+        return {
+          pipe: (f) => {
+            console.log('================f================')
+            console.log(f)
+            console.log('==============================')
+          }
         }
-      })
+      }
     }
-
+    
     const component = shallow(
       <UserList service={service}/>,
     );

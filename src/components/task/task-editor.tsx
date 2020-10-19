@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { deauthenticate } from '../login/login-actions';
 import { open, close } from './editor-actions';
 import { EditorState } from './editor-types';
+import { ResponseError } from '../../api';
+import { fork } from 'fluture';
 
 export function Transition(props: any) {
   return <Slide direction="up" {...props} />;
@@ -95,24 +97,24 @@ export class TaskEditor extends Component<TaskEditorProps, TaskEditorState> {
     const { service, deauthenticate } = this.props
 
     this.setState({ loading: true })
+
+    const errHandler = (e: ResponseError) => {
+      this.setState({ loading: false })
+      if (e.statusCode === 401) {
+        deauthenticate();
+        sessionStorage.removeItem(`jwtToken`)
+      } else {
+        console.error(e)
+        notify(-1)(`An error has occured. Please try again later.`)
+      }
+    }
+    const successHandler = ({ task }: { task: Task }) => {
+      this.setState({ loading: false, formData: {} })
+      notify(1)(`User ${task.name} created!`)
+      this.props.close()
+    }
     service.createTask(formData as Task)
-      .fork(
-        (e) => {
-          this.setState({ loading: false })
-          if (e.statusCode === 401) {
-            deauthenticate();
-            sessionStorage.removeItem(`jwtToken`)
-          } else {
-            console.error(e)
-            notify(-1)(`An error has occured. Please try again later.`)
-          }
-        },
-        ({ task }) => {
-          this.setState({ loading: false, formData: {} })
-          notify(1)(`User ${task.name} created!`)
-          this.props.close()
-        }
-      )
+      .pipe(fork(errHandler)(successHandler))
 
   }
 

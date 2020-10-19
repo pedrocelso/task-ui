@@ -11,6 +11,8 @@ import './task-list.scss'
 import TaskEditor from './task-editor';
 import { open, close } from './editor-actions';
 import { EditorState } from './editor-types';
+import { ResponseError } from '../../api';
+import { fork } from 'fluture';
 
 interface TaskProps {
   deauthenticate: typeof deauthenticate
@@ -32,18 +34,19 @@ export class TaskList extends Component<TaskProps, TaskState> {
 
   componentDidMount() {
     const { service } = this.props
+
+    const errHandler = (e: ResponseError) => {
+      if (e.statusCode === 401) {
+        this.props.deauthenticate();
+        sessionStorage.removeItem(`jwtToken`)
+      }
+    }
+    const successHandler = (taskList: Task[]) => {
+      this.setState({ taskList })
+    }
+
     service.getTasks()
-      .fork(
-        (e) => {
-          if (e.statusCode === 401) {
-            this.props.deauthenticate();
-            sessionStorage.removeItem(`jwtToken`)
-          }
-        },
-        (taskList) => {
-          this.setState({ taskList })
-        }
-      )
+      .pipe(fork(errHandler)(successHandler))
   }
 
   render() {

@@ -1,4 +1,4 @@
-import { encase, FutureInstance } from 'fluture'
+import { chain, encase, FutureInstance, map } from 'fluture'
 import { ApiClient, Endpoints, HttpResponse, ResponseError } from '../api'
 
 export interface User {
@@ -23,25 +23,25 @@ export class UserService implements UserService {
 
   getUsers(): FutureInstance<{}, User[]> {
     return this.client.get<{}, HttpResponse>(Endpoints.USERS)
-      .map(res => res.body)
-      .chain<User[]>(encase(JSON.parse))
+      .pipe(map<HttpResponse, string>(res => res.body))
+      .pipe(chain<{}, string, User[]>(encase(JSON.parse)))
   }
 
   getUser(userEmail: string): FutureInstance<ResponseError, User> {
     return this.client.get<ResponseError, HttpResponse>(Endpoints.USERS, { uri: userEmail })
-      .map(res => res.body)
-      .chain<User>(encase(JSON.parse))
+      .pipe(map<HttpResponse, string>(res => res.body))
+      .pipe(chain<ResponseError, string, User>(encase(JSON.parse)))
   }
 
   createUser(user: User): FutureInstance<ResponseError, { user: User }> {
     return this.client.post<ResponseError, HttpResponse>(Endpoints.PUBLIC, { uri: `signup`, body: JSON.stringify(user) })
-      .map(res => res.body)
-      .chain<{ user: User }>(encase(JSON.parse))
+      .pipe(map<HttpResponse, string>(res => res.body))
+      .pipe(chain<ResponseError, string, { user: User }>(encase(JSON.parse)))
   }
 
   authenticate(user: User): FutureInstance<ResponseError, { token: string }> {
     return this.client.post<ResponseError, HttpResponse>(Endpoints.PUBLIC, { uri: `signin`, body: JSON.stringify(user) })
-      .map(res => res.body)
-      .chain<{ token: string }>(encase(JSON.parse))
+      .pipe(map<HttpResponse, string>(res => res.body))
+      .pipe(chain<ResponseError, string, { token: string }>(encase(JSON.parse)))
   }
 }

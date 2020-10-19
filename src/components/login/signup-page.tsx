@@ -5,7 +5,9 @@ import { LinearProgress, Typography, Grid, Button, Paper } from '@material-ui/co
 import { Link } from 'react-router-dom'
 import { isValidEmail } from './login-page'
 import './login-page.scss'
-import { UserService } from '../../services/user'
+import { User, UserService } from '../../services/user'
+import { ResponseError } from '../../api';
+import { fork } from 'fluture';
 
 interface SignUpPageProps {
   service: UserService;
@@ -85,22 +87,25 @@ export class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
     const { email, password, name } = this.state
 
     this.setState({ loading: true })
-    service.createUser({name, email, password})
-    .fork(
-      (e) => {
-        this.setState({ loading: false })
-        if (e.statusCode === 401) {
-          notify(`Wrong email/password!`, -1)
-        } else {
-          console.error(e)
-          notify(`An error has occured. Please try again later.`, -1)
-        }
-      },
-      ({user}) => {
-        this.setState({ loading: false })
-        notify(`User ${user.email} created!`, 1)
+
+    const errHandler = (e: ResponseError) => {
+      this.setState({ loading: false })
+      if (e.statusCode === 401) {
+        notify(`Wrong email/password!`, -1)
+      } else {
+        console.error(e)
+        notify(`An error has occured. Please try again later.`, -1)
       }
-    )
+    }
+
+    const successHandler = ({ user }: { user: User }) => {
+      this.setState({ loading: false })
+      notify(`User ${user.email} created!`, 1)
+    }
+
+    service.createUser({ name, email, password })
+      .pipe(fork(errHandler)(successHandler))
+
   }
 
   render() {
