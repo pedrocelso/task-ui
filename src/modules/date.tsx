@@ -1,5 +1,5 @@
 import moment from 'moment-timezone'
-import { curry, pathOr, sort } from 'ramda';
+import { curry, pathOr, sort, T } from 'ramda';
 
 export function formatTime(time: number): string {
   const date = new Date(time)
@@ -11,5 +11,4 @@ function sortByDateFunc<T>(fieldName: string, l: T[]): T[] {
   return sort(sortBy, l)
 }
 
-//@ts-ignore
-export const sortByDate = curry<T, T>(sortByDateFunc)
+export const sortByDate = curry(sortByDateFunc)

@@ -15,9 +15,8 @@ interface Props {
 export class IncidentList extends Component<Props, {}> {
   render() {
     const sortIncidents = (l: Incident[]): Incident[] => sort((a, b) => b.status - a.status, l)
-    const incidentList = pipe(
-      // @ts-ignore until curry and pipe works fine with TS
-      sortByDate(`creationTime`) as Incident[],
+    const incidentList = pipe<Incident[], any, Incident[], Incident[]>(
+      sortByDate(`creationTime`),
       reverse,
       sortIncidents
     )(this.props.incidentList)

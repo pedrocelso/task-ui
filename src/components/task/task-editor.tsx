@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LinearProgress, Typography, Button, Dialog, AppBar, Toolbar, IconButton, Slide, DialogContent } from '@material-ui/core';
+import { LinearProgress, Typography, Button, Dialog, AppBar, Toolbar, IconButton, Slide, DialogContent, SlideProps } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import Form, { UiSchema } from "react-jsonschema-form"
 import { JSONSchema6 } from 'json-schema';
@@ -13,9 +13,7 @@ import { EditorState } from './editor-types';
 import { ResponseError } from '../../api';
 import { fork } from 'fluture';
 
-export function Transition(props: any) {
-  return <Slide direction="up" {...props} />;
-}
+const Transition = React.forwardRef<unknown, SlideProps>((props, ref) => <Slide direction="up" {...props} ref={ref}/>)
 
 export interface TaskEditorProps {
   deauthenticate: typeof deauthenticate

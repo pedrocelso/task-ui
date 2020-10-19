@@ -50,9 +50,8 @@ export class TaskList extends Component<TaskProps, TaskState> {
   }
 
   render() {
-    const taskList = pipe(
-      // @ts-ignore until curry and pipe works fine with TS
-      sortByDate(`creationTime`) as Incident[],
+    const taskList = pipe<Task[], any, Task[]>(
+      sortByDate(`creationTime`),
       reverse
     )(this.state.taskList)
 
